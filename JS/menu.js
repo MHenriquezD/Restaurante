@@ -4,7 +4,7 @@ Email : Malik.AqeelArshad@gmail.com
 Mobile: +92 302 6262164
 Skills: xHTML | HTML5 | CSS3 | Bootstrap | Wordpress | Javascript | jQuery | Ajax | PHP-MySQL | Photoshop | Firework | Dreamweaver
 */
-setInterval(verificar_sesion(), 100);
+setInterval(verificar_sesion, 100);
 
 
 function verificar_sesion(){
@@ -17,10 +17,9 @@ function verificar_sesion(){
     success : function(json) {
         if(json == 1){
           //window.location.href = "../login.html";
-        }else if(json == 0){
-          $('.menu-container').html("");
-          $('#error').load('../error_login.html');
-          //$('a').css('color', 'black');
+          console.log("Conexion segura");
+        }else{
+          window.location.href = "../login.html";
         }
     },
     error : function(json) {

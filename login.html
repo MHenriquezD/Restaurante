@@ -178,7 +178,11 @@
                                     login();
                                 },
                                 error : function(json) {
-                                    alert('Disculpe, existió un problema');
+                                    Swal.fire(
+                                        'Error!',
+                                        'La conexión con el servidor ha fallado',
+                                        'error'
+                                    )
                                 },
 
                                 // código a ejecutar sin importar si la petición falló o no
@@ -196,7 +200,11 @@
                 }
             },
             error : function(json) {
-                alert('Disculpe, existió un problema');
+                Swal.fire(
+                    'Error!',
+                    'La conexión con el servidor ha fallado',
+                    'error'
+                )
             },
 
             // código a ejecutar sin importar si la petición falló o no

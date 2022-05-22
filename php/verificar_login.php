@@ -32,9 +32,9 @@ if(!$resultado){
         }else{
             $sql_insert = 
                 "INSERT INTO 
-                    usr_log (usr_login,fecha,activo)
+                    usr_log (usr_login,fecha,activo, usr_ip)
                 VALUES
-                    (".comillas($_SESSION["usr_login"]).",".comillas(date("Y-m-d H:i:s")).",1 )
+                    (".comillas($_SESSION["usr_login"]).",".comillas(date("Y-m-d H:i:s")).",1, ".comillas($_SERVER['REMOTE_ADDR']).")
                 ";
             ejecutar_sql($sql_insert);
             echo 1;

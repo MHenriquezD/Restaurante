@@ -1,6 +1,8 @@
 <?php
 include_once '../php/querys_log.php';
 session_start();
+$sesion = comillas($_SESSION["usr_login"]);
+$ip = comillas($_SERVER['REMOTE_ADDR']);
 $sql = 
     "SELECT 
         usr_login,
@@ -9,7 +11,8 @@ $sql =
     FROM 
         usr_log
     WHERE 
-        usr_login = ".comillas($_SESSION["usr_login"])."
+        usr_login = $sesion
+        AND usr_ip = $ip
     ORDER BY id DESC LIMIT 1";
 //echo $sql;
 $rs = cargar_sql($sql);
@@ -20,6 +23,6 @@ if(isset($rs[0][0])){
         echo 0;
     }
 }else{
-    echo 2;
+    echo 0;
 }
 ?>
