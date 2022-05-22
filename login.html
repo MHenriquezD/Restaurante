@@ -1,0 +1,229 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="CSS/styles.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="img/iconos/logo.ico">
+    <link href="fontawesome/css/all.min.css" rel="stylesheet">
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .swal2-icon,swal2-icon-content {
+            width: 30px;
+            height: 30px;
+        }
+        #swal2-html-container {
+            font-size: 15px;
+        }
+        #swal2-title {
+            font-size: 25px;
+        }
+    </style>
+</head>
+<body>
+    <!--<div class="fondo">
+        <img src="img/principal/entrada.jpg" alt="entrada.jpg" style="width: 100%; height: 100vh;">
+    </div>-->
+    <div class="container-fluid" id="filtro">
+        <div class="login col-lg-4">
+            <div class="text-center"><img src="img/principal/logo.png" alt="Logo Route86" width="80vh"></div>
+            
+            <!--<h3>Inicia Sesion</h3>-->
+            <hr>
+            <form>
+                <label for="txtUsuario" class="form-label mt-1 titulos">Usuario</label>
+                <input type="text" class="form-control col-12" id="txtUsuario" placeholder="usuario">
+                <label for="txtContrasena" class="form-label mt-2 titulos">Contraseña</label>
+                <input type="password" class="form-control col-10" id="txtContrasena">
+                <!--<button id="mostrar" class="btn btn-primary" type="button"> <span id="icono" class="fa fas-fa-eye"></span> </button>-->
+            </form>
+            
+            <hr>
+            <div class="text-center col-12 my-2">
+                <button type="button" class="btn btn-primary" id="iniciar"><img src="img/principal/hachi logo.png" alt="hachi.png"></button>
+            </div>
+
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="js/jquery-3.6.0.js"></script>
+<script type="text/javascript" src="node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+<script>
+    limpiar_sesion();
+    sesion();
+    function sesion(){
+        $.ajax({
+            url : 'php/iniciar_sesion.php',
+            data : {},
+            type : 'POST',
+            dataType : 'json',
+
+            success : function(json) {
+                console.log("Sesión iniciada");
+            },
+            error : function(json) {
+                console.log("No se pudo iniciar la sesion");
+            },
+
+            // código a ejecutar sin importar si la petición falló o no
+            complete : function(xhr, status) {
+                /*Swal.fire(
+                    'Bien!',
+                    'Conexión exitosa',
+                    'success'
+                )
+                //alert('Petición realizada');*/
+            }
+        });
+    }
+
+    function limpiar_sesion(){
+        $.ajax({
+            url : 'php/limpiar_login.php',
+            data : {},
+            type : 'POST',
+            dataType : 'json',
+
+            success : function(json) {
+                console.log("Sesión limpiada");
+            },
+            error : function(json) {
+                console.log("No se pudo limpiar la sesion");
+            },
+
+            // código a ejecutar sin importar si la petición falló o no
+            complete : function(xhr, status) {
+                /*Swal.fire(
+                    'Bien!',
+                    'Conexión exitosa',
+                    'success'
+                )
+                //alert('Petición realizada');*/
+            }
+        });
+    }
+
+    $('#txtUsuario').keydown(function (e){ 
+        if(e.keyCode == 13){ 
+            login(); 
+        } 
+    })
+
+    $('#txtContrasena').keydown(function (e){ 
+        if(e.keyCode == 13){ 
+            login(); 
+        } 
+    })
+
+    $("#iniciar").click(function(){
+        login();
+    });
+    
+    function login(){
+        var usuario = $("#txtUsuario").val();
+        var contrasena = $("#txtContrasena").val();
+        //alert(contrasena);
+        //alert(usuario);
+        $.ajax({
+            url : 'php/verificar_login.php',
+            data : {
+                user: usuario,
+                contra: contrasena
+            },
+            type : 'POST',
+            dataType : 'json',
+
+            success : function(json) {
+                if(json == 1){
+                    window.location.href = "../Restaurante/menu/menu.html";
+                }else if(json == 0){
+                    $("#txtContrasena").val("");
+                    $("#txtUsuario").val("");
+                    Swal.fire(
+                        'Usuario Inactivo!',
+                        'El usuario que ha ingresado se encuentra inactivo, ingrese otro usuario.',
+                        'error'
+                    )
+                }else if(json == 2){
+                    $("#txtContrasena").val("");
+                    Swal.fire(
+                        'Usuario/Contraseña!',
+                        'El usuario o contraseña que ha ingresado es incorrecta, intente de nuevo.',
+                        'error'
+                    )
+                }else if(json == 3){
+                    Swal.fire({
+                        title: 'Sesión iniciada',
+                        text: "Tiene una sesión inicada en otro dispositivo, ¿desea continuar con una nueva y cerrar la actual?",
+                        icon: 'warning',
+                        width: '450px',
+                        custmomClass: "sweetAlertMsj",
+                        showCancelButton: true,
+                        confirmButtonColor: '#59D044',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Continuar',
+                        cancelButtonText: 'Cancelar'
+                        }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                url : 'php/cerrar_sesion.php',
+                                data : {},
+                                type : 'POST',
+                                dataType : 'json',
+
+                                success : function(json) {
+                                    login();
+                                },
+                                error : function(json) {
+                                    alert('Disculpe, existió un problema');
+                                },
+
+                                // código a ejecutar sin importar si la petición falló o no
+                                complete : function(xhr, status) {
+                                    /*Swal.fire(
+                                        'Bien!',
+                                        'Conexión exitosa',
+                                        'success'
+                                    )
+                                    //alert('Petición realizada');*/
+                                }
+                            });
+                        }
+                    });
+                }
+            },
+            error : function(json) {
+                alert('Disculpe, existió un problema');
+            },
+
+            // código a ejecutar sin importar si la petición falló o no
+            complete : function(xhr, status) {
+                /*Swal.fire(
+                    'Bien!',
+                    'Conexión exitosa',
+                    'success'
+                )
+                //alert('Petición realizada');*/
+            }
+        });
+    }
+    
+    $(document).ready( function(){
+        $('#mostrar').click(function(){
+            //Comprobamos que la cadena NO esté vacía.
+            if($("#icono").hasClass('fa-eye-slash') && ($("#txtContrasena").val() != "")){
+                $('#txtContrasena').removeAttr('type');
+                $('#icono').addClass('fas-fa-eye-slash').removeClass('fas-fa-eye');
+                $('.pwdtxt').html("Ocultar contraseña");
+            }else{
+                $('#txtContrasena').attr('type','password');
+                $('#icono').addClass('fas-fa-eye').removeClass('fas-fa-eye-slash');
+                $('.pwdtxt').html("Mostrar contraseña");
+            }
+        });
+    });
+</script>
+</html>

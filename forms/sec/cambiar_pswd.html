@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambiar Contraseña</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="/Restaurante/img/iconos/logo.ico">
+    <link href="/Restaurante/fontawesome/css/all.min.css" rel="stylesheet">
+    <link href="/Restaurante/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/Restaurante/select2/dist/css/select2.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-6">
+                <form>
+                    <div class="form-group">
+                      <label for="txtContrasenaAntigua">Ingrese la contraseña actual</label>
+                      <input type="password" class="form-control" id="txtContrasenaAntigua">
+                      <small id="helpCOntrasenaAntigua" class="form-text text-muted"></small>
+                    </div>
+                    <div class="form-group">
+                      <label for="txtContrasenaNueva">Nueva Contraseña</label>
+                      <input type="password" class="form-control" id="txtContrasenaNueva" onkeydown="nueva()" onkeyup="nueva()">
+                      <small id="helpContrasenaNueva" class="form-text text-muted"></small>
+                    </div>
+                    <div class="form-group">
+                      <label for="txtContrasenaRepetir">Repetir Contraseña nueva</label>
+                      <input type="password" class="form-control" id="txtContrasenaRepetir" onkeydown="repetir()" onkeyup="repetir()">
+                      <small id="helpContrasenaRepetir" class="form-text text-muted"></small>
+                    </div>
+                </form>
+                <div class="row my-3">
+                    <div class="col-12 text-center">
+                        <button type="button" class="btn btn-primary" id="btnCambiar">Cambiar Contraseña</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2"></div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="/Restaurante/JS/usuarios/cambiar_pswd.js"></script>
+<script type="text/javascript" src="/Restaurante/js/jquery-3.6.0.js"></script>
+<script type="text/javascript" src="/Restaurante/node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+<script type="text/javascript" src="/Restaurante/bootstrap/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="/Restaurante/select2/dist/js/select2.min.js"></script>
+<script>
+    var conteo = 0;
+    var nuevas, repetida;
+    function nueva(){
+        conteo = $("#txtContrasenaNueva").val().length;
+        if(conteo < 5){
+            $("#helpContrasenaNueva").html("La contraseña es demasiado corta");
+        }else{
+            $("#helpContrasenaNueva").html("Bien");
+        }
+    };
+    
+    function repetir(){
+        nuevas = $("#txtContrasenaNueva").val();
+        repetida = $("#txtContrasenaRepetir").val();
+        if(nuevas != repetida){
+            $("#helpContrasenaRepetir").html("Las contraseñas no coinciden");
+        }else if(nuevas == repetida){
+            $("#helpContrasenaRepetir").html("Las contraseñas coinciden");
+        }
+    };
+
+    $("#btnCambiar").click(function(){
+        var pass = $("#txtContrasenaNueva").val();
+        Swal.fire({
+            title: 'Está seguro?',
+            text: "La contraseña será cambiada",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Cambiar'
+            }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url : '../php/usuarios/cambiar_pswd.php',
+                    data : {
+                        pswd: pass
+                    },
+                    type : 'POST',
+                    dataType : 'json',
+
+                    success : function(json) {
+                        if(json == 1){
+                            Swal.fire(
+                                'Correcto',
+                                'La contraseña fue editada con éxito',
+                                'success'
+                            ) 
+                        }
+                    },
+                    error : function(json) {
+                        Swal.fire(
+                            'Error!',
+                            'La conexión con el servidor ha fallado',
+                            'error'
+                        )
+                    },
+
+                    // código a ejecutar sin importar si la petición falló o no
+                    complete : function(xhr, status) {
+                        /*Swal.fire(
+                            'Bien!',
+                            'Conexión exitosa',
+                            'success'
+                        )
+                        //alert('Petición realizada');*/
+                    }
+                });
+            }
+        });
+    });    
+</script>
+</html>

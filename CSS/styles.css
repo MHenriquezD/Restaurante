@@ -1,0 +1,42 @@
+body{
+    /*background-image: url("https://images.unsplash.com/photo-1612538498456-e861df91d4d0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80");
+    */
+    background-image: url("../img/principal/entrada.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+    background-color: rgb(255, 255, 255);
+    backface-visibility: 0.5;
+}
+#filtro{
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(61, 61, 61, 0.295);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login{
+    width: 400px;
+    height: 450px;
+    background-color: #3498db98  ;
+    border-radius: 20px;
+    padding: 20px;
+    color: #F3F3F3;
+    font-weight: bold;
+    font-family: 'Roboto', sans-serif;
+}
+
+.titulos{
+    font-weight: 602;
+}
+
+.fondo {
+    position:absolute;
+    z-index: -100;
+    width: 100%;
+    height: 100vh;
+}
+

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+    <link rel="stylesheet" href="../CSS/menu.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="../img/iconos/logo.ico">
+    <link href="../fontawesome/css/all.min.css" rel="stylesheet">
+    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../select2/dist/css/select2.min.css" rel="stylesheet">
+    <script src="https://cdn.linearicons.com/free/1.0.0/svgembedder.min.js"></script>
+    <style>
+      a:hover {
+        color: #009ADA !important;
+      }
+      #divImg {
+        z-index: -500;
+        opacity: 0.1;
+        width: 100%;
+        height: 100%;
+      }
+      #salir:hover {
+        color: #A43020 !important;
+      }
+
+    </style>
+    
+</head>
+<body>
+    
+<!--
+Name  : Aqeel Malik (Web Developer)
+Email : Malik.AqeelArshad@gmail.com
+Mobile: +92 302 6262164
+Skills: xHTML | HTML5 | CSS3 | Bootstrap | Wordpress | Javascript | jQuery | Ajax | PHP-MySQL | Photoshop | Firework | Dreamweaver
+-->
+
+  <div class="filtroInicio" width="100%">
+    <div class="menu-container">
+      <div class="menu">
+        <ul>
+          <li><a href="#" class="zoom"><i class="fa-solid fa-chart-line" id="zoom"></i>&nbsp;Inicio</a></li>
+          
+          <li><a href="#" class="zoom"><i class="fa-solid fa-cash-register" id="zoom"></i>&nbsp;Punto de Ventas</a>
+            <ul>
+              <li><a href="#">Ventas</a></li>
+              <li><a href="#">Productos</a></li>
+              <li><a href="#">Caja</a></li>
+            </ul>
+          </li>
+          <li><a href="#" class="zoom"><i class="fa-solid fa-boxes-stacked" id="zoom"></i>&nbsp;Inventario</a>
+            <ul>
+              <li><a href="#">Ventas</a></li>
+              <li><a href="#" onclick="cargar('../forms/productos/lista_productos.html')">Productos</a></li>
+              <li><a href="#" onclick="cargar('../forms/isv/isv.html')">Impuestos</a></li>
+            </ul>
+          </li>
+          <li><a href="#" class="zoom"><i class="fa-solid fa-circle-info" id="zoom"></i>&nbsp;Acerca de</a>
+            <ul>
+              <li><a>School</a>
+                <ul>
+                  <li><a href="#">Lidership</a></li>
+                  <li><a href="#">History</a></li>
+                  <li><a href="#">Locations</a></li>
+                  <li><a href="#">Careers</a></li>
+                </ul>
+              </li>
+              <li><a>Study</a>
+                <ul>
+                  <li><a href="#">Undergraduate</a></li>
+                  <li><a href="#">Masters</a></li>
+                  <li><a href="#">International</a></li>
+                  <li><a href="#">Online</a></li>
+                </ul>
+              </li>
+              <li><a>Contactanos</a>
+                <ul>
+                  <li>
+                      <a href="https://www.facebook.com/profile.php?id=100073163872589" target="_blank">
+                        <div class="container">
+                          <div class="row">
+                            <div class="col-2"><i class="fa-brands fa-facebook fa-2x" id="facebook" style="color: #036EE4;"></i></div>
+                            <div class="col-10">&nbsp;Facebook</div>
+                          </div>
+                        </div>
+                        
+                      </a>
+                </li>
+                  <li>
+                      <a href="https://wa.me/50497267664/?text=Hola%2c+estoy+interesado+en+el+men%c3%ba" target="_blank">
+                        <div class="container">
+                          <div class="row">
+                            <div class="col-2">
+                              <i class="fa-brands fa-whatsapp fa-2x" id="whatsapp" style="color: #00A884;"></i>
+                            </div>
+                            <div class="col-10">
+                              &nbsp;Whatsapp
+                            </div>
+                          </div>
+                        </div>
+                          
+                      </a>
+                  </li>
+                  <li>
+                    <a href="https://instagram.com/route86_restaurant?igshid=YmMyMTA2M2Y=" target="_blank" >
+                      <div class="container">
+                        <div class="row">
+                          <div class="col-2"><i class="fa-brands fa-instagram fa-2x" id="instagram" style="color: #cc2366;"></i></div>
+                          <div class="col-10">&nbsp;Instragram</div>
+                        </div>
+                      </div> 
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li><a href="#" class="zoom"><i class="fa-solid fa-gear" id="conf"></i>&nbsp;Configuración</a>
+            <ul>
+              <li><a href="#" onclick="cargar('../forms/usuarios.html')">Usuarios</a></li>
+              <li><a href="#" onclick="cargar('../forms/sec/cambiar_pswd.html')">Cambiar Contraseña</a></li>
+              <li><a href="#">Grupos</a></li>
+            </ul>
+          </li>
+          <li><a id="salir" href="#" onclick="cerrar_sesion()" class="zoom"><i class="fa-solid fa-arrow-right-from-bracket" id="zoom"></i>&nbsp;&nbsp;Salir</a></li>
+          <li><a><img src="../img//iconos/logo.ico" alt="logo.png" width="40px" height="40px"></a></li>
+        </ul>
+      </div>
+    </div>
+    <div id="error"></div>
+    <div class="container-fluid" id="informacion"></div>
+  </div>
+
+</body>
+<script type="text/javascript" src="../js/jquery-3.6.0.js"></script>
+<script type="text/javascript" src="../node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+<script type="text/javascript" src="../JS/conectar.js"></script>
+<script type="text/javascript" src="../bootstrap/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="../JS/menu.js"></script>
+<script type="text/javascript" src="../select2/dist/js/select2.min.js"></script>
+<script>
+  
+</script>
+</html>

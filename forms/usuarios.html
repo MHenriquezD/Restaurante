@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuarios</title>
+    <style>
+        .mg-button {
+            margin: -4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid my-4" id="botones">
+        <div class="row">
+            <div class="col-12 text-center">
+                <button type="button" class="btn btn-success" id="nuevoUsuario"><i class="fa-solid fa-plus"></i>&nbsp;Nuevo Usuario</button>
+            </div>
+        </div>
+    </div>
+    <div class="contaier my-4">
+        <div class="row">
+            <div class="col-lg-12">
+                <table class="table table-hover table-sm table-bordered" width="100%">
+                    <thead class="text-center">
+                        <tr>
+                            <th width="5%"></th>
+                            <th width="25%">Usuario</th>
+                            <th width="25%">Correo</th>
+                            <th width="25%">Nombre</th>
+                            <th width="20%">Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="user_data"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" tabindex="-1" role="dialog" id="mdlUsuario" data-backdrop="static" data-keyboard="false" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header text-center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 my-2">
+                            <span class="modal-title" id="editUser"></span>
+                        </div>
+                        <div class="col-12">
+                            <button type="button" class="btn btn-danger btn-sm" id="mdlCerrar"><i class="fa-solid fa-ban"></i>&nbsp;Cancelar</button>
+                            <button type="button" class="btn btn-danger btn-sm" id="btnBorrarUsuario"><i class="fa-solid fa-trash-can"></i>&nbsp;Borrar</button>
+                            <button type="button" class="btn btn-success btn-sm" id="btnSaveUsuario"><i class="fa-solid fa-floppy-disk"></i></i>&nbsp;Guardar</button>
+                            <button type="button" class="btn btn-success btn-sm" id="btnAggUsuario"><i class="fa-solid fa-plus"></i>&nbsp;Agregar</button>
+                        </div>
+                    </div>
+                </div>
+              
+            </div>
+            <div class="modal-body">
+              <div class="container">
+                  <div class="row">
+                      <div class="col-lg-12">
+                          <form>
+                              <div class="form-group">
+                                  <div class="container my-2">
+                                      <div class="row">
+                                            <div class="col-lg-2">
+                                                <label for="usuarioEdit">Usuario</label>
+                                            </div>
+                                            <div class="col-lg-10">
+                                                <input type="text" class="form-control" id="usuarioEdit">
+                                            </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="form-group" id="passwordEdit">
+                                  <div class="container my-2">
+                                      <div class="row">
+                                            <div class="col-lg-2">
+                                                <label for="pswdEdit">Contraseña</label>
+                                            </div>
+                                            <div class="col-lg-10">
+                                                <input type="password" class="form-control" id="pswdEdit">
+                                            </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <div class="container">
+                                      <div class="row">
+                                          <div class="col-lg-2">
+                                            <label for="correoEdit">Correo</label>
+                                          </div>
+                                          <div class="col-lg-10">
+                                            <input type="email" class="form-control" id="correoEdit">
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                <div class="container my-2">
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <label for="nombreEdit">Nombre</label>
+                                        </div>
+                                        <div class="col-lg-10">
+                                            <input type="text" class="form-control" id="nombreEdit">
+                                        </div>
+                                    </div>
+                                </div>
+                              </div>
+                              <div class="form-group" id="divAdminEdit">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <label for="adminEdit">Admin</label>
+                                        </div>
+                                        <div class="col-lg-10">
+                                            <input type="checkbox" id="adminEdit">
+                                        </div>
+                                    </div>
+                                </div> 
+                              </div>
+                              <div class="form-group">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <label for="estadoEdit">Activo</label>
+                                        </div>
+                                        <div class="col-lg-10">
+                                            <input type="checkbox" id="estadoEdit">
+                                        </div>
+                                    </div>
+                                </div> 
+                              </div>
+                          </form>
+                      </div>
+                      <div class="col-lg-6"></div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../js/jquery-3.6.0.js"></script>
+<script type="text/javascript" src="../node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+<script type="text/javascript" src="../JS/conectar.js"></script>
+<script type="text/javascript" src="../bootstrap/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="../JS/usuarios/usuarios.js"></script>
+<script>
+   
+</script>
