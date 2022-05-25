@@ -25,7 +25,7 @@ if(isset($_POST["nombre"])){
             $data[$n]["value"] = $cliente[0];
             $data[$n]["nombre"] = $cliente[1];
             $data[$n]["rtn"] = $cliente[2];
-            $data[$n]["label"] = $cliente[3];
+            $data[$n]["label"] = $cliente[1];
             $n++;
         }
     }

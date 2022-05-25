@@ -13,14 +13,17 @@
         .mg-button {
             margin: -4px;
         }
+        #bgCabecera {
+            background-color: #E0DCDD;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="container bg-light my-3 rounded-pill" style="font-weight: bold;">
-            <div class="row my-3">
+        <div class="container my-3" style="font-weight: bold;">
+            <div class="row my-3 rounded-pill" id="bgCabecera">
                 <div class="col my-3"></div>
-                <div class="col-7 my-3"><h4 id="titulo">Productos</h4></div>
+                <div class="col-7 my-3"><h4 id="titulo">Impuestos</h4></div>
                 <div class="col-3 my-3 font-weight-bold" style="text-align: right;">
                     <h4 id="fecha"></h4>
                 </div>
@@ -88,8 +91,14 @@
                             <div class="col-lg-2">
                                 <label for="txtISV">Nombre</label>
                             </div>
-                            <div class="col-lg-10">
+                            <div class="col-lg-4">
                                 <input type="text" maxlength="12" class="form-control" id="txtISV">
+                            </div>
+                            <div class="col-lg-2">
+                                <label for="txtPorcentaje">Porcentaje</label>
+                            </div>
+                            <div class="col-lg-4">
+                                <input type="number"  maxlength="2" class="form-control" id="txtPorcentaje">
                             </div>
                         </div>
                     </div>
@@ -102,7 +111,6 @@
 <script type="text/javascript" src="/Restaurante/sweetalert2/dist/sweetalert2.all.min.js"></script>
 <script type="text/javascript" src="/Restaurante/JS/conectar.js"></script>
 <script type="text/javascript" src="/Restaurante/bootstrap/bootstrap/bootstrap.min.js"></script>
-<script type="text/javascript" src="/Restaurante/bootstrap/bootstrap/bootstrap.min.js.map"></script>
 <script type="text/javascript" src="/Restaurante/JS/utilidades/fecha.js"></script>
 <script type="text/javascript">
     var id_isv;
@@ -167,6 +175,7 @@
 
             success : function(json) {
                 $("#txtISV").val(json["nombre"]);
+                $("#txtPorcentaje").val(json["porcentaje"]);
                 $("#btnAgregar").hide();
                 $("#btnGuardar").show();
                 $("#btnEliminar").show();
@@ -267,11 +276,13 @@
     });
     $("#btnGuardar").click(function(){
         nombre_isv = $("#txtISV").val();
+        porcentaje_isv = $("#txtPorcentaje").val();
         $.ajax({
             url : '/Restaurante/php/isv/edit_isv.php',
             data : {
                 id: id_isv,
-                nombre: nombre_isv
+                nombre: nombre_isv,
+                porcentaje: porcentaje_isv
             },
             type : 'POST',
             dataType : 'json',
@@ -284,6 +295,7 @@
                 );
                 id_isv = 0;
                 nombre_isv = "";
+                porcentaje_isv = 0;
                 $("#txtISV").val("");
                 $("#listaImpuestos").show();
                 $("#editIsv").hide();
@@ -310,11 +322,13 @@
     });
     $("#btnAgregar").click(function(){
         nombre_isv = $("#txtISV").val();
+        porcentaje_isv = $("#txtPorcentaje").val();
         $.ajax({
             url : '/Restaurante/php/isv/add_isv.php',
             data : {
                 id: id_isv,
-                nombre: nombre_isv
+                nombre: nombre_isv,
+                porcentaje: porcentaje_isv
             },
             type : 'POST',
             dataType : 'json',

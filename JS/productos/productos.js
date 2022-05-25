@@ -200,11 +200,11 @@ $("#btnSaveProducto").click(function(){
         if (result.isConfirmed) {
             guardar_producto();
             usr_user = "";
-            Swal.fire(
+            /*Swal.fire(
             'Actualizado!',
             'Este producto se ha actualizado',
             'success'
-            )
+            )*/
         }
     });
 });
@@ -326,7 +326,7 @@ function guardar_producto(){
     descripcion = $("#txtDescripcionProducto").val();
     precio = $("#txtPrecioProducto").val();
     isv = $("#slcImpuesto").val();
-    alert(isv);
+    //alert(isv);
     img = "";
     $.ajax({
         url : '/Restaurante/php/productos/editar_productos.php',

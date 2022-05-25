@@ -1,5 +1,6 @@
 <?php
 include_once '../querys.php';
+$nombre = $_POST["prd_nom"];
 $data = array();
 $sql = 
     "SELECT
@@ -13,13 +14,14 @@ $sql =
     FROM
         productos
     WHERE
-        estado = 1";
+        nombre like ('%$nombre%')";
+//echo $sql;
 $resultado = cargar_sql($sql);
 $n = 0;
 foreach($resultado as $productos){
     $data[$n]["id"] = $productos[0];
     $data[$n]["nombre"] = $productos[1];
-    $data[$n]["label"] = $productos[1];
+    $data[$n]["value"] = $productos[1];
     $data[$n]["estado"] = $productos[2];
     $data[$n]["precio"] = $productos[4];
     $data[$n]["descripcion"] = $productos[5];

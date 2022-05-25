@@ -73,24 +73,24 @@
                         <div class="col-6 mt-3">
                             <form>
                                 <div class="form-group">
-                                    <label for="txtNombreCliente">Nombre</label>
-                                    <input type="text" class="form-control" id="txtNombreCliente">
+                                    <label for="txtNombreCliente">Nombre <font style="color: #f00">*</font></label>
+                                    <input type="text" class="form-control" id="txtNombreCliente" onkeydown="verificar_vacio1()" onkeyup="verificar_vacio1()" onchange="verificar_vacio1()" required >
                                 </div>
                                 <div class="form-group">
-                                    <label for="txtCorreoCliente">Correo</label>
-                                    <input type="text" class="form-control" id="txtCorreoCliente">
+                                    <label for="txtCorreoCliente">Correo <font style="color: #f00">*</font></label>
+                                    <input type="text" class="form-control" id="txtCorreoCliente" onkeydown="verificar_vacio2()" onkeyup="verificar_vacio2()" onpointercancel="verificar_vacio2()" required >
                                 </div>
                             </form>
                         </div>
                         <div class="col-6 mt-3 mb-3">
                             <form>
                                 <div class="form-group">
-                                    <label for="txtRTNCliente">RTN</label>
-                                    <input type="text" class="form-control" id="txtRTNCliente">
+                                    <label for="txtRTNCliente">RTN <font style="color: #f00">*</font></label>
+                                    <input type="text" class="form-control" id="txtRTNCliente" onkeydown="verificar_vacio3()" onkeyup="verificar_vacio3()" onabort="verificar_vacio3()" required >
                                 </div>
                                 <div class="form-group">
-                                    <label for="txtTelefonoCliente">Teléfono</label>
-                                    <input type="text" class="form-control" id="txtTelefonoCliente">
+                                    <label for="txtTelefonoCliente">Teléfono <font style="color: #f00">*</font></label>
+                                    <input type="text" class="form-control" id="txtTelefonoCliente" onkeydown="verificar_vacio4()" onkeyup="verificar_vacio4()" onended="verificar_vacio4()" required >
                                 </div>
                             </form>
                         </div>
@@ -158,76 +158,151 @@
     $("#btnBorrar").click(function(){
         //alert(id_producto);
         Swal.fire({
-        title: 'Está seguro?',
-        text: "Este Cliente no podrá recuperarse",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Borrar'
-        }).then((result) => {
-        if (result.isConfirmed) {
-            edicion_clientes(id_producto,'delete');
-        }
-    });
+            title: 'Está seguro?',
+            text: "Este Cliente no podrá recuperarse",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Borrar'
+            }).then((result) => {
+            if (result.isConfirmed) {
+                edicion_clientes(id_producto,'delete');
+            }
+        });
                
     });
 
+    function verificar_vacio1(){
+        if($("#txtNombreCliente").val() == ""){
+            $("#txtNombreCliente").addClass("border border-danger");
+        }else{
+            $("#txtNombreCliente").removeClass("border border-danger");
+        }
+    }
+    function verificar_vacio2(){
+        if($("#txtCorreoCliente").val() == ""){
+            $("#txtCorreoCliente").addClass("border border-danger");
+        }else{
+            $("#txtCorreoCliente").removeClass("border border-danger");
+        }
+    }
+    function verificar_vacio3(){
+        if($("#txtRTNCliente").val() == ""){
+            $("#txtRTNCliente").addClass("border border-danger");
+        }else{
+            $("#txtRTNCliente").removeClass("border border-danger");
+        }
+    }
+    function verificar_vacio4(){
+        if($("#txtTelefonoCliente").val() == ""){
+            $("#txtTelefonoCliente").addClass("border border-danger");
+        }else{
+            $("#txtTelefonoCliente").removeClass("border border-danger");
+        }
+    }
 
     function edicion_clientes(idp,tipo){
         nombre = $("#txtNombreCliente").val();
         correo = $("#txtCorreoCliente").val();
         rtn = $("#txtRTNCliente").val();
         telefono = $("#txtTelefonoCliente").val();
-        $.ajax({
-            url : '/Restaurante/php/clientes/edicion_clientes.php',
-            data : {
-                id: idp,
-                tipo: tipo,
-                correo: correo,
-                nombre: nombre,
-                rtn: rtn,
-                telefono: telefono
-            },
-            type : 'POST',
-            dataType : 'json',
+        if(nombre == ""){
+            Swal.fire(
+                'Error',
+                'Nombre obligatorio',
+                'error'
+            );
+            verificar_vacio1();
+            verificar_vacio2();
+            verificar_vacio3();
+            verificar_vacio4();
+            return;
+        }else if(correo == ""){
+            Swal.fire(
+                'Error',
+                'Correo obligatorio',
+                'error'
+            );
+            verificar_vacio1();
+            verificar_vacio2();
+            verificar_vacio3();
+            verificar_vacio4();
+            return;
+        }else if(correo == ""){
+            Swal.fire(
+                'Error',
+                'Correo obligatorio',
+                'error'
+            );
+            verificar_vacio1();
+            verificar_vacio2();
+            verificar_vacio3();
+            verificar_vacio4();
+            return;
+            return;
+        }else if(correo == ""){
+            Swal.fire(
+                'Error',
+                'Telefono obligatorio',
+                'error'
+            );
+            verificar_vacio1();
+            verificar_vacio2();
+            verificar_vacio3();
+            verificar_vacio4();
+            return;
+        }else{
+            $.ajax({
+                url : '/Restaurante/php/clientes/edicion_clientes.php',
+                data : {
+                    id: idp,
+                    tipo: tipo,
+                    correo: correo,
+                    nombre: nombre,
+                    rtn: rtn,
+                    telefono: telefono
+                },
+                type : 'POST',
+                dataType : 'json',
 
-            success : function(data) {
-                if(data["cod"] != 0){
-                    Swal.fire(
-                        'Correcto',
-                        'El cliente ha sido '+data["respuesta"]+' con éxito',
-                        'success'
-                    );
-                    ocultar();
-                    cargar_clientes();
-                }else{
+                success : function(data) {
+                    if(data["cod"] != 0){
+                        Swal.fire(
+                            'Correcto',
+                            'El cliente ha sido '+data["respuesta"]+' con éxito',
+                            'success'
+                        );
+                        ocultar();
+                        cargar_clientes();
+                    }else{
+                        Swal.fire(
+                            'Error',
+                            'Hubo un '+data["respuesta"],
+                            'error'
+                        );
+                    }
+                
+                },
+                error : function(json) {
                     Swal.fire(
                         'Error',
-                        'Hubo un '+data["respuesta"],
+                        'Error en la conexión con el servidor',
                         'error'
                     );
-                }
-               
-            },
-            error : function(json) {
-                Swal.fire(
-                    'Error',
-                    'Error en la conexión con el servidor',
-                    'error'
-                );
-            },
+                },
 
-            // código a ejecutar sin importar si la petición falló o no
-            complete : function(xhr, status) {
-                /*Swal.fire(
-                    'Bien!',
-                    'Conexión éxitosa',
-                    'success'
-                )
-                //alert('Petición realizada');*/
-            }
-        });
+                // código a ejecutar sin importar si la petición falló o no
+                complete : function(xhr, status) {
+                    /*Swal.fire(
+                        'Bien!',
+                        'Conexión éxitosa',
+                        'success'
+                    )
+                    //alert('Petición realizada');*/
+                }
+            });
+        }
     }
     function cargar_clientes(){
         $.ajax({

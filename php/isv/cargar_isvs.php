@@ -3,7 +3,8 @@ include_once '../querys.php';
 $sql = 
     "SELECT
         id, 
-        impuesto
+        impuesto,
+        porcentaje
     FROM
         impuestos
     WHERE 
@@ -13,6 +14,7 @@ $n = 0;
 foreach($resultado as $isv){
     $data[$n]["id"] = $isv[0];
     $data[$n]["nombre"] = $isv[1];
+    $data[$n]["porcentaje"] = $isv[2];
     $n++;
 }
 $_POST["isv"] = "";
