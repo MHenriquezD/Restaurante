@@ -4,7 +4,7 @@ Email : Malik.AqeelArshad@gmail.com
 Mobile: +92 302 6262164
 Skills: xHTML | HTML5 | CSS3 | Bootstrap | Wordpress | Javascript | jQuery | Ajax | PHP-MySQL | Photoshop | Firework | Dreamweaver
 */
-setInterval(verificar_sesion, 100);
+setInterval(verificar_sesion, 1000);
 
 
 function verificar_sesion(){

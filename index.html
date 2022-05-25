@@ -7,8 +7,7 @@
     <title>Route86</title>
     <link rel="stylesheet" href="CSS/styles.css">
     <link rel="icon" type="image/png" sizes="16x16" href="img/iconos/logo.ico">
-    <link href="fontawesome/css/all.min.css" rel="stylesheet">
-    <link href="bootstrap/css/bootstrap-grid.min.css" rel="stylesheet">
+    
     <style>
         body {
             background-image: url("https://images.unsplash.com/photo-1612538498456-e861df91d4d0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80");
@@ -17,10 +16,17 @@
 </head>
 <body>
 
-    <div id="app"></div>
+    <div id="like_button_container"></div>
         
 </body>
 <script type="text/javascript" src="js/jquery-3.6.0.js"></script>
-<script type="text/javascript" src="node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+<script type="text/javascript" src="sweetalert2/dist/sweetalert2.all.min.js"></script>
 <script type="text/javasctipt" src="JS/node/react.js"></script>
+<!-- Cargar React. -->
+<!-- Nota: cuando se despliegue, reemplazar "development.js" con "production.min.js". -->
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+
+<!-- Cargamos nuestro componente de React. -->
+<script src="like_button.js"></script>
 </html>

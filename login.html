@@ -52,6 +52,8 @@
 <script type="text/javascript" src="js/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="sweetalert2/dist/sweetalert2.all.min.js"></script>
 <script>
+    $('#txtUsuario').val("");
+    $('#txtContrasena').val("");
     limpiar_sesion();
     sesion();
     function sesion(){
@@ -156,8 +158,8 @@
                     )
                 }else if(json == 3){
                     Swal.fire({
-                        title: 'Sesión iniciada',
-                        text: "Tiene una sesión inicada en otro dispositivo, ¿desea continuar con una nueva y cerrar la actual?",
+                        title: 'Sesión activa',
+                        text: "Tiene una sesión activa en otro dispositivo, ¿desea continuar con una nueva y cerrar la actual?",
                         icon: 'warning',
                         width: '450px',
                         custmomClass: "sweetAlertMsj",

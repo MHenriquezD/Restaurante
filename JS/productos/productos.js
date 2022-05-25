@@ -1,9 +1,12 @@
 cargar_productos();
 d = new Date(); 
 $("#fecha").html(d.yyyymmdd());
-$(document).ready(function() {
-    //$('#slcImpuesto').select2();
-    $('#mdlProducto').modal({ backdrop: 'static', keyboard: false });
+
+jQuery(document).ready(function($){
+    $(document).ready(function() {
+        //$('#slcImpuesto').select2();
+        $('#mdlProducto').modal({ backdrop: 'static', keyboard: false });
+    });
 });
 
 $("#chkEstado").click(function(){
@@ -37,13 +40,13 @@ function cargar_productos(){
             for(var i = 0; i < json.length; i++){
                 productos_data +=
                     "<tr>"+
-                        "<td>"+
+                        "<td class='centro'>"+
                             "<button type='button' class='btn btn-secondary rounded-circle' onclick='cargar_producto(\""+json[i]["id"]+"\")'>"+
                                 "<i class='fa-solid fa-user-pen mg-button'></i>"+
                             "</button>"+
                         "</td>"+
                         "<td>"+json[i]["nombre"]+"</td>"+
-                        "<td>"+json[i]["precio"]+"</td>"+
+                        "<td class='final'>"+json[i]["precio"]+"</td>"+
                         "<td>"+json[i]["descripcion"]+"</td>"+
                         "<td>"+json[i]["isv_name"]+"</td>"+
                         "<td></td>"+
