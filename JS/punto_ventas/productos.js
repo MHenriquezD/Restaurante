@@ -7,6 +7,9 @@ function agregar_producto(){
     total_factura_formato = total_factura.toFixed(2);
     precio_unitario_formato = precio_unitario.toFixed(2);
     total_fila_formato = total_fila.toFixed(2);
+    //pago_debe = total_factura;
+    //pago_dado = pago_debe;
+    //pago_dado_formato = pago_debe_formato = pago_dado.toFixed(2);
     
     $("#tbProductos").append(
         "<tr id='fila"+fila_productos+"'>"+
@@ -46,6 +49,9 @@ function eliminar_fila(idf){
     console.log(filas_actuales);
     total_factura -= dato_restar;
     total_factura_formato = total_factura.toFixed(2);
+    //pago_debe = total_factura;
+    //pago_dado = pago_debe;
+    //pago_dado_formato = pago_debe_formato = pago_dado.toFixed(2);
     $(".totalFac").html("L. "+total_factura_formato);
     productos2 = productos;
     //productos.splice(fila_eliminar, idf);

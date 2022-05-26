@@ -1,3 +1,7 @@
+<?php
+header('Location: /Restaurante/menu/menu.html');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -106,44 +110,6 @@
             
             </div>
         </div>
-        <div class="modal fade" id="mdlPago" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" style="max-width: 90% !important;" role="document">
-              <div class="modal-content">
-                <div class="modal-header" style="font-weight: bold;">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-4">Pago de Factura</div>
-                            <div class="col-4">
-                                <div class="row">
-                                    <div class="col-6">Total a pagar: L.<span id="tlPagar"></span></div>
-                                    <div class="col-6">Debe: L. <span id="tlDebe"></span></div>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="col-6">Suelto: L. <span id="tlPagado"></span></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-body">
-                  <div class="container">
-                      <div class="row">
-                          <div class="col-lg-4">
-
-                          </div>
-                          <div class="col-lg-8">
-
-                          </div>
-                      </div>
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-danger" id="btnCerrarModal" data-dismiss="modal">Cerrar</button>
-                  <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-              </div>
-            </div>
-          </div>
     </div>
 </body>
 <script type="text/javascript" src="../js/jquery-3.6.0.js"></script>
@@ -156,17 +122,16 @@
 <script type="text/javascript" src="../JS/punto_ventas/autocomplete.js"></script>
 <script type="text/javascript" src="../JS/punto_ventas/productos.js"></script>
 <script type="text/javascript" src="../JS/verificar_sesion.js"></script>
-<script type="text/javascript" src="../JS/punto_ventas/verificar_pagos.js"></script>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 <script src="https://cdn.linearicons.com/free/1.0.0/svgembedder.min.js"></script>
 <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
 <script>
-    var total_factura = 0, fila_productos = 0, filas_actuales = 0;
+    var total_factura = 0;
+    var fila_productos = 0;
+    var filas_actuales = 0;
     var id_producto = 0,nombre_producto = "",precio_producto = 0,desc_producto = "",porcentaje_isv_producto = 0, precio_unitario = 0;
-    var pago_debe = 0, pago_debe_formato = 0, pago_dado = 0, pago_dado_formato = 0;
-
     var productos = [];
     //cargar_productos();
     jQuery(document).ready(function($){
@@ -178,13 +143,47 @@
             //$('.totalFac').mask("000,000,000,000,000.00", {reverse: true});
             $('.Money').mask("000.000.000.000.000,00", {reverse: true});
             //$(".totalFac").toFixed(2);
-            verificar_sesion();
-            $('.modal').modal({ backdrop: 'static', keyboard: false });
+            //verificar_sesion();
         });
     });
 
     $(".totalFac").html("L. "+total_factura.toFixed(2));
     
+    $("#btnCobrar").click(function(){
+        $.ajax({
+            url : '/Restaurante/php/punto_venta/crear_factura.php',
+            data : {
+                productos: productos
+            },
+            type : 'POST',
+            dataType : 'json',
+
+            success : function(json) {
+                Swal.fire(
+                    'Simón',
+                    'Productos enviados',
+                    'success'
+                );                
+            },
+            error : function(json) {
+                Swal.fire(
+                    'Error',
+                    'Error en la conexión con el servidor',
+                    'error'
+                );
+            },
+
+            // código a ejecutar sin importar si la petición falló o no
+            complete : function(xhr, status) {
+                /*Swal.fire(
+                    'Bien!',
+                    'Conexión éxitosa',
+                    'success'
+                )
+                //alert('Petición realizada');*/
+            }
+        });
+    });
     function verificar_sesion(){
         $.ajax({
             url : '../php/verificar_sesion.php',
@@ -215,24 +214,7 @@
                 //alert('Petición realizada');*/
             }
         });
-    }
-    $("#btnCobrar").click(function(){
-        if(productos != ""){
-            pago_debe = verificar_pago(total_factura,pago_debe,pago_dado);
-            suelto = verificar_suelto(pago_debe, total_factura);
-            if(pago_debe < 0){
-                pago_total = pago_dado;
-            }
-            pago_debe_formato = pago_debe.toFixed(2);
-            suelto_formato = suelto.toFixed(2);
-            $("#mdlPago").modal("show");
-            $("#tlPagar").html(total_factura_formato);
-            $("#tlDebe").html(pago_debe_formato);
-            $("#tlPagado").html(suelto_formato);
         }
-    })
-    $("#btnCerrarModal").click(function(){  
-        $("#mdlPago").modal("hide");
-    })
+    
 </script>
 </html>

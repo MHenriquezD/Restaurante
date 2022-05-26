@@ -20,7 +20,7 @@ function buscar_x_nombre(){
                 }
             });
         },
-        minLength: 2,
+        //minLength: 2,
         select: function (event, ui)
         {
             $('#txtCliente').val(ui.item.nombre); // display the selected text
@@ -56,7 +56,7 @@ function buscar_x_rtn(){
                 }
             });
         },
-        minLength: 2,
+        //minLength: 2,
         select: function (event, ui)
         {
             $('#txtCliente').val(ui.item.nombre); // display the selected text
@@ -92,7 +92,7 @@ function cargar_productos(){
                 }
             });
         },
-        minLength: 2,
+        //minLength: 2,
         select: function (event, ui)
         {
             id_producto = ui.item.id; // save selected id to input
