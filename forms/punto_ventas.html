@@ -29,10 +29,12 @@
     </style>
 </head>
 <body>
-    
+    <div id="error"></div>
     <div class="container" id="informacion">
         <div class="container my-5 text-end" id="btnPunto_ventas">
-            <button type="button" class="btn btn-success btn-sm"><i class="fa-solid fa-money-bill-wave"></i>&nbsp;Pagar</button>
+            <button type="button" class="btn btn-success btn-sm" id="btnCobrar">
+                <i class="fa-solid fa-money-bill-wave"></i>&nbsp;Pagar
+            </button>
         </div>
         <div class="container border border-secondary my-5 rounded" >
             <div class="row">
@@ -115,6 +117,7 @@
 <script type="text/javascript" src="../jQueryMask/dist/jquery.mask.min.js"></script>
 <script type="text/javascript" src="../JS/punto_ventas/autocomplete.js"></script>
 <script type="text/javascript" src="../JS/punto_ventas/productos.js"></script>
+<script type="text/javascript" src="../JS/verificar_sesion.js"></script>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 <script src="https://cdn.linearicons.com/free/1.0.0/svgembedder.min.js"></script>
@@ -136,12 +139,78 @@
             //$('.totalFac').mask("000,000,000,000,000.00", {reverse: true});
             $('.Money').mask("000.000.000.000.000,00", {reverse: true});
             //$(".totalFac").toFixed(2);
+            verificar_sesion();
         });
     });
 
     $(".totalFac").html("L. "+total_factura.toFixed(2));
     
-    
+    $("#btnCobrar").click(function(){
+        $.ajax({
+            url : '/Restaurante/php/punto_venta/crear_factura.php',
+            data : {
+                productos: productos
+            },
+            type : 'POST',
+            dataType : 'json',
+
+            success : function(json) {
+                Swal.fire(
+                    'Simón',
+                    'Productos enviados',
+                    'success'
+                );                
+            },
+            error : function(json) {
+                Swal.fire(
+                    'Error',
+                    'Error en la conexión con el servidor',
+                    'error'
+                );
+            },
+
+            // código a ejecutar sin importar si la petición falló o no
+            complete : function(xhr, status) {
+                /*Swal.fire(
+                    'Bien!',
+                    'Conexión éxitosa',
+                    'success'
+                )
+                //alert('Petición realizada');*/
+            }
+        });
+    });
+    function verificar_sesion(){
+        $.ajax({
+            url : '../php/verificar_sesion.php',
+            data : {},
+            type : 'POST',
+            dataType : 'json',
+
+            success : function(json) {
+                if(json == 1){
+                //window.location.href = "../login.html";
+                console.log("Conexion segura");
+                }else{
+                    $(document).prop('title', 'Usuario no Autorizado');
+                    $('#informacion').html("");
+                    $('#error').load('../error_login.html');
+                }
+            },
+            error : function(json) {
+            },
+
+            // código a ejecutar sin importar si la petición falló o no
+            complete : function(xhr, status) {
+                /*Swal.fire(
+                    'Bien!',
+                    'Conexión exitosa',
+                    'success'
+                )
+                //alert('Petición realizada');*/
+            }
+        });
+        }
     
 </script>
 </html>
