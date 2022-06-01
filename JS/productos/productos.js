@@ -27,6 +27,7 @@ $("#mdlCerrar").click(function(){
     estado_producto = 0;
     $("#chkEstado").val("");
     $("#slcImpuesto").val("");
+    $("#fileImg").val("");
 });
 function cargar_productos(){
     $.ajax({
@@ -165,6 +166,7 @@ $("#btnAgregarProducto").click(function(){
             estado_producto = 0;
             $("#chkEstado").val("");
             $("#slcImpuesto").val("");
+            $("#fileImg").val("");
             cargar_productos();
         },
         error : function(json) {

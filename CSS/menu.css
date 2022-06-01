@@ -282,3 +282,9 @@ Mobile style's
     background-color: rgba(240, 164, 164, 0.048);
     position: absolute;
 }
+/*Otras cosas*/
+input {
+  border: 0 !important;
+  border-bottom: 1px solid #61A2DA !important;
+  outline: none !important;
+}

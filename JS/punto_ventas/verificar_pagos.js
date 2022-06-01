@@ -1,5 +1,5 @@
-function verificar_pago(total_pagar,pago_anterior,pago_nuevo){
-    total_pago = total_pagar - (pago_anterior + pago_nuevo);
+function verificar_pago(total_pagar,pago_anterior/*,pago_nuevo*/){
+    total_pago = total_pagar - pago_anterior;
     return total_pago;
 }
 

@@ -1,4 +1,4 @@
-
+#deny from all
 
 <IfModule mod_rewrite.c>
 RewriteEngine on

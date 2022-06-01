@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAI</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="../img/iconos/logo.ico">
+    <link href="../fontawesome/css/all.min.css" rel="stylesheet">
+    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../select2/dist/css/select2.min.css" rel="stylesheet">
+    <style>
+        #bgCabecera {
+            background-color: #E0DCDD;
+        }
+        #txtCAI {
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid" id="informacion">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="container my-3 rounded-pill" id="bgCabecera" style="font-weight: bold;">
+                    <div class="row my-3">
+                        <div class="col my-3"></div>
+                        <div class="col-7 my-3"><h4 id="titulo">Configuración CAI</h4></div>
+                        <div class="col-3 my-3 font-weight-bold" style="text-align: right;">
+                            <h4 id="fecha"></h4>
+                        </div>
+                        <div class="col my-3"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 text-center">
+                <button type="button" class="btn btn-success" id="btnNuevo"><i class="fa-solid fa-plus"></i>&nbsp;Nuevo</button>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <table class="table table-hover">
+                <thead class="text-center">
+                    <tr>
+                        <th width="50%">CAI</th>
+                        <th width="25%">Desde</th>
+                        <th width="25%">Hasta</th>
+                    </tr>
+                </thead>
+                <tbody id="infoCAI">
+                </tbody>
+            </table>
+        </div>
+        <div class="modal fade" id="mdlCAI" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" style="max-width: 90% !important;" role="document">
+              <div class="modal-content">
+                <div class="modal-header" style="font-weight: bold;">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-3" id="titleModal">Nuevo CAI</div>
+                            <div class="col-6 text-center">
+                                <button type="button" class="btn btn-danger" id="btnCancelar"><i class="fa-solid fa-cancel"></i>&nbsp;Cancelar</button>
+                                <button type="button" class="btn btn-danger" id="btnBorrar"><i class="fa-solid fa-trash"></i>&nbsp;Borrar</button>
+                                <button type="button" class="btn btn-success" id="btnAgregar"><i class="fa-solid fa-plus"></i>&nbsp;Agregar</button>
+                                <button type="button" class="btn btn-success" id="btnGuardar"><i class="fa-solid fa-floppy-disk"></i>&nbsp;Guardar</button>
+                            </div>
+                            <div class="col-3"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body">
+                  <div class="container">
+                      <div class="row">
+                            <div class="col-lg-6">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <label for="txtCAI">CAI</label>
+                                    </div>
+                                    <div class="col-10">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <input type="text" class="col-sm-12"  name="efectivo" id="txtCAI">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <label for="txtDesde">Desde</label>
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <input type="number" class="col-sm-12"  name="efectivo" id="txtDesde" value="0">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <label for="txtHasta">Hasta</label>
+                                    </div>
+                                    <div class="col-8">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <input type="number" class="col-sm-12"  name="efectivo" id="txtHasta" value="0">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div id="error"></div>
+</body>
+<script type="text/javascript" src="../JS/utilidades/fecha.js"></script>
+<script type="text/javascript" src="../js/jquery-3.6.0.js"></script>
+<script type="text/javascript" src="../sweetalert2/dist/sweetalert2.all.min.js"></script>
+<script type="text/javascript" src="../JS/conectar.js"></script>
+<script type="text/javascript" src="../bootstrap/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="../select2/dist/js/select2.min.js"></script>
+<script type="text/javascript" src="../jqueryUI/jquery-ui.min.js"></script>
+<script type="text/javascript" src="../jQueryMask/dist/jquery.mask.min.js"></script>
+<script type="text/javascript" src="../JS/punto_ventas/autocomplete.js"></script>
+<script type="text/javascript" src="../JS/punto_ventas/productos.js"></script>
+<script type="text/javascript" src="../JS/verificar_sesion.js"></script>
+<script type="text/javascript" src="../JS/punto_ventas/verificar_pagos.js"></script>
+<script>
+    
+    d = new Date(); 
+    $("#fecha").html(d.yyyymmdd());
+    jQuery(document).ready(function($){
+        $(document).ready(function() {
+            verificar_sesion();
+            $('.modal').modal({ backdrop: 'static', keyboard: false });
+            $("#txtCAI").mask('AAAAAA-AAAAAA-AAAAAA-AAAAAA-AAAAAA-AA');
+            cargar_cai();
+        });
+    });
+    $("#btnNuevo").click(function(){
+        $("#btnBorrar").hide();
+        $("#btnGuardar").hide();
+        $("#btnAgregar").show();
+        $("#btnCancelar").show();
+        $("#mdlCAI").modal("show");
+    });
+    $("#btnCancelar").click(function(){
+        $("#mdlCAI").modal("hide");
+        $("#txtCAI").val("");
+        $("#txtDesde").val(0);
+        $("#txtHasta").val(0);
+    });
+
+    function cargar_cai(){
+        $.ajax({
+            url : '../php/cargar_cai.php',
+            data : {
+            },
+            type : 'POST',
+            dataType : 'json',
+
+            success : function(data) {
+                informacion_cai = "";
+                for(i = 0; i < data.length; i++){
+                    informacion_cai += 
+                        "<tr>"+
+                            "<td>"+data[i]["cai"]+"</td>"+
+                            "<td>"+data[i]["desde"]+"</td>"+
+                            "<td>"+data[i]["hasta"]+"</td>"+
+                        "</tr>";
+                }
+                $("#infoCAI").html(informacion_cai);
+            },
+            error : function(json) {
+                Swal.fire(
+                    'Error',
+                    'Error en la conexión con el servidor',
+                    'error'
+                );
+            },
+
+            // código a ejecutar sin importar si la petición falló o no
+            complete : function(xhr, status) {
+                /*Swal.fire(
+                    'Bien!',
+                    'Conexión éxitosa',
+                    'success'
+                )
+                //alert('Petición realizada');*/
+            }
+        });
+    }
+
+    $("#btnAgregar").click(function(){
+        cai = $("#txtCAI").val();
+        desde = $("#txtDesde").val();
+        hasta = $("#txtHasta").val();
+        $.ajax({
+            url : '../php/edicion_cai.php',
+            data : {
+                cai: cai,
+                desde: desde,
+                hasta: hasta
+            },
+            type : 'POST',
+            dataType : 'json',
+
+            success : function(data) {
+                if(data == 1){
+                    Swal.fire(
+                        'Correcto',
+                        'El CAI ha sido insertado con éxito',
+                        'success'
+                    );
+                    $("#mdlCAI").modal("hide");
+                    cargar_cai();
+                }else{
+                    Swal.fire(
+                        'Error',
+                        'Hubo un error al insertar',
+                        'error'
+                    );
+                }
+            
+            },
+            error : function(json) {
+                Swal.fire(
+                    'Error',
+                    'Error en la conexión con el servidor',
+                    'error'
+                );
+            },
+
+            // código a ejecutar sin importar si la petición falló o no
+            complete : function(xhr, status) {
+                /*Swal.fire(
+                    'Bien!',
+                    'Conexión éxitosa',
+                    'success'
+                )
+                //alert('Petición realizada');*/
+            }
+        });
+    });
+</script>
+</html>

@@ -26,6 +26,7 @@ function buscar_x_nombre(){
             $('#txtCliente').val(ui.item.nombre); // display the selected text
             $('#txtRTN').val(ui.item.rtn); // save selected id to input
             id_cliente = ui.item.value;
+            //alert(id_cliente);
             return false;
         },
         focus: function(event, ui){
@@ -62,6 +63,7 @@ function buscar_x_rtn(){
             $('#txtCliente').val(ui.item.nombre); // display the selected text
             $('#txtRTN').val(ui.item.rtn); // save selected id to input
             id_cliente = ui.item.value;
+            //alert(id_cliente);
             return false;
         },
         focus: function(event, ui){
