@@ -10,9 +10,7 @@ $sql =
         rtn_empresa, 
         local, 
         emision, 
-        correlativo_factura, 
-        desde, 
-        hasta 
+        telefono
     FROM informacion_empresa
     ";
 $rs = cargar_sql($sql);

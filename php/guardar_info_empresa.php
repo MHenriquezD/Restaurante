@@ -6,10 +6,8 @@ $correo = comillas($_POST["correo"]);
 $rtn = comillas($_POST["rtn"]);
 $local = comillas($_POST["local"]);
 $emision = comillas($_POST["emision"]);
-$correlativo = comillas($_POST["correlativo"]);
-$desde = comillas($_POST["desde"]);
-$hasta = comillas($_POST["hasta"]);
 $id = comillas($_POST["id"]);
+$telefono = comillas($_POST["telefono"]);
 $sql_update = 
     "UPDATE informacion_empresa 
     SET
@@ -19,9 +17,7 @@ $sql_update =
         rtn_empresa = $rtn,
         local = $local,
         emision = $emision,
-        correlativo_factura = $correlativo,
-        desde = $desde,
-        hasta = $hasta
+        telefono = $telefono
     WHERE 
         id = $id
     ";

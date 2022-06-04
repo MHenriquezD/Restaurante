@@ -33,6 +33,8 @@ function agregar_producto(){
         "nombre" : nombre_producto,
         "precio_producto" : precio_producto,
         "precio_unitario" : precio_unitario,
+        "cantidad_productos": cantidad_productos,
+        "isv": isv_producto,
         "total" : total_fila 
     }
     productos.push(add_productos);

@@ -5,7 +5,7 @@
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '53bd59e6aa9c4cdd045d06c07aa01231d4554f3c',
+        'reference' => '264405ba8bb9471734fe429e4d4129f6ab15b44b',
         'name' => '__root__',
         'dev' => true,
     ),
@@ -16,7 +16,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '53bd59e6aa9c4cdd045d06c07aa01231d4554f3c',
+            'reference' => '264405ba8bb9471734fe429e4d4129f6ab15b44b',
             'dev_requirement' => false,
         ),
         'dompdf/dompdf' => array(
@@ -26,6 +26,15 @@
             'install_path' => __DIR__ . '/../dompdf/dompdf',
             'aliases' => array(),
             'reference' => '5031045d9640b38cfc14aac9667470df09c9e090',
+            'dev_requirement' => false,
+        ),
+        'luecano/numero-a-letras' => array(
+            'pretty_version' => 'v3.0.0',
+            'version' => '3.0.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../luecano/numero-a-letras',
+            'aliases' => array(),
+            'reference' => 'bab51e3e81545e38d6a11efccb3e6d568765ba7c',
             'dev_requirement' => false,
         ),
         'phenx/php-font-lib' => array(

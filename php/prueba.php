@@ -5,5 +5,5 @@ echo date("Y-m-d H:i:s", time());
 echo "<br>";
 echo $_SERVER['REMOTE_ADDR'];
 */
-echo $_POST["img"];
+echo json_encode($_POST["imagen"]);
 ?>

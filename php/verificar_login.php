@@ -20,7 +20,7 @@ if(!$resultado){
     if($resultado[0][5] == 1){
         $_SESSION['usr_login'] = $resultado[0][0];
         $_SESSION['usr_mail'] = $resultado[0][2];
-        $_SESSION['usr_name'] = $resultado[0][2];
+        $_SESSION['usr_name'] = $resultado[0][3];
         $sql_check = 
             "SELECT usr_login, fecha, activo 
             FROM usr_log 

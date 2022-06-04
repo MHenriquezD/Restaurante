@@ -29,7 +29,7 @@ foreach($resultado as $productos){
     $sql = "SELECT id, impuesto, porcentaje FROM impuestos WHERE id =". comillas($productos[6]);
     $isv = cargar_sql($sql);
     $data[$n]["isv_name"] = $isv[0][1];
-    $data[$n]["isv_porcentaje"] = "0.".$isv[0][2];
+    $data[$n]["isv_porcentaje"] = "1.".$isv[0][2];
     $n++;
 }
 echo json_encode($data, JSON_NUMERIC_CHECK);

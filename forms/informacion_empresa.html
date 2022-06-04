@@ -13,6 +13,14 @@
         #bgCabecera {
             background-color: #E0DCDD;
         }
+        input {
+            border: 0 !important;
+            border-bottom: 1px solid #61A2DA !important;
+            outline: none !important;
+        }
+        label{
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -44,58 +52,46 @@
                     <div class="col-12">
                         <form>
                             <div class="row">
-                                <div class="col-4">
+                                <div class="col-4 mb-5">
                                     <div class="form-group">
-                                        <label for="txtNombreEmpresa">Nombre</label>
-                                        <input type="text" class="form-control" id="txtNombreEmpresa">
+                                        <label for="txtNombreEmpresa">Nombre</label><br>
+                                        <input type="text" class="col-sm-12 col-xs-12" id="txtNombreEmpresa">
                                     </div>
                                 </div>
-                                <div class="col-4">
+                                <div class="col-4 mb-5">
                                     <div class="form-group">
-                                        <label for="txtDireccion">Dirección</label>
-                                        <input type="text" class="form-control" id="txtDireccion">
+                                        <label for="txtDireccion">Dirección</label><br>
+                                        <input type="text" class="col-sm-12 col-xs-12" id="txtDireccion">
                                     </div>
                                 </div>
-                                <div class="col-4">
+                                <div class="col-4 mb-5">
                                     <div class="form-group">
-                                        <label for="txtCorreo">Correo</label>
-                                        <input type="email" class="form-control" id="txtCorreo">
+                                        <label for="txtCorreo">Correo</label><br>
+                                        <input type="email" class="col-sm-12 col-xs-12" id="txtCorreo">
                                     </div>
                                 </div>
-                                <div class="col-4">
+                                <div class="col-3 mb-5">
                                     <div class="form-group">
-                                        <label for="txtRTNEmpresa">RTN</label>
-                                        <input type="text" class="form-control" id="txtRTNEmpresa">
+                                        <label for="txtRTNEmpresa">RTN</label><br>
+                                        <input type="text" class="col-sm-12 col-xs-12" id="txtRTNEmpresa">
                                     </div>
                                 </div>
-                                <div class="col-4">
+                                <div class="col-3 mb-5">
                                     <div class="form-group">
-                                        <label for="txtLocal">Local</label>
-                                        <input type="number" class="form-control" id="txtLocal">
+                                        <label for="txtRTNEmpresa">Teléfono</label><br>
+                                        <input type="text" class="col-sm-12 col-xs-12" id="txtTelefono">
                                     </div>
                                 </div>
-                                <div class="col-4">
+                                <div class="col-3 mb-5">
                                     <div class="form-group">
-                                        <label for="txtEmision">Punto de Emisión</label>
-                                        <input type="number" class="form-control" id="txtEmision">
+                                        <label for="txtLocal">Local</label><br>
+                                        <input type="number" class="col-sm-12 col-xs-12" id="txtLocal">
                                     </div>
                                 </div>
-                                <div class="col-4">
+                                <div class="col-3 mb-5">
                                     <div class="form-group">
-                                        <label for="txtCorrelativo">Correlativo Factura</label>
-                                        <input type="number" class="form-control" id="txtCorrelativo">
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="form-group">
-                                        <label for="txtDesde">Desde</label>
-                                        <input type="number" class="form-control" id="txtDesde">
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="form-group">
-                                        <label for="txtHasta">Hasta</label>
-                                        <input type="number" class="form-control" id="txtHasta">
+                                        <label for="txtEmision">Punto de Emisión</label><br>
+                                        <input type="number" class="col-sm-12 col-xs-12" id="txtEmision">
                                     </div>
                                 </div>
                             </div>   
@@ -110,10 +106,14 @@
 <script type="text/javascript" src="../js/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="../JS/utilidades/fecha.js"></script>
 <script type="text/javascript" src="../sweetalert2/dist/sweetalert2.all.min.js"></script>
+<script type="text/javascript" src="../jQueryMask/dist/jquery.mask.min.js"></script>
 <script>
-    d = new Date(); 
-    $("#fecha").html(d.yyyymmdd());
-    cargar_datos();
+    jQuery(document).ready(function($){
+        $(document).ready(function() {
+            cargar_datos();
+            $("#txtRTNEmpresa").mask("0000-0000-000000");
+        });
+    });
     function cargar_datos(){
         $.ajax({
             url : '../php/cargar_info_empresa.php',
@@ -128,9 +128,7 @@
                 $("#txtRTNEmpresa").val(data["rtn_empresa"]);
                 $("#txtLocal").val(data["local"]);
                 $("#txtEmision").val(data["emision"]);
-                $("#txtCorrelativo").val(data["correlativo_factura"]);
-                $("#txtDesde").val(data["desde"]);
-                $("#txtHasta").val(data["hasta"]);
+                $("#txtTelefono").val(data["telefono"]);
             },
             error : function(json) {
                 Swal.fire(
@@ -158,9 +156,7 @@
         rtn = $("#txtRTNEmpresa").val();
         local = $("#txtLocal").val();
         emision = $("#txtEmision").val();
-        correlativo = $("#txtCorrelativo").val();
-        desde = $("#txtDesde").val();
-        hasta = $("#txtHasta").val();
+        telefono = $("#txtTelefono").val();
         $.ajax({
             url : '../php/guardar_info_empresa.php',
             data : {
@@ -171,9 +167,7 @@
                 rtn: rtn,
                 local: local,
                 emision: emision,
-                correlativo: correlativo,
-                desde: desde,
-                hasta: hasta
+                telefono: telefono
             },
             type : 'POST',
             dataType : 'json',

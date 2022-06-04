@@ -12,6 +12,10 @@ class ComposerStaticInitad27f1e200056397e1176c37167c5c3f
             'Svg\\' => 4,
             'Sabberworm\\CSS\\' => 15,
         ),
+        'L' => 
+        array (
+            'Luecano\\NumeroALetras\\' => 22,
+        ),
         'F' => 
         array (
             'FontLib\\' => 8,
@@ -30,6 +34,10 @@ class ComposerStaticInitad27f1e200056397e1176c37167c5c3f
         'Sabberworm\\CSS\\' => 
         array (
             0 => __DIR__ . '/..' . '/sabberworm/php-css-parser/src',
+        ),
+        'Luecano\\NumeroALetras\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/luecano/numero-a-letras/src',
         ),
         'FontLib\\' => 
         array (

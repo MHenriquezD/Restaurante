@@ -1,5 +1,6 @@
 {
     "require": {
-        "dompdf/dompdf": "^1.2"
+        "dompdf/dompdf": "^1.2",
+        "luecano/numero-a-letras": "3.0"
     }
 }

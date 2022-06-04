@@ -102,7 +102,9 @@ function cargar_productos(){
             precio_producto = ui.item.precio;
             desc_producto = ui.item.descripcion;
             porcentaje_isv_producto = ui.item.isv_porcentaje;
-            precio_unitario = precio_producto - (precio_producto * porcentaje_isv_producto);
+            precio_unitario = precio_producto / porcentaje_isv_producto;
+            isv_producto = precio_producto - precio_unitario;
+            //console.log(precio_unitario);
             //precio_producto = ui.item.precio;
             agregar_producto();
             return false;

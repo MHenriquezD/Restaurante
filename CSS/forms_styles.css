@@ -1,3 +1,5 @@
 input {
-    border-bottom: 1px solid blue;
+    border: 0 !important;
+    border-bottom: 1px solid #61A2DA !important;
+    outline: none !important;
 }
