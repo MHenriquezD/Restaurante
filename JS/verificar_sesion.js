@@ -12,7 +12,7 @@ function verificar_sesion(){
             }else{
                 $(document).prop('title', 'Usuario no Autorizado');
                 $('#informacion').html("");
-                $('#error').load('../error_login.html');
+                $('#error').load('../error_login');
             }
         },
         error : function(json) {

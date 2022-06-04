@@ -201,7 +201,6 @@
 <script type="text/javascript" src="../jQueryMask/dist/jquery.mask.min.js"></script>
 <script type="text/javascript" src="../JS/punto_ventas/autocomplete.js"></script>
 <script type="text/javascript" src="../JS/punto_ventas/productos.js"></script>
-<script type="text/javascript" src="../JS/verificar_sesion.js"></script>
 <script type="text/javascript" src="../JS/punto_ventas/verificar_pagos.js"></script>
 <!--<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
@@ -420,7 +419,7 @@
                 $(".totalFac").html("L. "+total_factura_formato);
                 $("#mdlPago").modal("hide");
                 $("#tbProductos").html("");
-                window.open('../archivos/ticket.php?n_fac='+data["comentario"], '_blank');
+                window.open('../archivos/ticket?n_fac='+data["comentario"], '_blank');
                 /*Swal.fire(
                     'Bien',
                     'funcionó',

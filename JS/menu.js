@@ -19,7 +19,7 @@ function verificar_sesion(){
           //window.location.href = "../login.html";
           console.log("Conexion segura");
         }else{
-          window.location.href = "../login.html";
+          window.location.href = "../login";
         }
     },
     error : function(json) {
@@ -104,11 +104,11 @@ function cerrar_sesion(){
 
     success : function(json) {
         if(json == 1){
-          window.location.href = "../login.html";
+          window.location.href = "../login";
         }
     },
     error : function(json) {
-      window.location.href = "../login.html";
+      window.location.href = "../login";
     },
 
     // código a ejecutar sin importar si la petición falló o no

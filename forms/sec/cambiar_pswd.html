@@ -9,6 +9,14 @@
     <link href="/Restaurante/fontawesome/css/all.min.css" rel="stylesheet">
     <link href="/Restaurante/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/Restaurante/select2/dist/css/select2.min.css" rel="stylesheet">
+    <style>
+        input {
+            border: 0 !important;
+            border-bottom: 1px solid #61A2DA !important;
+            outline: none !important;
+            background-color: rgb(0, 0, 0,0);
+        }
+    </style>
 </head>
 <body>
     <div class="container my-5">
@@ -18,17 +26,17 @@
                 <form>
                     <div class="form-group">
                       <label for="txtContrasenaAntigua">Ingrese la contraseña actual</label>
-                      <input type="password" class="form-control" id="txtContrasenaAntigua">
+                      <input type="password" id="txtContrasenaAntigua">
                       <small id="helpCOntrasenaAntigua" class="form-text text-muted"></small>
                     </div>
                     <div class="form-group">
                       <label for="txtContrasenaNueva">Nueva Contraseña</label>
-                      <input type="password" class="form-control" id="txtContrasenaNueva" onkeydown="nueva()" onkeyup="nueva()">
+                      <input type="password" id="txtContrasenaNueva" onkeydown="nueva()" onkeyup="nueva()">
                       <small id="helpContrasenaNueva" class="form-text text-muted"></small>
                     </div>
                     <div class="form-group">
                       <label for="txtContrasenaRepetir">Repetir Contraseña nueva</label>
-                      <input type="password" class="form-control" id="txtContrasenaRepetir" onkeydown="repetir()" onkeyup="repetir()">
+                      <input type="password" id="txtContrasenaRepetir" onkeydown="repetir()" onkeyup="repetir()">
                       <small id="helpContrasenaRepetir" class="form-text text-muted"></small>
                     </div>
                 </form>

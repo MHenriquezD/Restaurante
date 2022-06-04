@@ -178,7 +178,7 @@ if(isset($rs[0][0])){
         @font-face { font-family: Roboto; src: url("chrome-extension://mcgbeeipkmelnpldkobichboakdfaeon/css/Roboto-Regular.ttf"); }
         body {
             font-size: 12px !important;
-            width: 30%;
+            /*width: 30%;*/
         }
         .cabecera {
             text-align: center;
@@ -201,6 +201,10 @@ if(isset($rs[0][0])){
         .bordes {
             border-bottom: 1px solid gray;
             border-top: 1px solid gray;
+        }
+        @page {
+            size:  auto;   /* auto es el valor inicial */
+            margin: 0mm;  /* afecta el margen en la configuración de impresión */
         }
     </style>
 </head>
@@ -308,5 +312,6 @@ if(isset($rs[0][0])){
 <script type="text/javascript" src="../js/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="../jQueryMask/dist/jquery.mask.min.js"></script>
 <script>
+    window.print();
 </script>
 </html>

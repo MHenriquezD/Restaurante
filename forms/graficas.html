@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráficas</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="../img/iconos/logo.ico">
+    <link href="../CSS/forms_styles.css" rel="stylesheet">
+    <link href="../fontawesome/css/all.min.css" rel="stylesheet">
+    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../select2/dist/css/select2.min.css" rel="stylesheet">
+    <link href="../jqueryUI/jquery-ui.min.css" rel="stylesheet">
+    <style>
+        #myChart {
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-sm-6 col-xs-4 shadow rounded">
+                <canvas id="chartVentas" class="my-2"  width="400" height="400"></canvas>
+            </div>
+            <div class="col-3"></div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../js/jquery-3.6.0.js"></script>
+<script type="text/javascript" src="../sweetalert2/dist/sweetalert2.all.min.js"></script>
+<script type="text/javascript" src="../JS/conectar.js"></script>
+<script type="text/javascript" src="../bootstrap/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="../select2/dist/js/select2.min.js"></script>
+<script type="text/javascript" src="../jqueryUI/jquery-ui.min.js"></script>
+<script type="text/javascript" src="../jQueryMask/dist/jquery.mask.min.js"></script>
+<script type="text/javascript" src="../JS/punto_ventas/autocomplete.js"></script>
+<script type="text/javascript" src="../chart.js/dist/chart.min.js"></script>
+<script>
+    
+    
+    function venta_productos(){
+        const ctx = document.getElementById('chartVentas').getContext('2d');
+        var productos_venta = [], colores_venta = [], cantidad_venta = [];
+        $.ajax({
+            url : '../php/charts/ventas.php',
+            data : {},
+            type : 'POST',
+            dataType : 'json',
+
+            success : function(data) {
+
+                for(i=0; i<data.length; i++){
+                    productos_venta.push(data[i]["nombre"]);
+                    //productos_venta += data[i]["nombre"]+",";
+                    colores_venta.push(data[i]["colores"]);
+                    cantidad_venta.push(data[i]["cantidad"]);
+                }
+            },
+            error : function(json) {
+                console.log("No se pudo limpiar la sesion");
+            },
+
+            // código a ejecutar sin importar si la petición falló o no
+            complete : function(xhr, status) {
+                /*Swal.fire(
+                    'Bien!',
+                    'Conexión exitosa',
+                    'success'
+                )
+                //alert('Petición realizada');*/
+            }
+        });
+        const chart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: productos_venta,
+                datasets: [{
+                    label: "Productos más vendidos del mes",
+                    data: cantidad_venta,
+                    borderColor: colores_venta,
+                    backgroundColor: colores_venta,
+                }]
+            }
+        });
+    }
+    //const ctx = document.getElementById('myChart').getContext('2d');
+    if ($("#chartVentas").length) {
+        venta_productos();
+    }
+</script>
+</html>
