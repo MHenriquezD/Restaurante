@@ -7,7 +7,7 @@ function buscar_x_nombre(){
         {
             $.ajax(
             {
-                url: '/Restaurante/php/clientes/clientes_ac.php',
+                url: '../php/clientes/clientes_ac.php',
                 dataType: "json",
                 type: "POST",
                 data:

@@ -94,7 +94,7 @@
               <div class="container-fluid">
                   <div class="row">
                       <div class="col-lg-12">
-                          <form>
+                          <form id="formProductos">
                                 <div class="form-group" id="divInformacion">
                                     <div class="container-fluid my-2">
                                         <div class="row">
@@ -106,7 +106,7 @@
                                                                 <label for="txtNombreProducto">Nombre</label>
                                                             </div>
                                                             <div class="col-lg-10">
-                                                                <input type="text" maxlength="50" class="form-control" id="txtNombreProducto">
+                                                                <input type="text" maxlength="50" class="form-control" id="txtNombreProducto" name="nombre">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -162,7 +162,7 @@
                                                                 <label for="fileImg">Imagen</label>
                                                             </div>
                                                             <div class="col-lg-10">
-                                                                <input type="file" class="form-control" id="fileImg">
+                                                                <input type="file" class="form-control" id="fileImg" accept="image/gif,image/jpeg,image/jpg,image/png">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -191,6 +191,39 @@
 <script type="text/javascript" src="/Restaurante/select2/dist/js/select2.min.js"></script>
 <script type="text/javascript" src="/Restaurante/js/productos/productos.js"></script>
 <script>
-    
+    $("#fileImg").change(prueba);
+
+    function prueba(evento){
+        evento.preventDefault();
+        var formData = new FormData($("#formProductos")[0]);
+        var archivo = $("#fileImg")[0].files[0];
+        formData.append('file',archivo);
+        nombre = $("#txtNombreProducto").val();
+        descripcion = $("#txtDescripcionProducto").val();
+        precio = $("#txtPrecioProducto").val();
+        isv = $("#slcImpuesto").val();
+        console.log(formData);
+        formData.append('POST',nombre);
+        formData.append('POST',descripcion);
+        formData.append('POST',precio);
+        formData.append('POST',isv);
+
+        $.ajax(
+        {
+            url: '../../php/prueba.php',
+            dataType: "json",
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (data)
+            {
+                nombre_archivo = data["n_img"];
+                ruta_archivo = data["n_temp"];
+                tipo_archivo = data["n_tipo"];
+                alert("Nombre: "+nombre_archivo+"<br>Ruta: "+ruta_archivo+"<br>Tipo: "+tipo_archivo);
+            }
+        });
+    }
 </script>
 </html>

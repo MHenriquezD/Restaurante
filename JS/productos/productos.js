@@ -132,13 +132,12 @@ $("#btnNuevo").click(function(){
     $("#btnAgregarProducto").show();
     cargar_impuestos();
 });
-
 $("#btnAgregarProducto").click(function(){
     nombre = $("#txtNombreProducto").val();
     descripcion = $("#txtDescripcionProducto").val();
     precio = $("#txtPrecioProducto").val();
     isv = $("#slcImpuesto").val();
-    img = "";
+    img = $("#fileImg").val();
     $.ajax({
         url : '/Restaurante/php/productos/crear_productos.php',
         data : {
@@ -147,7 +146,10 @@ $("#btnAgregarProducto").click(function(){
             precio: precio,
             isv: isv,
             estado: estado_producto,
-            imagen: img
+            imagen: img,
+            nombre_archivo: nombre_archivo,
+            ruta_archivo: ruta_archivo,
+            tipo_archivo: tipo_archivo
         },
         type : 'POST',
         dataType : 'json',

@@ -1,11 +1,14 @@
-<?php
+<?php 
 include_once '../php/querys_log.php';
 require '../vendor/autoload.php';
+//require_once '../dompdf/autoload.inc.php';
 use Luecano\NumeroALetras\NumeroALetras;
-session_start();
 
-$usuario = $_SESSION["usr_name"];
+//$numero = $_GET["n_fac"];
 $n_fac = $_GET["n_fac"];
+$numero = explode('-',$n_fac);
+$izquierda = $numero[0]."-".$numero[1]."-".$numero[2];
+$derecha = $numero[3];
 $productos = "";
 $subtotal = 0;
 $isv_15 = 0;
@@ -13,8 +16,8 @@ $isv_18 = 0;
 $gravado_15 = $gravado_18 = 0;
 $tipos_pago = "";
 
-$sql = 
-    "SELECT 
+$sql = "
+    SELECT 
         id, 
         nombre_empresa, 
         direccion, 
@@ -22,7 +25,7 @@ $sql =
         rtn_empresa,
         telefono
     FROM informacion_empresa
-    ";
+";
 $em = cargar_sql($sql);
 if(isset($em[0][0])){
     $nombre = $em[0][1];
@@ -31,6 +34,7 @@ if(isset($em[0][0])){
     $rtn = $em[0][4];
     $telefono = substr($em[0][5],0,4)."-".substr($em[0][5],-4);
 }
+
 $sql = "
     SELECT
         id,
@@ -137,11 +141,11 @@ if(isset($rs[0][0])){
                 if($tipos[0] == 1){
                     $pago_efectivo = "
                         <tr class='final'>
-                            <td colspan='3'>Efectivo Recibido</td>
+                            <td colspan='3' >Efectivo Recibido</td>
                             <td>L. ".number_format($tipos[1],2,".",",")."</td>
                         </tr>
                         <tr class='final'>
-                            <td colspan='3'>Cambio Efectivo</td>
+                            <td colspan='3' class='final'>Cambio Efectivo</td>
                             <td>L. ".number_format($tipos[2],2,".",",")."</td>
                         </tr>
                     ";
@@ -156,8 +160,7 @@ if(isset($rs[0][0])){
                                 <td> L.".number_format($tipos[1],2,".",",")."</td>
                             </tr>
                         ";
-                    }
-                    
+                    } 
                 }
             }
         }
@@ -165,14 +168,14 @@ if(isset($rs[0][0])){
 }
 
 
-?>
+$html = '
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ticket #<?php echo $n_fac;?></title>
+    <title>Factura #'.$n_fac.'</title>
     <link rel="icon" type="image/png" sizes="16x16" href="../img/iconos/logo.ico">
     <link href="../CSS/forms_styles.css" rel="stylesheet">
     <link href="../fontawesome/css/all.min.css" rel="stylesheet">
@@ -198,7 +201,7 @@ if(isset($rs[0][0])){
             width: 100%;
         }
         .final {
-            text-align: end;
+            text-align: right;
         }
         .cuerpo {
             border: 1px solid black;
@@ -208,52 +211,67 @@ if(isset($rs[0][0])){
             border-top: 1px solid gray;
         }
         @page {
-            size:  auto;   /* auto es el valor inicial */
-            margin: 0mm;  /* afecta el margen en la configuración de impresión */
+            margin: 10px;
         }
-        /*#tbProductos {
-            font-size: 10px;
-        }*/
     </style>
 </head>
 <body>
-    <div class="m-3">
-        <div class="cabecera negrita m-3">
-            <span><?php echo $nombre;?></span><br>
-            <span><?php echo $direccion;?></span><br>
-            <span>RTN: <?php echo $rtn;?></span><br>
-            <span><?php echo $telefono;?></span><br>
-            <span><?php echo $correo;?></span><br>
-            <span>Original Cliente / Copia Obligado Tributario</span><br><br>
-            <span>Factura</span><br>
-            <span><?php echo $n_fac?></span><br>
-            <span>CAI #</span><br>
-            <span><?php echo $cai?></span>
+    <div width="100%">
+        <div style="border: 1px solid #8C8C8C; margin 10px; border-radius: 15px;">
+            <table>
+                <tr>
+                    <td>
+                    </td>
+                    <td>
+                        <div style="margin: 10px;">
+                            <span>'.$nombre.'</span><br>
+                            <span>'.$direccion.'</span><br>
+                            <span>RTN: '.$rtn.'</span><br>
+                            <span>'.$telefono.'</span><br>
+                            <span>'.$correo.'</span><br>
+                            <span>Original Cliente / Copia Obligado Tributario</span><br><br>
+                            <span>Factura</span><br>
+                            <span>'.$n_fac.'</span><br>
+                            <span>CAI #</span><br>
+                            <span>'.$cai.'</span>
+                        </div>
+                    </td>
+                    <td valign="top">
+                        <div class="cabecera" valign="top">
+                            FACTURA:<br>
+                            No. '.$izquierda.'<span style="color: #c00">'.$derecha.'</span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
         </div>
+        
+
+        
 
         <div  class="cliente m-3">
             <table>
                 <tbody>
                     <tr>
                         <td class="negrita">ID#</td>
-                        <td><?php echo $id_factura?></td>
+                        <td>'.$id_factura.'</td>
                     </tr>
                     <tr>
                         <td class="negrita">RTN</td>
-                        <td><?php echo $rtn_cliente?></td>
+                        <td>'.$rtn_cliente.'</td>
                     </tr>
                     <tr>
                         <td class="negrita">Nombre</td>
-                        <td><?php echo $nombre_cliente?></td>
+                        <td>'.$nombre_cliente.'</td>
                     </tr>
                     <tr>
                         <td colspan="2">
                             <table>
                                 <tr>
                                     <td class="negrita">Fecha</td>
-                                    <td><?php echo $fecha?></td>
+                                    <td>'.$fecha.'</td>
                                     <td class="negrita">Hora</td>
-                                    <td><?php echo $hora?></td>
+                                    <td>'.$hora.'</td>
                                 </tr>
                             </table>
                         </td>
@@ -270,7 +288,7 @@ if(isset($rs[0][0])){
                     </tr>
                 </thead>
                 <tbody>
-                    <?php echo $productos;?>
+                    '.$productos.'
                     <tr>
                         <td colspan="3"></td>
                         <td class="bd"></td>
@@ -279,31 +297,31 @@ if(isset($rs[0][0])){
                 <tfoot >
                     <tr class="final">
                         <td colspan="3">Subotal:</td>
-                        <td colspan="3">L. <?php echo $subtotal;?></td>
+                        <td colspan="3">L. '.$subtotal.'</td>
                     </tr>
                     <tr class="final">
                         <td colspan="3">Gravado ISV 15%:</td>
-                        <td colspan="3" class="Money">L. <?php echo $gravado_15;?></td>
+                        <td colspan="3" class="Money">L. '.$gravado_15.'</td>
                     </tr>
                     <tr class="final">
                         <td colspan="3">Gravado ISV 18%:</td>
-                        <td colspan="3" class="Money">L. <?php echo $gravado_18;?></td>
+                        <td colspan="3" class="Money">L. '.$gravado_18.'</td>
                     </tr>
                     <tr class="final">
                         <td colspan="3">ISV 15%:</td>
-                        <td colspan="3" class="Money">L. <?php echo $isv_15;?></td>
+                        <td colspan="3" class="Money">L. '.$isv_15.'</td>
                     </tr>
                     <tr class="final">
                         <td colspan="3">ISV 18%:</td>
-                        <td colspan="3" class="Money">L. <?php echo $isv_18;?></td>
+                        <td colspan="3" class="Money">L. '.$isv_18.'</td>
                     </tr>
                     <tr class="final">
                         <td colspan="3">Total:</td>
-                        <td colspan="3" ><span class="Money">L. <?php echo $total_factura;?></span></td>
+                        <td colspan="3" ><span class="Money">L. '.$total_factura.'</span></td>
                     </tr>
                     <tr><td>&nbsp;</td></tr>
-                    <?php echo $pago_tarjeta;?>
-                    <?php echo $pago_efectivo;?>
+                    '.$pago_tarjeta.'
+                    '.$pago_efectivo.'
                     
                 </tfoot>
             </table>
@@ -312,11 +330,11 @@ if(isset($rs[0][0])){
                     <tr><td>&nbsp;</td></tr>
                     <tr>
                         <td class="cabecera">
-                            <?php echo $total_letras?> LEMPIRAS
+                            '.$total_letras.' LEMPIRAS
                         </td>
                     </tr>
                     <tr>
-                        <td>Rango Autorizado: <br> <?php echo $rango;?></td>
+                        <td>Rango Autorizado: <br> '.$rango.'</td>
                     </tr>
                     <tr><td>&nbsp;</td></tr>
                     <tr><td><strong>La factura es derecho de todos, exígala.</strong></td></tr>
@@ -325,9 +343,26 @@ if(isset($rs[0][0])){
         </div>
     </div>
 </body>
-<script type="text/javascript" src="../js/jquery-3.6.0.js"></script>
-<script type="text/javascript" src="../jQueryMask/dist/jquery.mask.min.js"></script>
-<script>
-    window.print();
-</script>
-</html>
+</html>';
+
+
+
+/*echo $html;
+/**/
+use Dompdf\Dompdf;
+
+// instantiate and use the dompdf class
+$dompdf = new Dompdf();
+
+// (Optional) Setup the paper size and orientation
+$dompdf->setPaper('A4', 'portrait');
+
+$dompdf->loadHtml($html);
+
+
+// Render the HTML as PDF
+$dompdf->render();
+$dompdf->stream("Factura $n_fac.pdf", ['Attachment' => false]);
+// Output the generated PDF to Browser 
+//$dompdf->stream();
+/**/

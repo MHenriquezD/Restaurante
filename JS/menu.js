@@ -90,8 +90,8 @@ $(document).ready(function() {
 });
   
 function cargar(url){
-  $('#informacion').html("");
-  $('#informacion').load(url);
+  $('#informacion').attr("");
+  $('#informacion').attr("src",url);
   //$('a').css('color', 'black');
 }
 
