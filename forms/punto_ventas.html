@@ -194,7 +194,7 @@
 </body>
 <script type="text/javascript" src="../js/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="../sweetalert2/dist/sweetalert2.all.min.js"></script>
-<script type="text/javascript" src="../JS/conectar.js"></script>
+<script type="text/javascript" src="../JS/punto_ventas/pago.js"></script>
 <script type="text/javascript" src="../bootstrap/bootstrap/bootstrap.min.js"></script>
 <script type="text/javascript" src="../select2/dist/js/select2.min.js"></script>
 <script type="text/javascript" src="../jqueryUI/jquery-ui.min.js"></script>
@@ -275,97 +275,6 @@
             }
         });
     }
-    $("#btnCobrar").click(function(){
-        if(productos != ""){
-            pago_debe = verificar_pago(total_factura, pago_acumulado/*,/* pago_dado*/);
-            suelto = verificar_suelto(pago_debe, total_factura);
-            //pago_debe = pago_pagar;
-            if(pago_debe < 0){
-                pago_total = pago_acumulado;
-                pago_debe_formato = "0.00";
-                suelto = -(pago_debe);
-            }else{
-                pago_debe_formato = pago_debe.toFixed(2);
-                suelto = 0;
-            } 
-            suelto_formato = suelto.toFixed(2);
-            $("#mdlPago").modal("show");
-            $("#tlPagar").html(total_factura_formato);
-            $("#tlDebe").html(pago_debe_formato);
-            $("#tlPagado").html(suelto_formato);
-        }
-    })
-    $("#btnCerrarModal").click(function(){  
-        $("#mdlPago").modal("hide");
-    })
-
-    $("#btnEfectivo").click(function(){  
-        $("#txtEfectivo").val(pago_debe);
-        $("#divEfectivo").show();
-        $("#divTarjeta").hide()
-    })
-
-    $("#btnTarjeta").click(function(){  
-        $("#txtTarjeta").val(pago_debe);
-        $("#divTarjeta").show();
-        $("#divEfectivo").hide();
-        console.log(tipo_pago);
-    })
-
-    $("#btnPagoEfectivo").click(function(){
-        //$("#divTarjeta").hide();
-        pago_efectivo = $("#txtEfectivo").val();
-        pago_acumulado += Number.parseFloat(pago_efectivo);
-
-        pago_debe = verificar_pago(total_factura, pago_acumulado/*, pago_dado*/);
-        suelto = verificar_suelto(pago_debe, total_factura);
-        //pago_debe = pago_pagar;
-        if(pago_debe < 0){
-            pago_total = pago_acumulado;
-            pago_debe_formato = "0.00";
-            suelto = -(pago_debe);
-        }else{
-            pago_debe_formato = pago_debe.toFixed(2);
-            suelto = 0;
-        } 
-        suelto_formato = suelto.toFixed(2);
-        //$("#mdlPago").modal("show");
-        $("#tlPagar").html(total_factura_formato);
-        $("#tlDebe").html(pago_debe_formato);
-        $("#tlPagado").html(suelto_formato);
-        tipo_pago[0].total_pago += Number.parseFloat(pago_efectivo);
-        tipo_pago[0].suelto += Number.parseFloat(suelto);
-        console.log(tipo_pago);
-        $("#divEfectivo").hide();
-    });
-    $("#btnPagoTarjeta").click(function(){
-        //$("#divTarjeta").hide();
-        pago_tarjeta = $("#txtTarjeta").val();
-        pago_acumulado += Number.parseFloat(pago_tarjeta);
-
-        pago_debe = verificar_pago(total_factura, pago_acumulado/*, pago_dado*/);
-        suelto = verificar_suelto(pago_debe, total_factura);
-        //pago_debe = pago_pagar;
-        if(pago_debe < 0){
-            pago_total = pago_acumulado;
-            pago_debe_formato = "0.00";
-            suelto = -(pago_debe);
-        }else{
-            pago_debe_formato = pago_debe.toFixed(2);
-            suelto = 0;
-        } 
-        //pago_debe_formato = pago_debe.toFixed(2);
-        suelto_formato = suelto.toFixed(2);
-        //$("#mdlPago").modal("show");
-        $("#tlPagar").html(total_factura_formato);
-        $("#tlDebe").html(pago_debe_formato);
-        $("#tlPagado").html(suelto_formato);
-        tipo_pago[1].total_pago += Number.parseFloat(pago_tarjeta);;
-        console.log(tipo_pago);
-        $("#divTarjeta").hide();
-    });
-
-
     
 </script>
 </html>

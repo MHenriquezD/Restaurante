@@ -1,45 +1,92 @@
-function verificar_pago(){
-    pago_dado = pago_debe;
-    pago_dado_formato = pago_debe_formato = pago_dado.toFixed(2);
-}
+$("#btnCobrar").click(function(){
+    if(productos != ""){
+        pago_debe = verificar_pago(total_factura, pago_acumulado/*,/* pago_dado*/);
+        suelto = verificar_suelto(pago_debe, total_factura);
+        //pago_debe = pago_pagar;
+        if(pago_debe < 0){
+            pago_total = pago_acumulado;
+            pago_debe_formato = "0.00";
+            suelto = -(pago_debe);
+        }else{
+            pago_debe_formato = pago_debe.toFixed(2);
+            suelto = 0;
+        } 
+        suelto_formato = suelto.toFixed(2);
+        $("#mdlPago").modal("show");
+        $("#tlPagar").html(total_factura_formato);
+        $("#tlDebe").html(pago_debe_formato);
+        $("#tlPagado").html(suelto_formato);
+    }
+})
+$("#btnCerrarModal").click(function(){  
+    $("#mdlPago").modal("hide");
+})
 
-$("#btnPagar").click(function(){
-    $.ajax({
-        url : '/Restaurante/php/punto_venta/crear_factura.php',
-        data : {
-            productos: productos
-        },
-        type : 'POST',
-        dataType : 'json',
+$("#btnEfectivo").click(function(){  
+    $("#txtEfectivo").val(pago_debe);
+    $("#divEfectivo").show();
+    $("#divTarjeta").hide()
+})
 
-        success : function(json) {
-            Swal.fire(
-                'Simón',
-                'Productos enviados',
-                'success'
-            );                
-        },
-        error : function(json) {
-            Swal.fire(
-                'Error',
-                'Error en la conexión con el servidor',
-                'error'
-            );
-        },
+$("#btnTarjeta").click(function(){  
+    $("#txtTarjeta").val(pago_debe);
+    $("#divTarjeta").show();
+    $("#divEfectivo").hide();
+    console.log(tipo_pago);
+})
 
-        // código a ejecutar sin importar si la petición falló o no
-        complete : function(xhr, status) {
-            /*Swal.fire(
-                'Bien!',
-                'Conexión éxitosa',
-                'success'
-            )
-            //alert('Petición realizada');*/
-        }
-    });
+$("#btnPagoEfectivo").click(function(){
+    //$("#divTarjeta").hide();
+    pago_efectivo = $("#txtEfectivo").val();
+    pago_acumulado += Number.parseFloat(pago_efectivo);
+
+    pago_debe = verificar_pago(total_factura, pago_acumulado/*, pago_dado*/);
+    suelto = verificar_suelto(pago_debe, total_factura);
+    //pago_debe = pago_pagar;
+    if(pago_debe < 0){
+        pago_total = pago_acumulado;
+        pago_debe_formato = "0.00";
+        suelto = -(pago_debe);
+    }else{
+        pago_debe_formato = pago_debe.toFixed(2);
+        suelto = 0;
+    } 
+    suelto_formato = suelto.toFixed(2);
+    //$("#mdlPago").modal("show");
+    $("#tlPagar").html(total_factura_formato);
+    $("#tlDebe").html(pago_debe_formato);
+    $("#tlPagado").html(suelto_formato);
+    tipo_pago[0].total_pago += Number.parseFloat(pago_efectivo);
+    tipo_pago[0].suelto += Number.parseFloat(suelto);
+    console.log(tipo_pago);
+    $("#divEfectivo").hide();
 });
+$("#btnPagoTarjeta").click(function(){
+    //$("#divTarjeta").hide();
+    pago_tarjeta = $("#txtTarjeta").val();
+    pago_acumulado += Number.parseFloat(pago_tarjeta);
 
-
+    pago_debe = verificar_pago(total_factura, pago_acumulado/*, pago_dado*/);
+    suelto = verificar_suelto(pago_debe, total_factura);
+    //pago_debe = pago_pagar;
+    if(pago_debe < 0){
+        pago_total = pago_acumulado;
+        pago_debe_formato = "0.00";
+        suelto = -(pago_debe);
+    }else{
+        pago_debe_formato = pago_debe.toFixed(2);
+        suelto = 0;
+    } 
+    //pago_debe_formato = pago_debe.toFixed(2);
+    suelto_formato = suelto.toFixed(2);
+    //$("#mdlPago").modal("show");
+    $("#tlPagar").html(total_factura_formato);
+    $("#tlDebe").html(pago_debe_formato);
+    $("#tlPagado").html(suelto_formato);
+    tipo_pago[1].total_pago += Number.parseFloat(pago_tarjeta);;
+    console.log(tipo_pago);
+    $("#divTarjeta").hide();
+});
 
 $("#btnPagar").click(function(){
     nombre_cliente = $("#txtCliente").val();
@@ -73,7 +120,7 @@ $("#btnPagar").click(function(){
             id_cliente = 0;
             rtn_cliente = "", nombre_cliente = "";
             suelto = 0, suelto_formato = "";
-           
+        
             tipo_pago = [
                 {
                     tipo: 1,
