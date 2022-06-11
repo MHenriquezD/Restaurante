@@ -5,7 +5,12 @@ Mobile: +92 302 6262164
 Skills: xHTML | HTML5 | CSS3 | Bootstrap | Wordpress | Javascript | jQuery | Ajax | PHP-MySQL | Photoshop | Firework | Dreamweaver
 */
 setInterval(verificar_sesion, 1000);
-
+$("input[type=text]").click(function() {
+  $(this).select();
+});
+$("input[type=number]").click(function() {
+  $(this).select();
+});
 
 function verificar_sesion(){
   $.ajax({

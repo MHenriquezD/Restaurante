@@ -1,8 +1,12 @@
 <?php 
 include_once '../php/querys_log.php';
 require '../vendor/autoload.php';
-//require_once '../dompdf/autoload.inc.php';
+require_once '../dompdf/autoload.inc.php';
 use Luecano\NumeroALetras\NumeroALetras;
+
+$logo = "http://".$_SERVER["HTTP_HOST"]. $_SERVER["PHP_SELF"];
+$logo = str_replace("archivos/factura_pdf.php", "img/principal/logo.png", $logo);
+$logo = "data:image/png;base64," . base64_encode(file_get_contents($logo));
 
 //$numero = $_GET["n_fac"];
 $n_fac = $_GET["n_fac"];
@@ -98,7 +102,9 @@ if(isset($rs[0][0])){
             id_factura =".comillas($id_factura);
     $pr = cargar_sql($sql);
     if(isset($pr[0][0])){
+        $cant_prod = 0;
         foreach($pr as $prod){
+
             $sql = "SELECT descripcion, isv FROM productos WHERE id =".$prod[2];
             $prd = cargar_sql($sql);
             $subtotal += $prod[4]*$prod[7];
@@ -111,20 +117,21 @@ if(isset($rs[0][0])){
             }
             $productos .= "
                 <tr>
-                    <td>
-                        ".$prod[7]."
+                    <td  style='border-right: 1px solid #8C8C8C; height: 17px;'>
+                        &nbsp;".$prod[7]."
                     </td>
-                    <td >
-                        ".$prd[0][0]."
-                    </td >
-                    <td class='final'>
-                        L. <span class='Money'>".number_format($prod[5],2,".",",")."</span>
+                    <td style='border-right: 1px solid #8C8C8C; height: 17px;'>
+                        &nbsp;".$prd[0][0]."
+                    </td'>
+                    <td class='final' style='border-right: 1px solid #8C8C8C; height: 17px;'>
+                        L. <span class='Money'>".number_format($prod[5],2,".",",")."&nbsp;</span>
                     </td>
                     <td class='final'>
-                        L. <span class='Money'>".number_format($prod[6],2,".",",")."</span>
+                        L. <span class='Money'>".number_format($prod[6],2,".",",")."&nbsp;</span>
                     </td>
                 </tr>
             ";
+            $cant_prod ++;
         }
         $subtotal = number_format($subtotal, 2, '.', ',');
         $isv_15 = number_format($isv_15, 2, '.', ',');
@@ -139,16 +146,20 @@ if(isset($rs[0][0])){
         if(isset($tp[0][0])){
             foreach($tp as $tipos){
                 if($tipos[0] == 1){
-                    $pago_efectivo = "
-                        <tr class='final'>
-                            <td colspan='3' >Efectivo Recibido</td>
-                            <td>L. ".number_format($tipos[1],2,".",",")."</td>
-                        </tr>
-                        <tr class='final'>
-                            <td colspan='3' class='final'>Cambio Efectivo</td>
-                            <td>L. ".number_format($tipos[2],2,".",",")."</td>
-                        </tr>
-                    ";
+                    if($tipos[1] == 0){
+                        $pago_efectivo = "";
+                    }else{
+                        $pago_efectivo = "
+                            <tr class='final'>
+                                <td width='50%' colspan='3' >Efectivo Recibido&nbsp;</td>
+                                <td width='50%'>L. ".number_format($tipos[1],2,".",",")."&nbsp;</td>
+                            </tr>
+                            <tr class='final'>
+                                <td width='50%' colspan='3' class='final'>Cambio Efectivo&nbsp;</td>
+                                <td width='50%'>L. ".number_format($tipos[2],2,".",",")."&nbsp;</td>
+                            </tr>
+                        ";
+                    }
                 }else if($tipos[0]==2){
                     if($tipos[1] == 0){
                         $pago_tarjeta =" 
@@ -156,18 +167,57 @@ if(isset($rs[0][0])){
                     }else{
                         $pago_tarjeta ="    
                             <tr class='final'>
-                                <td colspan='3'>Pago en tarjeta</td>
-                                <td> L.".number_format($tipos[1],2,".",",")."</td>
+                                <td width='50%' colspan='3'>Pago en tarjeta&nbsp;</td>
+                                <td width='50%'> L.".number_format($tipos[1],2,".",",")."&nbsp;</td>
                             </tr>
                         ";
                     } 
                 }
             }
+            $datos_pago = '
+                <tr class="final">
+                    <td width="50%" colspan="3">Subotal:&nbsp;</td>
+                    <td width="50%" >L. '.$subtotal.'&nbsp;</td>
+                </tr>
+                <tr class="final">
+                    <td width="50%" colspan="3">Gravado ISV 15%:&nbsp;</td>
+                    <td width="50%">L. '.$gravado_15.'&nbsp;</td>
+                </tr>
+                <tr class="final">
+                    <td width="50%" colspan="3">Gravado ISV 18%:&nbsp;</td>
+                    <td width="50%" >L. '.$gravado_18.'&nbsp;</td>
+                </tr>
+                <tr class="final">
+                    <td width="50%" colspan="3">ISV 15%:&nbsp;</td>
+                    <td width="50%" >L. '.$isv_15.'&nbsp;</td>
+                </tr>
+                <tr class="final">
+                    <td width="50%" colspan="3">ISV 18%:&nbsp;</td>
+                    <td width="50%" >L. '.$isv_18.'&nbsp;</td>
+                </tr>
+                <tr class="final">
+                    <td width="50%" colspan="3">Total:&nbsp;</td>
+                    <td width="50%" ><span>L. '.$total_factura.'&nbsp;</span></td>
+                </tr>
+                <tr><td>&nbsp;</td></tr>
+                '.$pago_tarjeta.'
+                '.$pago_efectivo;
         }
     }
 }
 
+for($i = 0; $i < 25-$cant_prod; $i++){
+    $productos .= "
+        <tr>
+            <td  style='border-right: 1px solid #8C8C8C;'>&nbsp;</td>
+            <td  style='border-right: 1px solid #8C8C8C;'>&nbsp;</td>
+            <td class='final' style='border-right: 1px solid #8C8C8C;'>&nbsp;</td>
+            <td class='final'>&nbsp;</td>
+        </tr>
+    ";
+}
 
+//echo 14 -$cant_prod;
 $html = '
 <!DOCTYPE html>
 <html lang="en">
@@ -186,6 +236,7 @@ $html = '
         @font-face { font-family: Roboto; src: url("chrome-extension://mcgbeeipkmelnpldkobichboakdfaeon/css/Roboto-Regular.ttf"); }
         body {
             font-size: 14px !important;
+            font-family: "Roboto", sans-serif;
             /*width: 25%;*/
         }
         .cabecera {
@@ -211,35 +262,47 @@ $html = '
             border-top: 1px solid gray;
         }
         @page {
-            margin: 10px;
+            margin: 20px;
+        }
+        #productos {
+            /*background-color: #6CB7DA;*/
+            color: #070707;
+        }
+        #tbProductos {
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
     <div width="100%">
-        <div style="border: 1px solid #8C8C8C; margin 10px; border-radius: 15px;">
+        <div style="border: 1px solid #8C8C8C; margin 10px; border-radius: 15px; ">
             <table>
                 <tr>
-                    <td>
+                    <td width="20%" class="cabecera">
+                        <img src="'.$logo.'" alt="logo.png" width="120px"><br>
                     </td>
-                    <td>
-                        <div style="margin: 10px;">
+                    <td width="60%">
+                        <div style="margin: 10px; text-align: left;" >
                             <span>'.$nombre.'</span><br>
-                            <span>'.$direccion.'</span><br>
-                            <span>RTN: '.$rtn.'</span><br>
-                            <span>'.$telefono.'</span><br>
-                            <span>'.$correo.'</span><br>
-                            <span>Original Cliente / Copia Obligado Tributario</span><br><br>
-                            <span>Factura</span><br>
-                            <span>'.$n_fac.'</span><br>
-                            <span>CAI #</span><br>
-                            <span>'.$cai.'</span>
+                            <span><strong>Direccion:</strong> '.$direccion.'</span><br>
+                            <span><strong>RTN:</strong> '.$rtn.'</span><br>
+                            <span><strong>Teléfono:</strong> '.$telefono.'</span><br>
+                            <span><strong>Correo:</strong> '.$correo.'</span><br>
+                            <span><strong>CAI #</strong></span><br>
+                            <span>'.$cai.'</span><br>
+                            <span><strong>Rango Autorizado:</strong> <br>'.$rango.'</span>
                         </div>
                     </td>
-                    <td valign="top">
+                    <td width="20%" style="font-size: 14px;">
                         <div class="cabecera" valign="top">
-                            FACTURA:<br>
-                            No. '.$izquierda.'<span style="color: #c00">'.$derecha.'</span>
+                            FACTURA No:<br>
+                            '.$izquierda.'-<span style="color: #c00">'.$derecha.'</span>
+                        </div>
+                        <div>
+                            &nbsp;
+                        </div>
+                        <div class="cabecera" valing="bottom">
+                            Fecha: <br>'.$fecha.' '.$hora.'
                         </div>
                     </td>
                 </tr>
@@ -249,95 +312,66 @@ $html = '
 
         
 
-        <div  class="cliente m-3">
+        <div width="100%">
+            <div>
+                &nbsp;
+            </div>
+            <div style="border-collapse: collapse; border-radius: 5px !important; border: 1px solid #8C8C8C">
+                <table width="100%" style="border-collapse: collapse; border: 0px solid #8C8C8C">
+                    <tr>
+                        <td width="10%" style="background-color: #8C8C8C; color: #fff;margin: 10px; border-radius: 4px 0px 0px 4px">&nbsp;Cliente:</td>
+                        <td width="40%">&nbsp;'.$nombre_cliente.'</td>
+                        <td width="10%" style="background-color: #8C8C8C; color: #fff;">&nbsp;RTN/DNI:</td>
+                        <td width="40%">&nbsp;'.$rtn_cliente.'</td>
+                    </tr>
+                </table>
+            </div>
+            <div>&nbsp;</div>
+            <div style="border-collapse: collapse; border-radius: 10px !important; border: 1px solid #8C8C8C">
+                <table id="tbProductos" style="border-collapse: collapse; border-radius: 10px !important; border: 0px solid #8C8C8C">
+                    <thead>
+                        <tr class="cabecera" style="background-color: #272725; color: #fff;">
+                            <th width="10%" style="border-top: none; border-right: 1px solid #8C8C8C; border-radius: 10px 0px 0px 0px !important;">Cant.</th>
+                            <th width="45%" style="border-top: none; border-right: 1px solid #8C8C8C;">Descripción</th>
+                            <th width="22.5%" style="border-top: none; border-right: 1px solid #8C8C8C;">Precio Unitario</th>
+                            <th width="22.5%" style="border-top: none;border-radius: 0px 10px 0px 0px !important;">Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productos">
+                        '.$productos.'
+                    </tbody>
+                    
+                </table>
+            </div>
             <table>
-                <tbody>
+                <tbody >
                     <tr>
-                        <td class="negrita">ID#</td>
-                        <td>'.$id_factura.'</td>
-                    </tr>
-                    <tr>
-                        <td class="negrita">RTN</td>
-                        <td>'.$rtn_cliente.'</td>
-                    </tr>
-                    <tr>
-                        <td class="negrita">Nombre</td>
-                        <td>'.$nombre_cliente.'</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <table>
-                                <tr>
-                                    <td class="negrita">Fecha</td>
-                                    <td>'.$fecha.'</td>
-                                    <td class="negrita">Hora</td>
-                                    <td>'.$hora.'</td>
-                                </tr>
+                        <td width="55%" valign="top" >
+                        <div>&nbsp;</div>
+                            <div style="width: 100%; background-color: #8C8C8C; border: 1px solid #000; border-radius: 30%; color: #fff;">
+                                &nbsp;&nbsp;&nbsp;Valor en letras: <br>
+                                &nbsp;&nbsp;&nbsp;'.$total_letras.' LEMPIRAS
+                            </div>
+                            <br>
+                            <strong>LA FACTURA ES BENEFICIO DE TODOS "EXIJALA"</strong>
+                        </td>
+                        <td width="45%">
+                            <table  style="border-collapse: collapse; border-radius: 5px !important; font-siz3: 13px;">
+                                '.$datos_pago.'
                             </table>
                         </td>
                     </tr>
                 </tbody>
             </table>
-            <table style="border-top: 2px solid black;" id="tbProductos">
-                <thead>
-                    <tr class="cabecera bd">
-                        <th class="bd" width="10%">Cant.</th>
-                        <th width="45%">Descripción</th>
-                        <th width="22.5%">P.U.</th>
-                        <th width="22.5%">Valor</th>
-                    </tr>
-                </thead>
+            <table style="border-collapse: collapse;">
                 <tbody>
-                    '.$productos.'
+                    <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
                     <tr>
-                        <td colspan="3"></td>
-                        <td class="bd"></td>
-                    </tr>
-                </tbody>
-                <tfoot >
-                    <tr class="final">
-                        <td colspan="3">Subotal:</td>
-                        <td colspan="3">L. '.$subtotal.'</td>
-                    </tr>
-                    <tr class="final">
-                        <td colspan="3">Gravado ISV 15%:</td>
-                        <td colspan="3" class="Money">L. '.$gravado_15.'</td>
-                    </tr>
-                    <tr class="final">
-                        <td colspan="3">Gravado ISV 18%:</td>
-                        <td colspan="3" class="Money">L. '.$gravado_18.'</td>
-                    </tr>
-                    <tr class="final">
-                        <td colspan="3">ISV 15%:</td>
-                        <td colspan="3" class="Money">L. '.$isv_15.'</td>
-                    </tr>
-                    <tr class="final">
-                        <td colspan="3">ISV 18%:</td>
-                        <td colspan="3" class="Money">L. '.$isv_18.'</td>
-                    </tr>
-                    <tr class="final">
-                        <td colspan="3">Total:</td>
-                        <td colspan="3" ><span class="Money">L. '.$total_factura.'</span></td>
-                    </tr>
-                    <tr><td>&nbsp;</td></tr>
-                    '.$pago_tarjeta.'
-                    '.$pago_efectivo.'
-                    
-                </tfoot>
-            </table>
-            <table class="cabecera" >
-                <tbody>
-                    <tr><td>&nbsp;</td></tr>
-                    <tr>
-                        <td class="cabecera">
-                            '.$total_letras.' LEMPIRAS
+                        <td width="30%">
+                            ORIGINAL: CLIENTE 
                         </td>
+                        <td>COPIA: EMISOR</td>
                     </tr>
-                    <tr>
-                        <td>Rango Autorizado: <br> '.$rango.'</td>
-                    </tr>
-                    <tr><td>&nbsp;</td></tr>
-                    <tr><td><strong>La factura es derecho de todos, exígala.</strong></td></tr>
                 </tbody>
             </table>
         </div>
@@ -346,8 +380,8 @@ $html = '
 </html>';
 
 
-
-/*echo $html;
+/*/
+echo $html;
 /**/
 use Dompdf\Dompdf;
 
@@ -355,7 +389,7 @@ use Dompdf\Dompdf;
 $dompdf = new Dompdf();
 
 // (Optional) Setup the paper size and orientation
-$dompdf->setPaper('A4', 'portrait');
+$dompdf->setPaper('carta', 'portrait');
 
 $dompdf->loadHtml($html);
 

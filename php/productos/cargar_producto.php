@@ -11,7 +11,8 @@ $sql =
         fecha_creacion, 
         usuario, 
         estado,
-        isv
+        isv,
+        ruta_imagen
     FROM
         productos
     WHERE
@@ -30,6 +31,7 @@ if(isset($rs[0][0])){
         $data[$n]["usuario"] = $productos[7];
         $data[$n]["estado"] = $productos[8];
         $data[$n]["isv"] = $productos[9];
+        $data[$n]["ruta_imagen"] = $productos[10];
         $n++;
     }
 }

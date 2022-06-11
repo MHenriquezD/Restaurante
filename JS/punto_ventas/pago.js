@@ -1,3 +1,9 @@
+$("input[type=text]").click(function() {
+    $(this).select();
+  });
+  $("input[type=number]").click(function() {
+    $(this).select();
+  });
 $("#btnCobrar").click(function(){
     if(productos != ""){
         pago_debe = verificar_pago(total_factura, pago_acumulado/*,/* pago_dado*/);
@@ -141,8 +147,8 @@ $("#btnPagar").click(function(){
             $(".totalFac").html("L. "+total_factura_formato);
             $("#mdlPago").modal("hide");
             $("#tbProductos").html("");
-            //window.open('../archivos/ticket?n_fac='+data["comentario"], '_blank');
-            window.location.href = '../archivos/ticket?n_fac='+data["comentario"];
+            window.open('../archivos/ticket?n_fac='+data["comentario"], '_blank');
+            //window.location.href = '../archivos/ticket?n_fac='+data["comentario"];
             /*Swal.fire(
                 'Bien',
                 'funcionó',

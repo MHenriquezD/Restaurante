@@ -5,10 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Productos</title>
-    <link rel="icon" type="image/png" sizes="16x16" href="/Restaurante/img/iconos/logo.ico">
-    <link href="/Restaurante/fontawesome/css/all.min.css" rel="stylesheet">
-    <link href="/Restaurante/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/Restaurante/select2/dist/css/select2.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="16x16" href="../..//img/iconos/logo.ico">
+    <link href="../../fontawesome/css/all.min.css" rel="stylesheet">
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../select2/dist/css/select2.min.css" rel="stylesheet">
     <style>
         .col-6 {
             margin: 5px 0px;
@@ -155,8 +155,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-3"></div>
-                                                    <div class="col-6">
+                                                    <div class="col-4">
                                                         <div class="row">
                                                             <div class="col-lg-2">
                                                                 <label for="fileImg">Imagen</label>
@@ -166,8 +165,24 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <div class="col-4">
+                                                        <div class="row">
+                                                            <div class="col-lg-8">
+                                                                <label for="chkImagen">Eliminar Imagen</label>
+                                                            </div>
+                                                            <div class="col-lg-4 text-center">
+                                                                <input type="checkbox" id="chkImagen">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <div class="row">
+                                                            <div id="imgCargada" class="text-center">
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="col-3"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -183,47 +198,28 @@
         </div>
     </div>
 </body>
-<script type="text/javascript" src="/Restaurante/js/jquery-3.6.0.js"></script>
-<script type="text/javascript" src="/Restaurante/sweetalert2/dist/sweetalert2.all.min.js"></script>
-<script type="text/javascript" src="/Restaurante/JS/conectar.js"></script>
-<script type="text/javascript" src="/Restaurante/bootstrap/bootstrap/bootstrap.min.js"></script>
-<script type="text/javascript" src="/Restaurante/JS/utilidades/fecha.js"></script>
-<script type="text/javascript" src="/Restaurante/select2/dist/js/select2.min.js"></script>
-<script type="text/javascript" src="/Restaurante/js/productos/productos.js"></script>
+<script type="text/javascript" src="../../js/jquery-3.6.0.js"></script>
+<script type="text/javascript" src="../../sweetalert2/dist/sweetalert2.all.min.js"></script>
+<script type="text/javascript" src="../../JS/conectar.js"></script>
+<script type="text/javascript" src="../../bootstrap/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../JS/utilidades/fecha.js"></script>
+<script type="text/javascript" src="../../select2/dist/js/select2.min.js"></script>
+<script type="text/javascript" src="../../js/productos/productos.js"></script>
+<script type="text/javascript" src="../../jQueryMask/dist/jquery.mask.min.js"></script>
 <script>
-    $("#fileImg").change(prueba);
+    $("#fileImg").change(function () {
+        filePreview(this);
+    });
 
-    function prueba(evento){
-        evento.preventDefault();
-        var formData = new FormData($("#formProductos")[0]);
-        var archivo = $("#fileImg")[0].files[0];
-        formData.append('file',archivo);
-        nombre = $("#txtNombreProducto").val();
-        descripcion = $("#txtDescripcionProducto").val();
-        precio = $("#txtPrecioProducto").val();
-        isv = $("#slcImpuesto").val();
-        console.log(formData);
-        formData.append('POST',nombre);
-        formData.append('POST',descripcion);
-        formData.append('POST',precio);
-        formData.append('POST',isv);
-
-        $.ajax(
-        {
-            url: '../../php/prueba.php',
-            dataType: "json",
-            type: "POST",
-            data: formData,
-            contentType: false,
-            processData: false,
-            success: function (data)
-            {
-                nombre_archivo = data["n_img"];
-                ruta_archivo = data["n_temp"];
-                tipo_archivo = data["n_tipo"];
-                alert("Nombre: "+nombre_archivo+"<br>Ruta: "+ruta_archivo+"<br>Tipo: "+tipo_archivo);
+    function filePreview(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.readAsDataURL(input.files[0]);
+            reader.onload = function (e) {
+                $('#imgCargada + img').remove();
+                $('#imgCargada').html('<img src="'+e.target.result+'" width="100px"/>');
             }
-        });
+        }
     }
 </script>
 </html>

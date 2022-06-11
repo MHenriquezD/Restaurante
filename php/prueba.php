@@ -6,14 +6,16 @@ echo "<br>";
 echo $_SERVER['REMOTE_ADDR'];
 */
 
-echo $_POST["nombre"];
+$nombre = $_POST["nombre"].".png";
 if (($_FILES["file"]["type"] == "image/pjpeg")
     || ($_FILES["file"]["type"] == "image/jpeg")
     || ($_FILES["file"]["type"] == "image/png")
     || ($_FILES["file"]["type"] == "image/gif")) {
-    if (move_uploaded_file($_FILES["file"]["tmp_name"], "../img/productos/".$_FILES['file']['name'])) {
+    if (move_uploaded_file($_FILES["file"]["tmp_name"], "../img/productos/".$nombre)) {
         //more code here...
-        echo "img/".$_FILES['file']['name'];
+        $ruta = "http://".$_SERVER["HTTP_HOST"]. $_SERVER["PHP_SELF"];
+        $ruta = str_replace("php/prueba.php", "img/productos/".$nombre, $ruta);
+        echo $ruta;
     } else {
         echo 0;
     }

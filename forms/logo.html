@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logo</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="../img/iconos/logo.ico">
+    <link href="../fontawesome/css/all.min.css" rel="stylesheet">
+    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../select2/dist/css/select2.min.css" rel="stylesheet">
+    <link href="../jqueryUI/jquery-ui.min.css" rel="stylesheet">
+    <style>
+        #bgCabecera {
+            background-color: #E0DCDD;
+        }
+        a {
+            color: #2E7CA8;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #61A2DA;
+        }
+        body {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div id="error"></div>
+    <div class="container" id="informacion">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="container my-3 rounded-pill" id="bgCabecera" style="font-weight: bold;">
+                    <div class="row my-3">
+                        <div class="col my-3"></div>
+                        <div class="col-7 my-3"><h4 id="titulo">Logo</h4></div>
+                        <div class="col-3 my-3 font-weight-bold" style="text-align: right;">
+                            <h4 id="fecha"></h4>
+                        </div>
+                        <div class="col my-3"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid" id="divBotones"> 
+                <div class="row">
+                    <div class="col-2"></div>
+                    <div class="col-8 text-center">
+                        <button type="button" class="btn btn-success" id="btnGuardar">
+                            <i class="fa-solid fa-floppy-disk"></i>
+                            Guardar
+                        </button>
+                    </div>
+                    <div class="col-2"></div>
+                </div>
+            </div>
+            <div class="col-lg-12 my-5">
+                <form action="" id="formLogos">
+                    <div class="row form-group">
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <div class="col-lg-12 text-center" id="imgLogoCarga"></div>
+                                <div class="col-lg-12">
+                                    <label for="imgLogo">Logo</label>
+                                    <input type="file" class="form-control" id="imgLogo" accept="image/gif,image/jpeg,image/jpg,image/png">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <div class="col-lg-12 text-center" id="imgMarcaCarga"></div>
+                                <div class="col-lg-12">
+                                    <label for="imgMarca">Marca Agua</label>
+                                    <input type="file" class="form-control" id="imgMarca" accept="image/gif,image/jpeg,image/jpg,image/png">
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../js/jquery-3.6.0.js"></script>
+<script type="text/javascript" src="../sweetalert2/dist/sweetalert2.all.min.js"></script>
+<script type="text/javascript" src="../JS/utilidades/fecha.js"></script>
+<script type="text/javascript" src="../bootstrap/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="../select2/dist/js/select2.min.js"></script>
+<script type="text/javascript" src="../jqueryUI/jquery-ui.min.js"></script>
+<script type="text/javascript" src="../jQueryMask/dist/jquery.mask.min.js"></script>
+<script type="text/javascript" src="../JS/punto_ventas/autocomplete.js"></script>
+<script type="text/javascript" src="../JS/punto_ventas/productos.js"></script>
+<script type="text/javascript" src="../JS/verificar_sesion.js"></script>
+<script>
+    cargar_logos();
+    $("#imgLogo").change(function () {
+        cargar_logo(this);
+    });
+    $("#imgMarca").change(function () {
+        cargar_marca(this);
+    });
+
+    function cargar_logo(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.readAsDataURL(input.files[0]);
+            reader.onload = function (e) {
+                $('#imgLogoCarga + img').remove();
+                $('#imgLogoCarga').html('<img src="'+e.target.result+'" width="150px" height="150px"/>');
+            }
+        }
+    }
+    function cargar_marca(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.readAsDataURL(input.files[0]);
+            reader.onload = function (e) {
+                $('#imgMarcaCarga + img').remove();
+                $('#imgMarcaCarga').html('<img src="'+e.target.result+'" width="150px" height="150px"/>');
+            }
+        }
+    }
+
+    function cargar_logos(){
+        $.ajax({
+            url : '../php/cargar_logo.php',
+            data : {},
+            type : 'POST',
+            dataType : 'json',
+
+            success : function(data) {
+                $('#imgMarcaCarga').html('<img src="'+data["marca"]+'" width="150px" height="150px" alt="marca_agua.png"/>');
+                $('#imgLogoCarga').html('<img src="'+data["logo"]+'" width="150px" height="150px" alt="logo.png"/>');
+            },
+            error : function(data) {
+                Swal.fire(
+                    'Error',
+                    'Error en la conexión con el servidor',
+                    'error'
+                );
+            },
+
+            // código a ejecutar sin importar si la petición falló o no
+            complete : function(xhr, status) {
+                /*Swal.fire(
+                    'Bien!',
+                    'Conexión éxitosa',
+                    'success'
+                )
+                //alert('Petición realizada');*/
+            }
+        });
+    }
+    $("#btnGuardar").click(function(){
+        var imgLogo = document.getElementById("imgLogo");
+        var imgMarca = document.getElementById("imgMarca");
+        if(imgLogo.files.length == 0){
+            Swal.fire(
+                'Error',
+                'Ambos arvhivos obligatorios',
+                'error'
+            );
+            return;
+        }else if(imgMarca.files.length == 0){
+            Swal.fire(
+                'Error',
+                'Ambos archivos obligatorios',
+                'error'
+            );
+            return;
+        }else{
+            //alert("no");
+            add_logo();
+            add_marca();
+            Swal.fire(
+                'Bien',
+                'Los archivos han sido guardados con éxito',
+                'success'
+            );
+        }
+    });
+    function add_logo(){
+        var logo = new FormData($("#formLogos")[0]);
+        var archivo = $("#imgLogo")[0].files[0];
+        logo.append('file',archivo);
+        //console.log(formData);
+        ruta = "";
+        $.ajax(
+        {
+            url: '../php/add_logo_empresa.php',
+            dataType: "json",
+            type: "POST",
+            data: logo,
+            contentType: false,
+            processData: false,
+            success: function (data)
+            {
+                
+            }
+        });
+    }
+    function add_marca(){
+        var marca = new FormData($("#formLogos")[0]);
+        var archivo = $("#imgMarca")[0].files[0];
+        marca.append('file',archivo);
+        //console.log(formData);
+        ruta = "";
+        $.ajax(
+        {
+            url: '../php/add_marca_empresa.php',
+            dataType: "json",
+            type: "POST",
+            data: marca,
+            contentType: false,
+            processData: false,
+            success: function (data)
+            {
+                
+            }
+        });
+    }
+</script>
+</html>

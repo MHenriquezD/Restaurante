@@ -5,17 +5,38 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Productos</title>
-    <link rel="icon" type="image/png" sizes="16x16" href="/Restaurante/img/iconos/logo.ico">
-    <link href="/Restaurante/fontawesome/css/all.min.css" rel="stylesheet">
-    <link href="/Restaurante/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="16x16" href="../..//img/iconos/logo.ico">
+    <link href="../..//fontawesome/css/all.min.css" rel="stylesheet">
+    <link href="../..//bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.linearicons.com/free/1.0.0/svgembedder.min.js"></script>
+    <style>
+        .col-6 {
+            margin: 5px 0px;
+        }
+        .mg-button {
+            margin: -4px;
+        }
+        .centro {
+            text-align: center;
+        }
+        .final {
+            text-align: end;
+        }
+        #bgCabecera {
+            background-color: #E0DCDD;
+        }
+    </style>
 </head>
 <body>
     <div class="container-fluid">
         <div class="container" id="divEncabezado">
-            <div class="row">
-                <div class="col-12">
+            <div class="row my-3 rounded-pill" id="bgCabecera">
+                <div class="col my-3"></div>
+                <div class="col-7 my-3"><h4>Productos</h4></div>
+                <div class="col-3 my-3 font-weight-bold" style="text-align: right;">
+                    <h4 id="fecha"></h4>
                 </div>
+                <div class="col my-3"></div>
             </div>
         </div>
         <div class="container" id="divBotones">
@@ -27,17 +48,102 @@
         <div class="container-fluid" id="divProducto">
             <div class="container" id="divProductBotones"></div>
             <div class="row">
-                <div class="col-12">
+                <div class="col-lg-12">
+                    <form id="formProductos">
+                          <div class="form-group" id="divInformacion">
+                              <div class="container-fluid my-2">
+                                  <div class="row">
+                                      <div class="col-12">
+                                          <div class="row">
+                                              <div class="col-6">
+                                                  <div class="row">
+                                                      <div class="col-lg-2">
+                                                          <label for="txtNombreProducto">Nombre</label>
+                                                      </div>
+                                                      <div class="col-lg-10">
+                                                          <input type="text" class="col-lg-12 col-xs-12"  maxlength="50"  id="txtNombreProducto" name="nombre">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-6">
+                                                  <div class="row">
+                                                      <div class="col-lg-2">
+                                                          <label for="txtDescripcionProducto">Descripción</label>
+                                                      </div>
+                                                      <div class="col-lg-10">
+                                                          <input type="text" class="col-sm-12 col-xs-12" maxlength="150"  id="txtDescripcionProducto">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-6">
+                                                  <div class="row">
+                                                      <div class="col-lg-2">
+                                                          <label for="txtPrecioProducto">Precio</label>
+                                                      </div>
+                                                      <div class="col-lg-10">
+                                                          <input type="number" maxlength="12" class="form-control money" style="text-align: right;" value="0" id="txtPrecioProducto">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-6">
+                                                  <div class="row">
+                                                      <div class="col-3">
+                                                          <div class="row">
+                                                              <div class="col-lg-4">
+                                                                  <label for="chkEstado">Activo</label>
+                                                              </div>
+                                                              <div class="col-lg-8 text-center">
+                                                                  <input type="checkbox" id="chkEstado">
+                                                              </div>
+                                                          </div>
+                                                      </div>
+                                                      <div class="col-9">
+                                                          <div class="row">
+                                                              <div class="col-lg-2">
+                                                                  <label for="slcImpuesto">Impuesto</label>
+                                                              </div>
+                                                              <div class="col-lg-10">
+                                                                  <select id="slcImpuesto" class="col-lg-12 col-xs-12"></select>
+                                                              </div>
+                                                          </div>
+                                                                  
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="col-3"></div>
+                                              <div class="col-6">
+                                                  <div class="row">
+                                                      <div class="col-lg-2">
+                                                          <label for="fileImg">Imagen</label>
+                                                      </div>
+                                                      <div class="col-lg-10">
+                                                          <input type="file"  id="fileImg" class="form-control" accept="image/gif,image/jpeg,image/jpg,image/png">
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="col-3"></div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                        
+                    </form>
                 </div>
+                <div class="col-lg-6"></div>
             </div>
         </div>
     </div>
     
 </body>
-<script type="text/javascript" src="/Restaurante/js/jquery-3.6.0.js"></script>
-<script type="text/javascript" src="/Restaurante/node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
-<script type="text/javascript" src="/Restaurante/JS/conectar.js"></script>
-<script type="text/javascript" src="/Restaurante/bootstrap/bootstrap/bootstrap.min.js"></script>
-<script type="text/javascript" src="/Restaurante/bootstrap/bootstrap/bootstrap.min.js.map"></script>
-<script type="text/javascript" src="/Restaurante/JS/utilidades/fecha.js"></script>
+<script type="text/javascript" src="../../js/jquery-3.6.0.js"></script>
+<script type="text/javascript" src="../../sweetalert2/dist/sweetalert2.all.min.js"></script>
+<script type="text/javascript" src="../../bootstrap/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../JS/utilidades/fecha.js"></script>
+<script type="text/javascript" src="../../select2/dist/js/select2.min.js"></script>
+<script type="text/javascript" src="../../js/productos/productos.js"></script>
+<script>
+    cargar_impuestos();
+
+</script>
 </html>
