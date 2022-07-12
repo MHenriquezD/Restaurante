@@ -31,7 +31,7 @@ $sql_insert =
         (nombre, descripcion, precio, imagen, nombre_imagen, fecha_creacion, usuario, estado, isv) 
     VALUES 
         ($nombre, $descripcion, $precio, $imagen, $nombre_imagen, $fecha, $usuario, $estado, $isv)";
-//echo $sql;
+echo $sql_insert;
 $respuesta = ejecutar_sql($sql_insert);
 $sql = "
     SELECT MAX(id)

@@ -241,10 +241,11 @@ $("#btnSaveProducto").click(function(){
             if(imagen_nueva.files.length == 0){
                 //alert("si");
                 ruta="";
-                guardar_producto(ruta);
+                img = "";
+                guardar_producto(ruta, img);
             }else{
-                //alert("no");
                 add_imagen();
+                //alert("no");
             }
             
             usr_user = "";
@@ -376,9 +377,10 @@ function add_imagen(){
     formData.append('file',archivo);
     console.log(formData);
     ruta = "";
+    //alert("hola");
     $.ajax(
     {
-        url: '../../php/productos/add_img.php',
+        url: '../../php/productos/save_img.php',
         dataType: "json",
         type: "POST",
         data: formData,
@@ -387,7 +389,9 @@ function add_imagen(){
         success: function (data)
         {
             ruta = data["ruta"];
-            guardar_producto(ruta);
+            img = data["imagen"];
+            //alert(img);
+            guardar_producto(ruta, img);
             //alert(ruta);
         }
     });
@@ -411,6 +415,7 @@ function add_imagen_nuevo(id_producto){
         success: function (data)
         {
             ruta = data["ruta"];
+            img = data["imagen"];
             $.ajax({
                 url : '../../php/productos/editar_productos.php',
                 data : {
@@ -467,13 +472,13 @@ function add_imagen_nuevo(id_producto){
 
 }
 
-function guardar_producto(ruta){
+function guardar_producto(ruta, img){
     nombre = $("#txtNombreProducto").val();
     descripcion = $("#txtDescripcionProducto").val();
     precio = $("#txtPrecioProducto").val();
     isv = $("#slcImpuesto").val();
     //alert(isv);
-    img = "";
+    
     //alert(id_producto);
     if( $('#chkEstado').is(':checked') ) {
         estado_producto = 1;

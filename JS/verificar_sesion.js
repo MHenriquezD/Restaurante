@@ -6,7 +6,7 @@ function verificar_sesion(){
         dataType : 'json',
 
         success : function(json) {
-            if(json == 1){
+            if(json["respuesta"] == 1){
             //window.location.href = "../login.html";
             console.log("Conexion segura");
             }else{

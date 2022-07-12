@@ -8,10 +8,10 @@ if (($_FILES["file"]["type"] == "image/pjpeg")
     if (move_uploaded_file($_FILES["file"]["tmp_name"], "../../img/productos/".$nombre)) {
         //more code here...
         $imagen = $_FILES["file"]["tmp_name"];
-        $imgContent = addslashes(file_get_contents($imagen));
-        $data["imagen"] = $imgContent;
+        //$imgContent = addslashes(file_get_contents($imagen));
+        //$data["imagen"] = $imgContent;
         $ruta = "http://".$_SERVER["HTTP_HOST"]. $_SERVER["PHP_SELF"];
-        $data["ruta"] = str_replace("php/productos/add_img.php", "img/productos/".$nombre, $ruta);
+        $data["ruta"] = str_replace("php/productos/save_img.php", "img/productos/".$nombre, $ruta);
         $data["imagen"] = $data["ruta"];
         echo json_encode($data);
     } else {

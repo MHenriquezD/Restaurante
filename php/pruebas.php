@@ -1,8 +1,12 @@
 <?php
 include_once '../php/querys_log.php';
-$sql = "SELECT ruta_imagen FROM productos WHERE id = 26";
-echo $sql;
+$sql = "SELECT imagen FROM productos WHERE id = 27";
+//echo $_SERVER['DOCUMENT_ROOT'];
+echo "<br>";
 $rs = cargar_sql($sql);
+echo "<img src='".$rs[0][0]."'>";
+//echo $rs[0][0];
+return;
 $ruta = "http://".$_SERVER["HTTP_HOST"]. $_SERVER["PHP_SELF"];
 $ruta = str_replace("http://", "", $rs[0][0]);
 echo $ruta;
