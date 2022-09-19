@@ -1,3 +1,33 @@
+<?php
+include_once '../querys.php';
+
+$data = array();
+$kanban = "";
+$n= 0;
+$sql = 
+    "SELECT 
+        id,
+        estado,
+        nombre
+    FROM estados
+    ";
+$rs = cargar_sql($sql);
+if(isset($rs[0][0])){
+    foreach($rs as $cai){
+        $cartas = '{
+            "id"   : "'.$cai[0].'",
+            "title": "'.$cai[0].'"
+        }';
+        $data[$n]["id"] = $cai[0];
+        $data[$n]["estado"] = $cai[1];
+        $data[$n]["nombre"] = $cai[2];
+        $n++;
+    }
+    $data["cantidad"] = $n;
+    $data["respuesta"] = 1;
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -78,6 +108,7 @@
     <script src="../JS/cargar_estados.js"></script>
     <script>
       var cartas = "";
+      var carta = <?php echo  $cartas; ?>;
       var KanbanTest = new jKanban({
         element: "#myKanban",
         gutter: "10px",
@@ -126,7 +157,7 @@
         },
         
         boards: [
-          cartas,
+          carta,
           /*{
               "id"    : "board-id-1",               // id of the board
               "title" : "Board Title",              // title of the board
@@ -151,7 +182,7 @@
       ]
       });
 
-      var toDoButton = document.getElementById("addToDo");
+      /*var toDoButton = document.getElementById("addToDo");
       toDoButton.addEventListener("click", function() {
         KanbanTest.addElement("_todo", {
           title: "Test Add"
@@ -199,7 +230,7 @@
       var allEle = KanbanTest.getBoardElements("_todo");
       allEle.forEach(function(item, index) {
         //console.log(item);
-      });
+      });*/
     </script>
   </body>
 </html>

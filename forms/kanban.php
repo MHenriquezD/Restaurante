@@ -1,3 +1,63 @@
+<?php
+include_once '../php/querys_log.php';
+
+$data = array();
+$cartas = "";
+//$tareas = "";
+$n= 0;
+$sql = 
+    "SELECT 
+        id,
+        estado,
+        nombre
+    FROM estados
+    ";
+$rs = cargar_sql($sql);
+if(isset($rs[0][0])){
+    foreach($rs as $estado){
+
+      $sql = 
+      "SELECT 
+          id,
+          nombre,
+          estado,
+          descripcion
+      FROM tarea
+      WHERE estado = $estado[0]
+      ";
+      $es = cargar_sql($sql);
+      if(isset($es[0][0])){
+        $tareas = "";
+        foreach($es as $tarea){
+          $tareas .= '{
+            "id"    : "'.$tarea[0].'",        
+            "title" : "'.$tarea[1].'" ,
+            "content" : "'.$tarea[3].'",           
+            "class" : ["tareas"]     
+          },';
+        }
+      $cartas .= '{
+        "id"   : "'.$estado[0].'",
+        "title": "'.$estado[2].'",
+        "class" : "tarjeta",
+        "item"  : [   
+              '.$tareas.'
+        ]
+      },';
+    }
+
+      
+      
+      /*$data[$n]["id"] = $cai[0];
+      $data[$n]["estado"] = $cai[1];
+      $data[$n]["nombre"] = $cai[2];
+      $n++;*/
+    }
+    $data["cantidad"] = $n;
+    $data["respuesta"] = 1;
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -49,12 +109,28 @@
         text-decoration: none;
         display: inline-block;
         font-size: 16px;
-      }      
+      }
+      
+      .tarjeta{
+        background-color: #B5B5B3;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+
+      }
+
+      .kanban-board{
+        border-radius: 15px;
+      }
+      
+      .tareas {
+        background-color: #8CABD9;
+        color: #fff;
+      }
     </style>
   </head>
   <body>
     <div id="myKanban"></div>
-    <button id="addDefault">Add "Default" board</button>
+    <!--<button id="addDefault">Add "Default" board</button>
     <br />
     <button id="addToDo">Add element in "To Do" Board</button>
     <br />
@@ -62,7 +138,7 @@
     <br />
     <button id="removeBoard">Remove "Done" Board</button>
     <br />
-    <button id="removeElement">Remove "My Task Test"</button>
+    <button id="removeElement">Remove "My Task Test"</button>-->
 
     
     <script type="text/javascript" src="../js/jquery-3.6.0.js"></script>
@@ -78,10 +154,11 @@
     <script src="../JS/cargar_estados.js"></script>
     <script>
       var cartas = "";
+      //var carta = 
       var KanbanTest = new jKanban({
         element: "#myKanban",
         gutter: "10px",
-        widthBoard: "450px",
+        widthBoard: "350px",
         itemHandleOptions:{
           enabled: true,
         },
@@ -126,7 +203,7 @@
         },
         
         boards: [
-          cartas,
+          <?php echo  $cartas; ?>,
           /*{
               "id"    : "board-id-1",               // id of the board
               "title" : "Board Title",              // title of the board
@@ -151,7 +228,7 @@
       ]
       });
 
-      var toDoButton = document.getElementById("addToDo");
+      /*var toDoButton = document.getElementById("addToDo");
       toDoButton.addEventListener("click", function() {
         KanbanTest.addElement("_todo", {
           title: "Test Add"
@@ -199,7 +276,7 @@
       var allEle = KanbanTest.getBoardElements("_todo");
       allEle.forEach(function(item, index) {
         //console.log(item);
-      });
+      });*/
     </script>
   </body>
 </html>
