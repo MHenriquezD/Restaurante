@@ -46,12 +46,13 @@
                 <table class="table table-hover table-sm table-striped text-center">
                     <thead>
                         <tr>
-                            <th width="15%">Número</th>
-                            <th width="30%">CAI</th>
-                            <th width="15%">Fecha</th>
-                            <th width="15%">Cliente</th>
-                            <th width="15%">RTN Cliente</th>
-                            <th width="10%">Total</th>
+                            <th width="14%">Número</th>
+                            <th width="26%">CAI</th>
+                            <th width="14%">Fecha</th>
+                            <th width="14%">Cliente</th>
+                            <th width="14%">RTN Cliente</th>
+                            <th width="9%">Total</th>
+                            <th width="9%"></th>
                         </tr>
                     </thead>
                     <tbody id="infoFacturas"></tbody>
@@ -63,6 +64,7 @@
 <script type="text/javascript" src="../js/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="../sweetalert2/dist/sweetalert2.all.min.js"></script>
 <script type="text/javascript" src="../JS/utilidades/fecha.js"></script>
+<script type="text/javascript" src="../fontawesome/js/all.min.js"></script>
 <script type="text/javascript" src="../bootstrap/bootstrap/bootstrap.min.js"></script>
 <script type="text/javascript" src="../select2/dist/js/select2.min.js"></script>
 <script type="text/javascript" src="../jqueryUI/jquery-ui.min.js"></script>
@@ -77,6 +79,14 @@
             $('.Mask').mask("#,##0.00", {reverse: true});
         });
     });
+
+
+    function cargar_factura(n_fac){
+        window.open('../archivos/factura_pdf?n_fac='+n_fac, '_blank');
+    }
+    function cargar_ticket(n_fac){
+        window.open('../archivos/ticket?n_fac='+n_fac, '_blank');
+    }
     function cargar_facturas(){
         $.ajax({
             url : '../php/cargar_facturas.php',
@@ -89,12 +99,20 @@
                 for(var i = 0; i < data.length; i++){
                     data_facturas +=
                         "<tr>"+
-                            "<td><a href='#'>"+data[i]["numero"]+"<a></td>"+
+                            "<td><a href='#' onclick='cargar_factura(\""+data[i]["numero"]+"\")'>"+data[i]["numero"]+"<a></td>"+
                             "<td>"+data[i]["cai"]+"</td>"+
                             "<td>"+data[i]["fecha"]+"</td>"+
                             "<td>"+data[i]["nombre"]+"</td>"+
                             "<td>"+data[i]["rtn"]+"</td>"+
                             "<td class='text-end'>L. <span class='Mask'>"+data[i]["total"].toFixed(2)+"</span></td>"+
+                            "<td class='text-center'>"+
+                                "<a href='#' onclick='cargar_factura(\""+data[i]["numero"]+"\")'>"+
+                                    "<i class='fa-solid fa-file-pdf fa-2x text-danger'></i>"+
+                                "</a>&nbsp;&nbsp;&nbsp;"+
+                                "<a href='#' onclick='cargar_ticket(\""+data[i]["numero"]+"\")'>"+
+                                    "<i class='fa-solid fa-receipt fa-2x text-secondary'></i>"+
+                                "</a>"+
+                            "</td>"+
                         "</tr>";
                 }
                 $("#infoFacturas").html(data_facturas);
