@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gráficas</title>
+  <link rel="icon" type="image/png" sizes="16x16" href="../../img/iconos/logo.ico">
+  <link href="../../fontawesome/css/all.min.css" rel="stylesheet">
+  <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../jqueryUI/jquery-ui.min.css" rel="stylesheet">
+  <script src = "https://d3js.org/d3.v3.min.js"></script>
+  <script type = "text/javascript" src = "../../novus/build/nv.d3.js"></script>
+  <link rel = "stylesheet" href = "https://cdn.rawgit.com/novus/nvd3/v1.8.1/build/nv.d3.css">
+</head>
+<body>
+  <div class="row">
+    <div class="col-sm-6 col-xs-4 shadow rounded my-2">
+      <div id="chart">
+        <svg width = "700" height = "700">
+        </svg>
+      </div>
+    </div>
+    <div class="col-sm-6 col-xs-4 shadow rounded my-2">
+      <div id="chart2">
+        <svg width = "700" height = "700">
+        </svg>
+      </div>
+    </div>
+  </div>
+  
+</body>
+<script type="text/javascript" src="../../js/jquery-3.6.0.js"></script>
+<script type="text/javascript" src="../../bootstrap/bootstrap/bootstrap.min.js"></script>
+
+<script>
+  var productos_venta = [], colores_venta = [], cantidad_venta = [], data_venta = [], data_chart = [];
+  var datos = [];
+  jQuery(document).ready(function($){
+        $(document).ready(function() {
+          cargar();
+        });
+    });
+  function cargar(){
+    $.ajax({
+      url : '../../php/charts/ventas.php',
+      data : {},
+      type : 'POST',
+      dataType : 'json',
+
+      success : function(data) {
+
+          for(i=0; i<data.length; i++){
+              productos_venta.push(data[i]["nombre"]);
+              //productos_venta += data[i]["nombre"]+",";
+              colores_venta.push(data[i]["colores"]);
+              cantidad_venta.push(data[i]["cantidad"]);
+              data_venta.push({"label": data[i]["nombre"], "value": data[i]["cantidad"]});
+          }
+          nv.addGraph(function() {
+            function exampleData() {
+              return datos;
+            }
+
+            var chart = nv.models.pieChart()
+                .x(function(d) { return d.label })
+                .y(function(d) { return d.value })
+                .showLabels(true);
+
+              d3.select("#chart2 svg")
+                  .datum(data_venta)
+                  .transition().duration(350)
+                  .call(chart);
+
+            return chart;
+          });
+          //console.log(data_venta);
+      },
+      error : function(json) {
+          console.log("No se pudo limpiar la sesion");
+      },
+
+      // código a ejecutar sin importar si la petición falló o no
+      complete : function(xhr, status) {
+          /*Swal.fire(
+              'Bien!',
+              'Conexión exitosa',
+              'success'
+          )
+          //alert('Petición realizada');*/
+      }
+  });
+  }
+  //console.log(data_venta);
+  //chart2
+ 
+
+
+  //chart 1
+  nv.addGraph(function() {
+    function exampleData() {
+      return ([{ 
+          "label": 'One',
+          "value" : 29.765957771107
+        } , 
+        { 
+          "label": "Two",
+          "value" : 0
+        } , 
+        { 
+          "label": "Three",
+          "value" : 32.807804682612
+        } , 
+        { 
+          "label": "Four",
+          "value" : 196.45946739256
+        } , 
+        { 
+          "label": "Five",
+          "value" : 0.19434030906893
+        } , 
+        { 
+          "label": "Six",
+          "value" : 98.079782601442
+        } , 
+        { 
+          "label": "Seven",
+          "value" : 13.925743130903
+        } , 
+        { 
+          "label": "Eight",
+          "value" : 5.1387322875705
+        }
+      ])
+    }
+
+    var chart = nv.models.pieChart()
+        .x(function(d) { return d.label })
+        .y(function(d) { return d.value })
+        .showLabels(true);
+
+      d3.select("#chart svg")
+          .datum(exampleData())
+          .transition().duration(350)
+          .call(chart);
+
+    return chart;
+  });
+</script>
+</html>

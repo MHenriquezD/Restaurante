@@ -94,7 +94,7 @@ function cargar_productos(){
                 }
             });
         },
-        //minLength: 2,
+        minLength: 1,
         select: function (event, ui)
         {
             id_producto = ui.item.id; // save selected id to input

@@ -10,6 +10,7 @@
     <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="../select2/dist/css/select2.min.css" rel="stylesheet">
     <link href="../jqueryUI/jquery-ui.min.css" rel="stylesheet">
+
     <style>
         #bgCabecera {
             background-color: #E0DCDD;
@@ -99,7 +100,7 @@
                 for(var i = 0; i < data.length; i++){
                     data_facturas +=
                         "<tr>"+
-                            "<td><a href='#' onclick='cargar_factura(\""+data[i]["numero"]+"\")'>"+data[i]["numero"]+"<a></td>"+
+                            "<td><a href='#'>"+data[i]["numero"]+"<a></td>"+
                             "<td>"+data[i]["cai"]+"</td>"+
                             "<td>"+data[i]["fecha"]+"</td>"+
                             "<td>"+data[i]["nombre"]+"</td>"+
