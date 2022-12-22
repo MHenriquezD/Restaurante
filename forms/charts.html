@@ -11,64 +11,71 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
     <link rel = "stylesheet" href = "https://cdn.rawgit.com/novus/nvd3/v1.8.1/build/nv.d3.css">
     <style>
-        #tablaProd {
-            justify-content: center;
-            align-items: center;
-            display: flex;
-            font-size: 13px;
+        .nvd3 text {
+            font: normal 16px sans-serif !important;
         }
-        #chartVentas2 {
-            text-align: center;
+        .nvd3 .title {
+            font: normal 16px sans-serif !important;
+        }
+        .nvtooltip {
+            font-family: sans-serif !important;
+        }
+        .nv-pieLabels text {
+            color: white !important;
         }
     </style>
 </head>
 <body>
-    <div class="container my-3">
-        <div class="row">
-            <div class="col-sm-6 shadow rounded my-2">
-                <div class="row">
+    <div id="informacion">  
+        <div class="container my-3">
+            <div class="row">
+                <div class="col-sm-6 shadow rounded my-2">
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <h4>Productos más vendidos</h4>
+                        </div>
+                        <div class="col-12">
+                            <canvas id="chartVentas" class="my-2" width="100%" height="auto"></canvas>
+                        </div>
+                        <!--<div class="col-4" id="tablaProd">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th width="80%">
+                                            Producto
+                                        </th>
+                                        <th>Cant.</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="infoChartProd"></tbody>
+                            </table>
+                        </div>-->
+                    </div>
+                </div>
+                <div class="col-sm-6 shadow rounded my-2">
                     <div class="col-12 text-center">
                         <h4>Productos más vendidos</h4>
                     </div>
                     <div class="col-12">
-                        <canvas id="chartVentas" class="my-2" width="100%" height="auto"></canvas>
+                        <div id="chartVentas2">
+                            <svg width="700" height="700">
+                            </svg>
+                        </div>
                     </div>
-                    <!--<div class="col-4" id="tablaProd">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th width="80%">
-                                        Producto
-                                    </th>
-                                    <th>Cant.</th>
-                                </tr>
-                            </thead>
-                            <tbody id="infoChartProd"></tbody>
-                        </table>
-                    </div>-->
+                    <div class="col-4"></div>
                 </div>
-            </div>
-            <div class="col-sm-6 shadow rounded my-2">
-                <div class="col-12 text-center">
-                    <h4>Productos más vendidos</h4>
+                <div class="col-sm-6 shadow rounded my-2">
+                    <canvas id="chartVentas3" class="my-2" width="100%" height="auto"></canvas>
                 </div>
-                <div class="col-12">
-                    <div id="chartVentas2">
-                        <svg width="700" height="700">
-                        </svg>
-                      </div>
+                <div class="col-sm-6 shadow rounded my-2">
+                    <canvas id="chartVentas3" class="my-2" width="100%" height="auto"></canvas>
                 </div>
-                <div class="col-4"></div>
-            </div>
-            <div class="col-sm-6 shadow rounded my-2">
-                <canvas id="chartVentas3" class="my-2" width="100%" height="auto"></canvas>
-            </div>
-            <div class="col-sm-6 shadow rounded my-2">
-                <canvas id="chartVentas3" class="my-2" width="100%" height="auto"></canvas>
             </div>
         </div>
     </div>
+    <div id="error"></div>
 </body>
+
 <script type="text/javascript" src="../js/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="../bootstrap/bootstrap/bootstrap.min.js"></script>
 <script type="text/javascript" src="../chart.js/dist/chart.min.js"></script>
@@ -78,13 +85,47 @@
 <script>
     jQuery(document).ready(function($){
         $(document).ready(function() {
+            verificar_sesion();
+            setInterval(verificar_sesion, 1000);
             venta_productos();
-            
             //venta_productos2();
         });
     });
     var productos_venta = [], colores_venta = [], cantidad_venta = [], data_venta = [], data_chart = [];
     
+
+    function verificar_sesion(){
+        $.ajax({
+            url : '../php/verificar_sesion.php',
+            data : {},
+            type : 'POST',
+            dataType : 'json',
+
+            success : function(json) {
+                if(json["respuesta"] === 1){
+                //window.location.href = "../login.html";
+                console.log("Conexion segura");
+                }else{
+                    $(document).prop('title', 'Usuario no Autorizado');
+                    $('#informacion').html("");
+                    $('#error').load('../error_login.html');
+                }
+            },
+            error : function(json) {
+            },
+
+            // código a ejecutar sin importar si la petición falló o no
+            complete : function(xhr, status) {
+                /*Swal.fire(
+                    'Bien!',
+                    'Conexión exitosa',
+                    'success'
+                )
+                //alert('Petición realizada');*/
+            }
+        });
+    }
+
     function venta_productos(){
         var html_chart = "", total = 0;
         $.ajax({
@@ -115,6 +156,8 @@
                         .transition().duration(350)
                         .call(chart);
 
+                    
+
                     return chart;
                 });
                 //console.log(data_venta);
@@ -129,6 +172,18 @@
                             borderColor: colores_venta,
                             backgroundColor: colores_venta,
                         }]
+                    },
+                    options: {
+                        plugins: {
+                            legend: {
+                                labels: {
+                                    // This more specific font property overrides the global property
+                                    font: {
+                                        size: 16
+                                    }
+                                }
+                            }
+                        }
                     }
                 });
             },
