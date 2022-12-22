@@ -7,9 +7,9 @@
     <title>Menu</title>
     <link rel="stylesheet" href="../CSS/menu.css">
     <link rel="icon" type="image/png" sizes="16x16" href="../img/iconos/logo.ico">
-    <link href="../fontawesome/css/all.min.css" rel="stylesheet">
-    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../select2/dist/css/select2.min.css" rel="stylesheet">
+    <link href="../libs/fontawesome/css/all.min.css" rel="stylesheet">
+    <link href="../libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../libs/select2/dist/css/select2.min.css" rel="stylesheet">
     <script src="https://cdn.linearicons.com/free/1.0.0/svgembedder.min.js"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
@@ -45,23 +45,23 @@ Skills: xHTML | HTML5 | CSS3 | Bootstrap | Wordpress | Javascript | jQuery | Aja
     <div class="menu-container">
       <div class="menu">
         <ul>
-          <li><a href="#" class="zoom" onclick="cargar('../forms/charts.html')"><i class="fa-solid fa-chart-line" id="zoom"></i>&nbsp;Inicio</a></li>
+          <li><a href="#" class="zoom" onclick="cargar('../forms/graficas/dashboard_modern/dasboard')"><i class="fa-solid fa-chart-line" id="zoom"></i>&nbsp;Inicio</a></li>
           
           <li><a href="#" class="zoom"><i class="fa-solid fa-cash-register" id="zoom"></i>&nbsp;Punto de Ventas</a>
             <ul>
-              <li><a href="#" onclick="cargar('../forms/punto_ventas.html')">Caja Diaria</a></li>
-              <li><a href="#" onclick="cargar('../forms/facturas.html')">Facturas</a></li>
+              <li><a href="#" onclick="cargar('../forms/punto_ventas')">Caja Diaria</a></li>
+              <li><a href="#" onclick="cargar('../forms/facturas')">Facturas</a></li>
               <li><a href="#">Caja</a></li>
             </ul>
           </li>
           <li><a href="#" class="zoom"><i class="fa-solid fa-boxes-stacked" id="zoom"></i>&nbsp;Inventario</a>
             <ul>
               <li><a href="#">Ventas</a></li>
-              <li><a href="#" onclick="cargar('../forms/productos/lista_productos.html')">Productos</a></li>
-              <li><a href="#" onclick="cargar('../forms/isv/isv.html')">Impuestos</a></li>
+              <li><a href="#" onclick="cargar('../forms/productos/lista_productos')">Productos</a></li>
+              <li><a href="#" onclick="cargar('../forms/isv/isv')">Impuestos</a></li>
             </ul>
           </li>
-          <li><a href="#" onclick="cargar('../forms/clientes/clientes.html')" class="zoom"><i class="fa-solid fa-users" id="zoom"></i>&nbsp;Clientes</a>
+          <li><a href="#" onclick="cargar('../forms/clientes/clientes')" class="zoom"><i class="fa-solid fa-users" id="zoom"></i>&nbsp;Clientes</a>
           </li>
           <!--<li><a href="#" class="zoom"><i class="fa-solid fa-circle-info" id="zoom"></i>&nbsp;Acerca de</a>
             <ul>
@@ -127,16 +127,16 @@ Skills: xHTML | HTML5 | CSS3 | Bootstrap | Wordpress | Javascript | jQuery | Aja
             <ul>
               <li><a href="#">Configuración de Usuarios</a>
                 <ul>
-                  <li><a href="#" onclick="cargar('../forms/usuarios.html')">Usuarios</a></li>
-                  <li><a href="#" onclick="cargar('../forms/sec/cambiar_pswd.html')">Cambiar Contraseña</a></li>
+                  <li><a href="#" onclick="cargar('../forms/usuarios')">Usuarios</a></li>
+                  <li><a href="#" onclick="cargar('../forms/sec/cambiar_pswd')">Cambiar Contraseña</a></li>
 
                 </ul>
               </li>
               <li><a href="#">Configuraciónde la Empresa</a>
                 <ul>
-                    <li><a href="#" onclick="cargar('../forms/informacion_empresa.html')">Información de la Empresa</a></li>
-                    <li><a href="#" onclick="cargar('../forms/informacion_cai.html')">CAI</a></li>
-                    <li><a href="#" onclick="cargar('../forms/logo.html')">Logos</a></li>
+                    <li><a href="#" onclick="cargar('../forms/informacion_empresa')">Información de la Empresa</a></li>
+                    <li><a href="#" onclick="cargar('../forms/informacion_cai')">CAI</a></li>
+                    <li><a href="#" onclick="cargar('../forms/logo')">Logos</a></li>
                 </ul>
               </li>
             </ul>
@@ -145,19 +145,19 @@ Skills: xHTML | HTML5 | CSS3 | Bootstrap | Wordpress | Javascript | jQuery | Aja
           <li><a><img src="../img//iconos/logo.ico" alt="logo.png" width="40px" height="40px"></a></li>
         </ul>
       </div>
-      <iframe src="../forms/charts.html" style="border:0px; width:100%; height:95%" id="informacion"></iframe>
+      <iframe src="../forms/graficas/dashboard_modern/dasboard" style="border:0px; width:100%; height:95%" id="informacion"></iframe>
     </div>
     <div id="error"></div>
     <!--<div id="informacion"></div>-->
   </div>
 
 </body>
-<script type="text/javascript" src="../js/jquery-3.6.0.js"></script>
-<script type="text/javascript" src="../sweetalert2/dist/sweetalert2.all.min.js"></script>
-<script type="text/javascript" src="../JS/conectar.js"></script>
-<script type="text/javascript" src="../bootstrap/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="../JS/jquery-3.6.0.js"></script>
 <script type="text/javascript" src="../JS/menu.js"></script>
-<script type="text/javascript" src="../select2/dist/js/select2.min.js"></script>
+<script type="text/javascript" src="../JS/conectar.js"></script>
+<script type="text/javascript" src="../libs/sweetalert2/dist/sweetalert2.all.min.js"></script>
+<script type="text/javascript" src="../libs/bootstrap/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="../libs/select2/dist/js/select2.min.js"></script>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 

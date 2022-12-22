@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Logo</title>
     <link rel="icon" type="image/png" sizes="16x16" href="../img/iconos/logo.ico">
-    <link href="../fontawesome/css/all.min.css" rel="stylesheet">
-    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../select2/dist/css/select2.min.css" rel="stylesheet">
-    <link href="../jqueryUI/jquery-ui.min.css" rel="stylesheet">
+    <link href="../libs/fontawesome/css/all.min.css" rel="stylesheet">
+    <link href="../libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../libs/select2/dist/css/select2.min.css" rel="stylesheet">
+    <link href="../libs/jqueryUI/jquery-ui.min.css" rel="stylesheet">
     <style>
         #bgCabecera {
             background-color: #E0DCDD;
@@ -82,15 +82,15 @@
         </div>
     </div>
 </body>
-<script type="text/javascript" src="../js/jquery-3.6.0.js"></script>
-<script type="text/javascript" src="../sweetalert2/dist/sweetalert2.all.min.js"></script>
-<script type="text/javascript" src="../JS/utilidades/fecha.js"></script>
-<script type="text/javascript" src="../bootstrap/bootstrap/bootstrap.min.js"></script>
-<script type="text/javascript" src="../select2/dist/js/select2.min.js"></script>
-<script type="text/javascript" src="../jqueryUI/jquery-ui.min.js"></script>
-<script type="text/javascript" src="../jQueryMask/dist/jquery.mask.min.js"></script>
+<script type="text/javascript" src="../JS/jquery-3.6.0.js"></script>
+<script type="text/javascript" src="../libs/sweetalert2/dist/sweetalert2.all.min.js"></script>
+<script type="text/javascript" src="../libs/bootstrap/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="../libs/select2/dist/js/select2.min.js"></script>
+<script type="text/javascript" src="../libs/jqueryUI/jquery-ui.min.js"></script>
+<script type="text/javascript" src="../libs/jQueryMask/dist/jquery.mask.min.js"></script>
 <script type="text/javascript" src="../JS/punto_ventas/autocomplete.js"></script>
 <script type="text/javascript" src="../JS/punto_ventas/productos.js"></script>
+<script type="text/javascript" src="../JS/utilidades/fecha.js"></script>
 <script type="text/javascript" src="../JS/verificar_sesion.js"></script>
 <script>
     cargar_logos();
@@ -130,8 +130,8 @@
             dataType : 'json',
 
             success : function(data) {
-                $('#imgMarcaCarga').html('<img src="'+data["marca"]+'" width="150px" height="150px" alt="marca_agua.png"/>');
-                $('#imgLogoCarga').html('<img src="'+data["logo"]+'" width="150px" height="150px" alt="logo.png"/>');
+                $('#imgMarcaCarga').html('<img src="data:image/png;base64, '+data[1]["imagen"]+'" width="150px" height="150px" alt="marca_agua.png"/>');
+                $('#imgLogoCarga').html('<img src="data:image/png;base64, '+data[0]["imagen"]+'" width="150px" height="150px" alt="logo.png"/>');
             },
             error : function(data) {
                 Swal.fire(

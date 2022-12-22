@@ -5,10 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cambiar Contraseña</title>
-    <link rel="icon" type="image/png" sizes="16x16" href="/Restaurante/img/iconos/logo.ico">
-    <link href="/Restaurante/fontawesome/css/all.min.css" rel="stylesheet">
-    <link href="/Restaurante/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/Restaurante/select2/dist/css/select2.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../img/iconos/logo.ico">
+    <link href="../../libs/fontawesome/css/all.min.css" rel="stylesheet">
+    <link href="../../libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../libs/select2/dist/css/select2.min.css" rel="stylesheet">
     <style>
         input {
             border: 0 !important;
@@ -23,23 +23,45 @@
         <div class="row">
             <div class="col-lg-2"></div>
             <div class="col-lg-6">
-                <form>
-                    <div class="form-group">
-                      <label for="txtContrasenaAntigua">Ingrese la contraseña actual</label>
-                      <input type="password" id="txtContrasenaAntigua">
-                      <small id="helpCOntrasenaAntigua" class="form-text text-muted"></small>
-                    </div>
-                    <div class="form-group">
-                      <label for="txtContrasenaNueva">Nueva Contraseña</label>
-                      <input type="password" id="txtContrasenaNueva" onkeydown="nueva()" onkeyup="nueva()">
-                      <small id="helpContrasenaNueva" class="form-text text-muted"></small>
-                    </div>
-                    <div class="form-group">
-                      <label for="txtContrasenaRepetir">Repetir Contraseña nueva</label>
-                      <input type="password" id="txtContrasenaRepetir" onkeydown="repetir()" onkeyup="repetir()">
-                      <small id="helpContrasenaRepetir" class="form-text text-muted"></small>
-                    </div>
-                </form>
+                <div class="row">
+                    <form>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-6">
+                                    <label for="txtContrasenaAntigua">Ingrese la contraseña actual</label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="password" id="txtContrasenaAntigua">
+                                    <small id="helpCOntrasenaAntigua" class="form-text text-muted"></small>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-6">
+                                    <label for="txtContrasenaNueva">Nueva Contraseña</label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="password" id="txtContrasenaNueva" onkeydown="nueva()" onkeyup="nueva()">
+                                    <small id="helpContrasenaNueva" class="form-text text-muted"></small>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-6">
+                                    <label for="txtContrasenaRepetir">Repetir Contraseña nueva</label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="password" id="txtContrasenaRepetir" onkeydown="repetir()" onkeyup="repetir()">
+                                    <small id="helpContrasenaRepetir" class="form-text text-muted"></small></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
                 <div class="row my-3">
                     <div class="col-12 text-center">
                         <button type="button" class="btn btn-primary" id="btnCambiar">Cambiar Contraseña</button>
@@ -50,11 +72,11 @@
         </div>
     </div>
 </body>
-<script type="text/javascript" src="/Restaurante/JS/usuarios/cambiar_pswd.js"></script>
-<script type="text/javascript" src="/Restaurante/js/jquery-3.6.0.js"></script>
-<script type="text/javascript" src="/Restaurante/sweetalert2/dist/sweetalert2.all.min.js"></script>
-<script type="text/javascript" src="/Restaurante/bootstrap/bootstrap/bootstrap.min.js"></script>
-<script type="text/javascript" src="/Restaurante/select2/dist/js/select2.min.js"></script>
+<script type="text/javascript" src="../../js/jquery-3.6.0.js"></script>
+<script type="text/javascript" src="../../libs/sweetalert2/dist/sweetalert2.all.min.js"></script>
+<script type="text/javascript" src="../../libs/bootstrap/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../libs/select2/dist/js/select2.min.js"></script>
+<script type="text/javascript" src="../../JS/usuarios/cambiar_pswd.js"></script>
 <script>
     var conteo = 0;
     var nuevas, repetida;

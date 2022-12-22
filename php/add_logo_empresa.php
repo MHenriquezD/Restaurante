@@ -1,7 +1,31 @@
 <?php
+include_once '../php/querys_log.php';
 $nombre = "logo.png";
 $data = array();
-if (($_FILES["file"]["type"] == "image/pjpeg")
+if (($_FILES["file"]["type"] == "image/pjpeg") || ($_FILES["file"]["type"] == "image/jpeg") || ($_FILES["file"]["type"] == "image/png") || ($_FILES["file"]["type"] == "image/gif")) {
+    $revisar = getimagesize($_FILES["file"]["tmp_name"]);
+    //echo json_encode($revisar);
+    if($revisar !== false){
+        $image = $_FILES['file']['tmp_name'];
+        $imgContenido = addslashes(file_get_contents($image));
+        $imgContenido = comillas($imgContenido);
+        $sql_update = 
+            "UPDATE logo
+            SET
+                imagen = $imgContenido,
+                nombre = 'logo.png'
+            WHERE 
+                id = 1
+            "; 
+        //echo $sql_update;
+
+        echo ejecutar_sql($sql_update);
+    }else{
+        echo 0;
+    }
+}
+return;
+/*if (($_FILES["file"]["type"] == "image/pjpeg")
     || ($_FILES["file"]["type"] == "image/jpeg")
     || ($_FILES["file"]["type"] == "image/png")
     || ($_FILES["file"]["type"] == "image/gif")) {
@@ -15,5 +39,5 @@ if (($_FILES["file"]["type"] == "image/pjpeg")
     }
 } else {
     echo 0;
-}
+}*/
 ?>

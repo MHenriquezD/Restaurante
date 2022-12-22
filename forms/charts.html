@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gráficas</title>
     <link rel="icon" type="image/png" sizes="16x16" href="../img/iconos/logo.ico">
-    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!--fuente roboto e iconos de fuente mhenriquez 21/12/2022-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
     <link rel = "stylesheet" href = "https://cdn.rawgit.com/novus/nvd3/v1.8.1/build/nv.d3.css">
@@ -76,17 +76,17 @@
     <div id="error"></div>
 </body>
 
-<script type="text/javascript" src="../js/jquery-3.6.0.js"></script>
-<script type="text/javascript" src="../bootstrap/bootstrap/bootstrap.min.js"></script>
-<script type="text/javascript" src="../chart.js/dist/chart.min.js"></script>
 <script src = "https://d3js.org/d3.v3.min.js"></script>
-<script type = "text/javascript" src = "../novus/build/nv.d3.js"></script>
+<script type="text/javascript" src="../JS/jquery-3.6.0.js"></script>
+<script type="text/javascript" src="../libs/bootstrap/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="../libs/chart.js/dist/chart.min.js"></script>
+<script type="text/javascript" src="../libs/novus/build/nv.d3.js"></script>
 <!--<script type="text/javascript" src="../forms/chart-mui/chart.js"></script>-->
 <script>
     jQuery(document).ready(function($){
         $(document).ready(function() {
             verificar_sesion();
-            setInterval(verificar_sesion, 1000);
+            //setInterval(verificar_sesion, 1000);
             venta_productos();
             //venta_productos2();
         });

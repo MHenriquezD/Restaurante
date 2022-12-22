@@ -5,10 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clientes</title>
-    <link rel="icon" type="image/png" sizes="16x16" href="/Restaurante/img/iconos/logo.ico">
-    <link href="/Restaurante/fontawesome/css/all.min.css" rel="stylesheet">
-    <link href="/Restaurante/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/Restaurante/select2/dist/css/select2.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../img/iconos/logo.ico">
+    <link href="../../libs/fontawesome/css/all.min.css" rel="stylesheet">
+    <link href="../../libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../libs/select2/dist/css/select2.min.css" rel="stylesheet">
     <style>
         .centro {
             text-align: center;
@@ -101,13 +101,13 @@
         </div>
    </div>
 </body>
-<script type="text/javascript" src="/Restaurante/js/jquery-3.6.0.js"></script>
-<script type="text/javascript" src="/Restaurante/sweetalert2/dist/sweetalert2.all.min.js"></script>
-<script type="text/javascript" src="/Restaurante/JS/conectar.js"></script>
-<script type="text/javascript" src="/Restaurante/bootstrap/bootstrap/bootstrap.min.js"></script>
-<script type="text/javascript" src="/Restaurante/JS/utilidades/fecha.js"></script>
-<script type="text/javascript" src="/Restaurante/select2/dist/js/select2.min.js"></script>
-<script type="text/javascript" src="/Restaurante/jQueryMask/dist/jquery.mask.js"></script>
+<script type="text/javascript" src="../../JS/jquery-3.6.0.js"></script>
+<script type="text/javascript" src="../../libs/sweetalert2/dist/sweetalert2.all.min.js"></script>
+<script type="text/javascript" src="../../libs/bootstrap/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../libs/select2/dist/js/select2.min.js"></script>
+<script type="text/javascript" src="../../libs/jQueryMask/dist/jquery.mask.js"></script>
+<script type="text/javascript" src="../../JS/conectar.js"></script>
+<script type="text/javascript" src="../../JS/utilidades/fecha.js"></script>
 <script>
     d = new Date(); 
     $("#fecha").html(d.yyyymmdd());
@@ -254,7 +254,7 @@
             return;
         }else{
             $.ajax({
-                url : '/Restaurante/php/clientes/edicion_clientes.php',
+                url : '../../php/clientes/edicion_clientes.php',
                 data : {
                     id: idp,
                     tipo: tipo,
@@ -306,7 +306,7 @@
     }
     function cargar_clientes(){
         $.ajax({
-            url : '/Restaurante/php/clientes/cargar_clientes.php',
+            url : '../../php/clientes/cargar_clientes.php',
             data : {},
             type : 'POST',
             dataType : 'json',
@@ -357,7 +357,7 @@
         id_producto = idp;
         //alert(id_producto);
         $.ajax({
-            url : '/Restaurante/php/clientes/cargar_cliente.php',
+            url : '../../php/clientes/cargar_cliente.php',
             data : {
                 idp: id_producto
             },

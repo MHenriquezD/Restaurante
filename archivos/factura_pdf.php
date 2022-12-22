@@ -1,7 +1,7 @@
 <?php 
 include_once '../php/querys_log.php';
 require '../vendor/autoload.php';
-require_once '../dompdf/autoload.inc.php';
+require_once '../libs/dompdf/autoload.inc.php';
 use Luecano\NumeroALetras\NumeroALetras;
 
 $logo = "http://".$_SERVER["HTTP_HOST"]. $_SERVER["PHP_SELF"];
@@ -83,6 +83,8 @@ if(isset($rs[0][0])){
     $nombre_cliente = $rs[0][8];
     $rtn_cliente = $rs[0][9];
     $total_factura = $rs[0][10];
+    $total_factura2 = $rs[0][10];
+    echo $total_factura2;
     $cai = $rs[0][12];
     $id_cliente = $rs[0][7];
     $sql = "
@@ -140,7 +142,7 @@ if(isset($rs[0][0])){
         $gravado_18 = number_format($gravado_18, 2, '.', ',');
         $total_factura = number_format($total_factura,2,".",",");
         $total_letras = new NumeroALetras();
-        $total_letras = $total_letras->toWords($total_factura);
+        $total_letras = $total_letras->toWords($total_factura2, 2, 'LEMPIRAS', 'CENTAVOS');
         $sql = "SELECT tipo_pago, total_pago, suelto FROM tipo_pago WHERE id_factura =".$id_factura;
         $tp = cargar_sql($sql);
         if(isset($tp[0][0])){
@@ -380,7 +382,7 @@ $html = '
 </html>';
 
 
-/*/
+/*
 echo $html;
 /**/
 use Dompdf\Dompdf;

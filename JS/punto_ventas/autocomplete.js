@@ -44,7 +44,7 @@ function buscar_x_rtn(){
         {
             $.ajax(
             {
-                url: '/Restaurante/php/clientes/clientes_ac.php',
+                url: '../php/clientes/clientes_ac.php',
                 dataType: "json",
                 type: "POST",
                 data:
@@ -81,7 +81,7 @@ function cargar_productos(){
         {
             $.ajax(
             {
-                url: '/Restaurante/php/productos/cargar_productos_pv.php',
+                url: '../php/productos/cargar_productos_pv.php',
                 dataType: "json",
                 type: "POST",
                 data:
