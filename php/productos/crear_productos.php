@@ -1,6 +1,12 @@
 <?php
 include_once '../querys.php';
-session_start();
+$nombre = $_POST['descripcion'];
+if(isset($_FILES["fileImg"])){
+    echo 1;
+}else{
+    echo 0;
+}
+return;
 $nombre = comillas($_POST["nombre"]);
 $descripcion = comillas($_POST["descripcion"]);
 $precio = comillas($_POST["precio"]);

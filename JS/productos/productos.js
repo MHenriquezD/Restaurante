@@ -1,5 +1,6 @@
 cargar_productos();
 d = new Date(); 
+imagen = [];
 $("#fecha").html(d.yyyymmdd());
 //estado_producto = 0;
 jQuery(document).ready(function($){
@@ -19,7 +20,9 @@ $("#chkEstado").click(function(){
     }
 });
 
-$("#mdlCerrar").click(function(){
+$("#btnCancel").click(function(){
+    history.back();
+    /*
     $("#mdlProducto").modal("hide");
     $("#txtNombreProducto").val("");
     $("#txtDescripcionProducto").val("");
@@ -30,6 +33,7 @@ $("#mdlCerrar").click(function(){
     $("#slcImpuesto").val("");
     $("#imgCargada").html("");
     $("#fileImg").val("");
+    */
 });
 function cargar_productos(){
     $.ajax({
@@ -98,7 +102,7 @@ function cargar_producto(idp){
             $("#mdlProducto").modal("show");
             $("#txtNombreProducto").val(json["nombre"]);
             $("#txtDescripcionProducto").val(json["descripcion"]);
-            $("#txtPrecioProducto").val(json["precio"]);
+            $("#txtPrecioProducto").val(json["precio"].toFixed(2));
             if(json["estado"] == 1){
                 $("#chkEstado").prop( "checked", true );
                 estado_producto = 1;
@@ -109,11 +113,14 @@ function cargar_producto(idp){
             $("#chkImagen").prop( "checked", false );
             $("#chkEstado").val(json["precio"]);
             $("#slcImpuesto").val(json["isv"]);
-            if(json["ruta_imagen"] == "" || json["ruta_imagen"] == null){
-                $('#imgCargada').html("");
+            if(json["imagen"] == "" || json["imagen"] == null){
+                $('#imgProduct').html("");
             }else{
-                $('#imgCargada').html('<img src="'+json["ruta_imagen"]+'" width="75px" height="75px"/>');
+                $('#imgProduct').html('<img src="data:image/png;base64,'+json["imagen"]+'" width="150px" height="auto" alt="'+json["nombre"]+'.png"/>');
             }
+            //console.log(json["ruta_imagen"]);
+            $("#productName").text(json["nombre"]);
+            $("#txtCantidad").val(json["stock"]);
             $("#btnBorrarProducto").show();
             $("#btnSaveProducto").show();
             $("#btnAgregarProducto").hide();
@@ -140,15 +147,8 @@ function cargar_producto(idp){
     });
 }
 
-$("#btnNuevo").click(function(){
-    $("#mdlProducto").modal("show");
-    $("#btnBorrarProducto").hide();
-    $("#btnSaveProducto").hide();
-    $("#btnAgregarProducto").show();
-    $("#imgCargada").html("");
-    $("#fileImg").val("");
-    cargar_impuestos();
-});
+
+/*
 $("#btnAgregarProducto").click(function(){
 
     nombre = $("#txtNombreProducto").val();
@@ -156,6 +156,7 @@ $("#btnAgregarProducto").click(function(){
     precio = $("#txtPrecioProducto").val();
     isv = $("#slcImpuesto").val();
     img = $("#fileImg").val();
+    stock = $("#txtCantidad").val();
     if( $('#chkEstado').is(':checked') ) {
         estado_producto = 1;
     }else{
@@ -175,7 +176,8 @@ $("#btnAgregarProducto").click(function(){
             isv: isv,
             estado: estado_producto,
             imagen: img,
-            eliminar: eliminar
+            eliminar: eliminar,
+            stock: stock
         },
         type : 'POST',
         dataType : 'json',
@@ -218,12 +220,97 @@ $("#btnAgregarProducto").click(function(){
                 'Conexión éxitosa',
                 'success'
             )
+            //alert('Petición realizada');
+        }
+    });
+});
+*/
+$("#btnSaveProducto").click(function(){
+    var formProductos = new FormData($("#formProductos")[0]);
+    formProductos.append('idp',idp);
+    nombre = $("#txtNombreProducto").val();
+    descripcion = $("#txtDescripcionProducto").val();
+    precio = $("#txtPrecioProducto").val();
+    isv = $("#slcImpuesto").val();
+    stock = $("#txtCantidad").val();
+    //imagen.push($("#fileImg")[0].files[0]);
+    //alert(isv);
+    
+    //alert(id_producto);
+    if( $('#chkEstado').is(':checked') ) {
+        estado_producto = 1;
+    }else{
+        estado_producto = 0;
+    }
+    if( $('#chkImagen').is(':checked') ) {
+        eliminar = 1;
+    }else{
+        eliminar = 0;
+    }
+    formProductos.append('isv',estado_producto);
+    formProductos.append('eliminar',eliminar);
+
+    //alert(id_producto +" "+ estado_producto);
+    //add_imagen();
+    //alert(ruta);
+    //return;
+    $.ajax({
+        url : '../../php/productos/editar_productos.php',
+        data: formProductos,
+        /*data : {
+            nombre: nombre,
+            descripcion: descripcion,
+            precio: precio,
+            isv: isv,
+            estado: estado_producto,
+            imagen: imagen,
+            idp: id_producto,
+            ruta_img: ruta,
+            eliminar: eliminar,
+            stock: stock
+        },*/
+        type : 'POST',
+        dataType : 'json',
+        contentType: false,
+        processData: false,
+        success : function(json) {
+            
+            Swal.fire(
+                'Correcto',
+                'Producto editado con éxito',
+                'success'
+            );
+            /*$("#mdlProducto").modal("hide");
+            $("#txtNombreProducto").val("");
+            $("#txtDescripcionProducto").val("");
+            $("#txtPrecioProducto").val("");
+            $("#chkEstado").prop( "checked", false );
+            estado_producto = 0;
+            $("#chkEstado").val("");
+            $("#slcImpuesto").val("");
+            $("#fileImg").val("");*/
+            //cargar_productos();
+        },
+        error : function(json) {
+            Swal.fire(
+                'Error',
+                'Error en la conexión con el servidor',
+                'error'
+            );
+        },
+
+        // código a ejecutar sin importar si la petición falló o no
+        complete : function(xhr, status) {
+            /*Swal.fire(
+                'Bien!',
+                'Conexión éxitosa',
+                'success'
+            )
             //alert('Petición realizada');*/
         }
     });
 });
-
-$("#btnSaveProducto").click(function(){
+/*$("#btnSaveProducto").click(function(){
     Swal.fire({
         title: 'Está seguro?',
         text: "Los cambios no serán reversibles",
@@ -242,9 +329,11 @@ $("#btnSaveProducto").click(function(){
                 //alert("si");
                 ruta="";
                 img = "";
-                guardar_producto(ruta, img);
+                guardar_producto(/*ruta, img);
             }else{
-                add_imagen();
+                ruta="";
+                guardar_producto(ruta);
+                //add_imagen();
                 //alert("no");
             }
             
@@ -253,10 +342,10 @@ $("#btnSaveProducto").click(function(){
             'Actualizado!',
             'Este producto se ha actualizado',
             'success'
-            )*/
+            )
         }
     });
-});
+});*/
 
 $("#btnBorrarProducto").click(function(){
     Swal.fire({
@@ -472,11 +561,14 @@ function add_imagen_nuevo(id_producto){
 
 }
 
-function guardar_producto(ruta, img){
+function guardar_producto(/*ruta, img*/){
+    var formProductos = new FormData($("#formProductos")[0]);
     nombre = $("#txtNombreProducto").val();
     descripcion = $("#txtDescripcionProducto").val();
     precio = $("#txtPrecioProducto").val();
     isv = $("#slcImpuesto").val();
+    stock = $("#txtCantidad").val();
+    //imagen.push($("#fileImg")[0].files[0]);
     //alert(isv);
     
     //alert(id_producto);
@@ -496,17 +588,19 @@ function guardar_producto(ruta, img){
     //return;
     $.ajax({
         url : '../../php/productos/editar_productos.php',
-        data : {
+        data: formProductos,
+        /*data : {
             nombre: nombre,
             descripcion: descripcion,
             precio: precio,
             isv: isv,
             estado: estado_producto,
-            imagen: img,
+            imagen: imagen,
             idp: id_producto,
             ruta_img: ruta,
-            eliminar: eliminar
-        },
+            eliminar: eliminar,
+            stock: stock
+        },*/
         type : 'POST',
         dataType : 'json',
 

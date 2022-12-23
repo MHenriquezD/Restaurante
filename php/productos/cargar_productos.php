@@ -10,7 +10,8 @@ $sql =
         precio,
         descripcion,
         isv,
-        ruta_imagen
+        ruta_imagen,
+        stock
     FROM
         productos
     WHERE
@@ -25,6 +26,7 @@ foreach($resultado as $productos){
     $data[$n]["precio"] = $productos[4];
     $data[$n]["descripcion"] = $productos[5];
     $data[$n]["id_isv"] = $productos[6];
+    $data[$n]["stock"] = $productos[8];
     $sql = "SELECT id, impuesto, porcentaje FROM impuestos WHERE id =". comillas($productos[6]);
     $isv = cargar_sql($sql);
     if(isset($isv[0][0])){

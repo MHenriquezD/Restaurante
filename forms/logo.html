@@ -46,7 +46,7 @@
                 <div class="row">
                     <div class="col-2"></div>
                     <div class="col-8 text-center">
-                        <button type="button" class="btn btn-success" id="btnGuardar">
+                        <button type="button" class="btn btn-success" id="btnGuardar" name="btnGuardar">
                             <i class="fa-solid fa-floppy-disk"></i>
                             Guardar
                         </button>
@@ -62,7 +62,7 @@
                                 <div class="col-lg-12 text-center" id="imgLogoCarga"></div>
                                 <div class="col-lg-12">
                                     <label for="imgLogo">Logo</label>
-                                    <input type="file" class="form-control" id="imgLogo" accept="image/gif,image/jpeg,image/jpg,image/png">
+                                    <input type="file" class="form-control" id="imgLogo" name="imgLogo" accept="image/gif,image/jpeg,image/jpg,image/png">
                                 </div>
                             </div>
                         </div>
@@ -71,7 +71,7 @@
                                 <div class="col-lg-12 text-center" id="imgMarcaCarga"></div>
                                 <div class="col-lg-12">
                                     <label for="imgMarca">Marca Agua</label>
-                                    <input type="file" class="form-control" id="imgMarca" accept="image/gif,image/jpeg,image/jpg,image/png">
+                                    <input type="file" class="form-control" id="imgMarca" name="imgMarca" accept="image/gif,image/jpeg,image/jpg,image/png">
                                 </div>
                                 
                             </div>
@@ -182,9 +182,7 @@
     });
     function add_logo(){
         var logo = new FormData($("#formLogos")[0]);
-        var archivo = $("#imgLogo")[0].files[0];
-        logo.append('file',archivo);
-        //console.log(formData);
+        //console.log(formData);*/
         ruta = "";
         $.ajax(
         {
@@ -202,8 +200,6 @@
     }
     function add_marca(){
         var marca = new FormData($("#formLogos")[0]);
-        var archivo = $("#imgMarca")[0].files[0];
-        marca.append('file',archivo);
         //console.log(formData);
         ruta = "";
         $.ajax(

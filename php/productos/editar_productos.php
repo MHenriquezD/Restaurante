@@ -4,18 +4,62 @@ session_start();
 $nombre = comillas($_POST["nombre"]);
 $descripcion = comillas($_POST["descripcion"]);
 $precio = comillas($_POST["precio"]);
-$imagen = comillas($_POST["imagen"]);
-if(!empty($imagen)){
+//$imagen = comillas($_POST["imagen"]);
+$stock = comillas($_POST["cantidad"]);
+//echo $_POST["chkEstado"];
+if(!empty($_FILES["fileImg"]["tmp_name"])){
     $nombre_imagen = comillas($_POST["nombre"].".png");
+    $revisar = getimagesize($_FILES["fileImg"]["tmp_name"]);
+    if($revisar !== false){
+        $image = $_FILES['fileImg']['tmp_name'];
+        $imgContenido = comillas(addslashes(file_get_contents($image)));
+    }
 }else{
     $nombre_imagen = comillas(null);
     $imagen = comillas(null);
+    $imgContenido = comillas(null);
 }
 $fecha = comillas(date("Y-m-d H:i:s"));
 $usuario = comillas($_SESSION["usr_login"]);
-$estado = comillas($_POST["estado"]);
-$isv = comillas($_POST["isv"]);
-//echo $_POST["ruta_img"];
+$estado = comillas($_POST["isv"]);
+$isv = comillas($_POST["impuesto"]);
+
+if(!empty($_FILES["fileImg"]["tmp_name"])){
+    $nombre_imagen = comillas($_POST["nombre"].".png");
+    $revisar = getimagesize($_FILES["fileImg"]["tmp_name"]);
+    if($revisar !== false){
+        $image = $_FILES['fileImg']['tmp_name'];
+        $imgContenido = comillas(addslashes(file_get_contents($image)));
+    }
+    $sql = 
+        "UPDATE productos
+        SET nombre = $nombre, 
+            descripcion = $descripcion, 
+            precio = $precio, 
+            imagen = $imgContenido, 
+            nombre_imagen = $nombre_imagen,
+            estado = $estado, 
+            isv = $isv,
+            stock = $stock
+        WHERE 
+            id = ".comillas($_POST["idp"]);
+}else{
+    $sql = 
+        "UPDATE productos
+        SET nombre = $nombre, 
+            descripcion = $descripcion, 
+            precio = $precio, 
+            nombre_imagen = $nombre_imagen,
+            estado = $estado, 
+            isv = $isv,
+            stock = $stock
+        WHERE 
+            id = ".comillas($_POST["idp"]);
+}
+
+echo ejecutar_sql($sql);
+
+return;
 if($_POST["eliminar"] == 1){
     $ruta = "";
     include_once '../querys.php';
@@ -39,7 +83,8 @@ if(isset($_POST["ruta_img"])){
             nombre_imagen = $nombre_imagen,
             estado = $estado, 
             isv = $isv,
-            ruta_imagen = $ruta
+            ruta_imagen = $ruta,
+            stock = $stock
         WHERE 
             id = ".comillas($_POST["idp"]);
 }else{
@@ -52,13 +97,13 @@ if(isset($_POST["ruta_img"])){
             nombre_imagen = $nombre_imagen,
             estado = $estado, 
             isv = $isv,
-            ruta_imagen = $ruta
+            ruta_imagen = $ruta,
+            stock = $stock
         WHERE 
             id = ".comillas($_POST["idp"]);
 }
 
 
 //echo $sql;
-echo ejecutar_sql($sql);
 
 ?>
