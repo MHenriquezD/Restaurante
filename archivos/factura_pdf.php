@@ -4,9 +4,25 @@ require '../vendor/autoload.php';
 require_once '../libs/dompdf/autoload.inc.php';
 use Luecano\NumeroALetras\NumeroALetras;
 
-$logo = "http://".$_SERVER["HTTP_HOST"]. $_SERVER["PHP_SELF"];
-$logo = str_replace("archivos/factura_pdf.php", "img/principal/logo.png", $logo);
-$logo = "data:image/png;base64," . base64_encode(file_get_contents($logo));
+$sql = "
+    SELECT 
+        logo,
+        marca
+    FROM 
+        logo
+    WHERE 
+        id = 1
+";
+$rs = cargar_sql($sql);
+if(isset($rs)){
+    $logo = base64_encode($rs[0][0]);
+    $marca = base64_encode($rs[0][1]);
+}
+//$logo = str_replace("archivos/factura_pdf.php", "img/principal/logo.png", $logo);
+$logo = "data:image/png;base64," . $logo;
+//$marca = $rs[0][1];
+//$marca = str_replace("archivos/factura_pdf.php", "img/principal/logo.png", $marca);
+$marca = "data:image/png;base64," . $marca;
 
 //$numero = $_GET["n_fac"];
 $n_fac = $_GET["n_fac"];
@@ -273,9 +289,33 @@ $html = '
         #tbProductos {
             font-size: 14px;
         }
+        
+
+        /** 
+        * Defina el ancho, alto, márgenes y posición de la marca de agua.
+        **/
+        #watermark {
+            position: fixed;
+
+            bottom:   450px;
+            left:     280px;
+            /** El ancho y la altura pueden cambiar
+                según las dimensiones de su membrete
+            **/
+            width:    25%;
+            height:   20%;
+
+            /** Tu marca de agua debe estar detrás de cada contenido **/
+            z-index:  -1000;
+            
+            opacity: 0.2;
+        }
     </style>
 </head>
 <body>
+    <div id="watermark" width="100%">
+        <img src="'.$marca.'" height="100%" width="100%" />
+    </div>
     <div width="100%">
         <div style="border: 1px solid #8C8C8C; margin 10px; border-radius: 15px; ">
             <table>
@@ -285,7 +325,7 @@ $html = '
                     </td>
                     <td width="60%">
                         <div style="margin: 10px; text-align: left;" >
-                            <span>'.$nombre.'</span><br>
+                            <span><strong>'.$nombre.'</strong></span><br>
                             <span><strong>Direccion:</strong> '.$direccion.'</span><br>
                             <span><strong>RTN:</strong> '.$rtn.'</span><br>
                             <span><strong>Teléfono:</strong> '.$telefono.'</span><br>

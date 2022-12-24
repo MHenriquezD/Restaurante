@@ -4,26 +4,21 @@ $data = array();
 $n = 0;
 $sql = "
     SELECT 
-        imagen,
-        nombre
+        logo,
+        marca
     FROM 
         logo
+    WHERE 
+        id = 1
 ";
 $rs = cargar_sql($sql);
 
 if(isset($rs)){
-    foreach($rs as $logos){
-        $data[$n]["imagen"] = base64_encode($logos[0]);
-        $data[$n]["nombre"] = $logos[1];
-        $n++;
-    }
+    $data["logo"] = base64_encode($rs[0][0]);
+    $data["marca"] = base64_encode($rs[0][1]);
     //$data["logo"] = $rs[0][1];
-    echo json_encode($data);
+    //echo json_encode($data);
     //$data["marca"]
-    return;
 }
 
-$ruta = "http://".$_SERVER["HTTP_HOST"]. $_SERVER["PHP_SELF"];
-$data["logo"] = str_replace("php/cargar_logo.php", "img/logos/logo.png", $ruta);
-$data["marca"] = str_replace("php/cargar_logo.php", "img/logos/marca_agua.png", $ruta);
 echo json_encode($data);

@@ -130,8 +130,8 @@
             dataType : 'json',
 
             success : function(data) {
-                $('#imgMarcaCarga').html('<img src="data:image/png;base64, '+data[1]["imagen"]+'" width="150px" height="150px" alt="marca_agua.png"/>');
-                $('#imgLogoCarga').html('<img src="data:image/png;base64, '+data[0]["imagen"]+'" width="150px" height="150px" alt="logo.png"/>');
+                $('#imgMarcaCarga').html('<img src="data:image/png;base64, '+data["marca"]+'" width="150px" height="150px" alt="marca_agua.png"/>');
+                $('#imgLogoCarga').html('<img src="data:image/png;base64, '+data["logo"]+'" width="150px" height="150px" alt="logo.png"/>');
             },
             error : function(data) {
                 Swal.fire(
@@ -171,13 +171,27 @@
             return;
         }else{
             //alert("no");
-            add_logo();
-            add_marca();
-            Swal.fire(
-                'Bien',
-                'Los archivos han sido guardados con éxito',
-                'success'
-            );
+            var logo = new FormData($("#formLogos")[0]);
+        //console.log(formData);*/
+        ruta = "";
+        $.ajax(
+        {
+            url: '../php/add_logo_empresa.php',
+            dataType: "json",
+            type: "POST",
+            data: logo,
+            contentType: false,
+            processData: false,
+            success: function (data)
+            {
+                Swal.fire(
+                    'Bien',
+                    'Los archivos han sido guardados con éxito',
+                    'success'
+                );
+            }
+        });
+            
         }
     });
     function add_logo(){
