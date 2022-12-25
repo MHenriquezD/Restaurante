@@ -106,6 +106,7 @@ function cargar_productos(){
             isv_producto = precio_producto - precio_unitario;
             //console.log(precio_unitario);
             //precio_producto = ui.item.precio;
+            edtiKey = 1;
             agregar_producto();
             return false;
         },

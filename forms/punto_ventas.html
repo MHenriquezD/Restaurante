@@ -100,7 +100,7 @@
                     <table class="table table-hover table-sm">
                         <thead class="text-center">
                             <tr>
-                                <th width="10"></th>
+                                <th width="10%"></th>
                                 <th width="25%">Cantidad</th>
                                 <th width="25%">Producto</th>
                                 <th width="20%">Precio Unitario</th>
@@ -215,6 +215,7 @@
     var id_producto = 0,nombre_producto = "",precio_producto = 0,desc_producto = "",porcentaje_isv_producto = 0, precio_unitario = 0;
     var pago_debe = 0, pago_debe_formato = 0, pago_dado = 0, pago_dado_formato = 0, pago_acumulado = 0, pago_acumulado_formato = 0;
     var id_cliente = 0;
+    var edtiKey = 0;
     var tipo_pago = [
         {
             tipo: 1,
@@ -242,8 +243,11 @@
             $('.modal').modal({ backdrop: 'static', keyboard: false });
             $("#divEfectivo").hide();
             $("#divTarjeta").hide();
+            $("#txtProductos").click(function() {
+                edtiKey = 0;
+            });
         });
-    });
+    }); 
 
     $(".totalFac").html("L. "+total_factura.toFixed(2));
     
