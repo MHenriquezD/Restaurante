@@ -1,5 +1,16 @@
 input {
     border: 0 !important;
-    border-bottom: 1px solid #61A2DA !important;
+    /*border-bottom: 1px solid #61A2DA !important;*/
     outline: none !important;
+    border-radius: 5%;
+    background-color: #EAEAEA !important;
+}
+
+.ui-menu-item-wrapper {
+    background-color: #EAEAEA !important;
+    color: #000 !important;
+}
+.ui-menu-item-wrapper:hover {
+    background-color: #77CEFF !important;
+    color: #fff !important;
 }

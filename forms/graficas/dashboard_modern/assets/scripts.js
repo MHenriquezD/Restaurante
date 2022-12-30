@@ -1,3 +1,4 @@
+
 Apex.grid = {
   padding: {
     right: 0,
@@ -26,58 +27,108 @@ var randomizeArray = function (arg) {
   return array;
 }
 
+function separator(numb) {
+  var str = numb.toString().split(".");
+  str[0] = str[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return str.join(".");
+}
+
+
+
+venta_productos_total();
+function venta_productos_total() {
+  var mes_venta = [], dia_venta = [], total_venta = [], total_dia = [], total_gastos = [], gastos_dia = [], total_ganancias = [], fechas_ventas = [], total = 0;
+  var html_chart = "", total = 0;
+  $.ajax({
+    url: '../../../php/charts/ventas_total.php',
+    data: {},
+    type: 'POST',
+    dataType: 'json',
+    success: function (data) {
+      for(i = 0; i < data.length; i++){
+        mes_venta.push(data[i]["mes"]);
+        //productos_venta += data[i]["nombre"]+",";
+        dia_venta.push(data[i]["dia"]);
+        total_venta.push(data[i]["total"]);
+        fechas_ventas.push(data[i]["fecha"]);
+        total += data[i]["total"];
+      }
+      total_formato = total.toFixed(2);
+      total_formato = separator(total_formato);
+      
+      var spark1 = {
+        chart: {
+          id: 'sparkline1',
+          group: 'sparklines',
+          type: 'area',
+          height: 160,
+          sparkline: {
+            enabled: true
+          },
+        },
+        stroke: {
+          curve: 'straight'
+        },
+        fill: {
+          opacity: 1,
+        },
+        series: [{
+          name: 'Ventas',
+          data: total_venta,
+        }],
+        labels: fechas_ventas,
+        yaxis: {
+          min: 0
+        },
+        xaxis: {
+          type: 'datetime',
+        },
+        colors: ['#DCE6EC'],
+        title: {
+          text: 'L. ' + total_formato,
+          offsetX: 30,
+          style: {
+            fontSize: '24px',
+            cssClass: 'apexcharts-yaxis-title'
+          }
+        },
+        subtitle: {
+          text: 'Ventas',
+          offsetX: 30,
+          style: {
+            fontSize: '14px',
+            cssClass: 'apexcharts-yaxis-title'
+          }
+        }
+      }
+
+      new ApexCharts(document.querySelector("#spark1"), spark1).render();
+
+    },
+    error: function (json) {
+      console.log("No se pudo limpiar la sesion");
+    },
+
+    // código a ejecutar sin importar si la petición falló o no
+    complete: function (xhr, status) {
+      /*Swal.fire(
+          'Bien!',
+          'Conexión exitosa',
+          'success'
+      )
+      //alert('Petición realizada');*/
+    }
+  });
+}
+
 // data for the sparklines that appear below header area
 var sparklineData = [47, 45, 54, 38, 56, 24, 65, 31, 37, 39, 62, 51, 35, 41, 35, 27, 93, 53, 61, 27, 54, 43, 19, 46];
 
 // the default colorPalette for this dashboard
 //var colorPalette = ['#01BFD6', '#5564BE', '#F7A600', '#EDCD24', '#F74F58'];
-var colorPalette = ['#00D8B6','#008FFB',  '#FEB019', '#FF4560', '#775DD0']
+var colorPalette = ['#00D8B6', '#008FFB', '#FEB019', '#FF4560', '#775DD0']
 
-var spark1 = {
-  chart: {
-    id: 'sparkline1',
-    group: 'sparklines',
-    type: 'area',
-    height: 160,
-    sparkline: {
-      enabled: true
-    },
-  },
-  stroke: {
-    curve: 'straight'
-  },
-  fill: {
-    opacity: 1,
-  },
-  series: [{
-    name: 'Sales',
-    data: randomizeArray(sparklineData)
-  }],
-  labels: [...Array(24).keys()].map(n => `2018-09-0${n+1}`),
-  yaxis: {
-    min: 0
-  },
-  xaxis: {
-    type: 'datetime',
-  },
-  colors: ['#DCE6EC'],
-  title: {
-    text: '$424,652',
-    offsetX: 30,
-    style: {
-      fontSize: '24px',
-      cssClass: 'apexcharts-yaxis-title'
-    }
-  },
-  subtitle: {
-    text: 'Sales',
-    offsetX: 30,
-    style: {
-      fontSize: '14px',
-      cssClass: 'apexcharts-yaxis-title'
-    }
-  }
-}
+
 
 var spark2 = {
   chart: {
@@ -99,7 +150,7 @@ var spark2 = {
     name: 'Expenses',
     data: randomizeArray(sparklineData)
   }],
-  labels: [...Array(24).keys()].map(n => `2018-09-0${n+1}`),
+  labels: [...Array(24).keys()].map(n => `2018-09-0${n + 1}`),
   yaxis: {
     min: 0
   },
@@ -145,7 +196,7 @@ var spark3 = {
     name: 'Profits',
     data: randomizeArray(sparklineData)
   }],
-  labels: [...Array(24).keys()].map(n => `2018-09-0${n+1}`),
+  labels: [...Array(24).keys()].map(n => `2018-09-0${n + 1}`),
   xaxis: {
     type: 'datetime',
   },
@@ -228,7 +279,6 @@ var monthlyEarningsOpt = {
 }
 
 
-new ApexCharts(document.querySelector("#spark1"), spark1).render();
 new ApexCharts(document.querySelector("#spark2"), spark2).render();
 new ApexCharts(document.querySelector("#spark3"), spark3).render();
 
@@ -399,7 +449,7 @@ var optionsBar = {
     name: "Food Products",
     data: [6, 12, 4, 7, 5, 3, 6, 4, 3, 3, 5, 6, 7, 4],
   }],
-  labels: [10,11,12,13,14,15,16,17,18,19,20,21,22,23],
+  labels: [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
   xaxis: {
     labels: {
       show: false
@@ -438,78 +488,78 @@ var chartBar = new ApexCharts(document.querySelector('#bar'), optionsBar);
 chartBar.render();
 
 venta_productos();
-function venta_productos(){
-var productos_venta = [], colores_venta = [], cantidad_venta = [], data_venta = [], data_chart = [];
-var html_chart = "", total = 0;
+function venta_productos() {
+  var productos_venta = [], colores_venta = [], cantidad_venta = [], data_venta = [], data_chart = [];
+  var html_chart = "", total = 0;
   $.ajax({
-      url : '../../../php/charts/ventas.php',
-      data : {},
-      type : 'POST',
-      dataType : 'json',
-      success : function(data) {
-          for(i=0; i<data.length; i++){
-              productos_venta.push(data[i]["nombre"]);
-              //productos_venta += data[i]["nombre"]+",";
-              colores_venta.push(data[i]["colores"]);
-              cantidad_venta.push(data[i]["cantidad"]);
-              data_venta.push({"label": data[i]["nombre"], "value": data[i]["cantidad"]});
-          }
-          //grafica de dona
-          var optionDonut = {
-            chart: {
-                type: 'donut',
-                width: '100%',
-                height: 400
-            },
-            dataLabels: {
-              enabled: false,
-            },
-            plotOptions: {
-              pie: {
-                customScale: 0.8,
-                donut: {
-                  size: '75%',
-                },
-                offsetY: 20,
-              },
-              stroke: {
-                colors: undefined
-              }
-            },
-            colors: colorPalette,
-            title: {
-              text: 'Productos más vendidos',
-              style: {
-                fontSize: '18px'
-              }
-            },
-            series: cantidad_venta,
-            labels: productos_venta,
-            legend: {
-              position: 'left',
-              offsetY: 80
-            }
-          }
-
-          var donut = new ApexCharts(
-            document.querySelector("#donut"),
-            optionDonut
-          )
-          donut.render();
-      },
-      error : function(json) {
-          console.log("No se pudo limpiar la sesion");
-      },
-
-      // código a ejecutar sin importar si la petición falló o no
-      complete : function(xhr, status) {
-          /*Swal.fire(
-              'Bien!',
-              'Conexión exitosa',
-              'success'
-          )
-          //alert('Petición realizada');*/
+    url: '../../../php/charts/ventas.php',
+    data: {},
+    type: 'POST',
+    dataType: 'json',
+    success: function (data) {
+      for (i = 0; i < data.length; i++) {
+        productos_venta.push(data[i]["nombre"]);
+        //productos_venta += data[i]["nombre"]+",";
+        colores_venta.push(data[i]["colores"]);
+        cantidad_venta.push(data[i]["cantidad"]);
+        data_venta.push({ "label": data[i]["nombre"], "value": data[i]["cantidad"] });
       }
+      //grafica de dona
+      var optionDonut = {
+        chart: {
+          type: 'donut',
+          width: '100%',
+          height: 400
+        },
+        dataLabels: {
+          enabled: false,
+        },
+        plotOptions: {
+          pie: {
+            customScale: 0.8,
+            donut: {
+              size: '75%',
+            },
+            offsetY: 20,
+          },
+          stroke: {
+            colors: undefined
+          }
+        },
+        colors: colorPalette,
+        title: {
+          text: 'Productos más vendidos',
+          style: {
+            fontSize: '18px'
+          }
+        },
+        series: cantidad_venta,
+        labels: productos_venta,
+        legend: {
+          position: 'left',
+          offsetY: 80
+        }
+      }
+
+      var donut = new ApexCharts(
+        document.querySelector("#donut"),
+        optionDonut
+      )
+      donut.render();
+    },
+    error: function (json) {
+      console.log("No se pudo limpiar la sesion");
+    },
+
+    // código a ejecutar sin importar si la petición falló o no
+    complete: function (xhr, status) {
+      /*Swal.fire(
+          'Bien!',
+          'Conexión exitosa',
+          'success'
+      )
+      //alert('Petición realizada');*/
+    }
   });
 }
 
@@ -518,7 +568,7 @@ var html_chart = "", total = 0;
 function trigoSeries(cnt, strength) {
   var data = [];
   for (var i = 0; i < cnt; i++) {
-      data.push((Math.sin(i / strength) * (i / strength) + i / strength+1) * (strength*2));
+    data.push((Math.sin(i / strength) * (i / strength) + i / strength + 1) * (strength * 2));
   }
 
   return data;
@@ -621,8 +671,8 @@ chartLine.render().then(function () {
 
 
 // on smaller screen, change the legends position for donut
-var mobileDonut = function() {
-  if($(window).width() < 768) {
+var mobileDonut = function () {
+  if ($(window).width() < 768) {
     donut.updateOptions({
       plotOptions: {
         pie: {
@@ -648,6 +698,6 @@ var mobileDonut = function() {
   }
 }
 
-$(window).resize(function() {
+$(window).resize(function () {
   mobileDonut()
 });

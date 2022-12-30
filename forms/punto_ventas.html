@@ -31,7 +31,9 @@
         .container {
             font-size: 1em;
         }
-
+        #divPV{
+            background-color: #DADADA !important;
+        }
         
     </style>
 </head>
@@ -44,53 +46,53 @@
             </button>
         </div>
         <div class="container-fluid border border-info my-3 rounded" >
-            <div class="row">
-                <div class="col-12">
+            <div class="row" id="divPV">
+                <div class="col-md-12">
                     <div class="row">
-                        <div class="col-6 mt-3">
+                        <div class="col-md-6 mt-3">
                             <div class="row">
-                                <div class="col-2 col-xs-2">
+                                <div class="col-md-2 col-xs-12">
                                     <label for="txtCliente" >Cliente</label>
                                 </div>
-                                <div class="col-10 col-xs-10">
-                                    <input type="text" class="col-xs-12 col-sm-12" name="cliente" id="txtCliente" onkeydown="limpiar_rtn()" placeholder="Consumidor Final">
+                                <div class="col-md-10 col-xs-12">
+                                    <input type="text" class="col-12" name="cliente" id="txtCliente" onkeydown="limpiar_rtn()" placeholder="Consumidor Final">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6 mt-3">
+                        <div class="col-md-6 mt-3">
                             <div class="row">
-                                <div class="col-2">
+                                <div class="col-md-2">
                                     <label for="txtRTN">RTN/DNI</label>
                                 </div>
-                                <div class="col-10">
-                                    <input type="text" class="col-xs-12 col-sm-12" name="cliente" id="txtRTN" onkeydown="limpiar_cl()">
+                                <div class="col-md-10">
+                                    <input type="text" class="col-12" name="cliente" id="txtRTN" onkeydown="limpiar_cl()">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-4 my-2">
+                        <div class="col-md-4 my-2">
                             <div class="row">
-                                <div class="col-4">
+                                <div class="col-md-4">
                                     <label for="txtCantidad">Cantidad</label>
                                 </div>
-                                <div class="col-8">
-                                    <input type="number" class="col-xs-12 col-sm-12 text-end" name="txtCantidad" id="txtCantidad" min="1" step="1" value="1">
+                                <div class="col-md-8">
+                                    <input type="number" class="col-12 text-end" name="txtCantidad" id="txtCantidad" min="1" step="1" value="1">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-8 my-2">
+                        <div class="col-md-8 my-2">
                             <div class="row">
-                                <div class="col-2">
+                                <div class="col-md-2">
                                     <label for="slcProducto" >Producto</label>
                                 </div>
-                                <div class="col-10">
-                                    <input type="text" class="col-xs-12 col-sm-12" name="txtProductos" id="txtProductos">
+                                <div class="col-md-10">
+                                    <input type="text" class="col-12" name="txtProductos" id="txtProductos">
                                     <!--<select name="productos" id="slcProductos" class="col-lg-12"></select>-->
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-12">
+                <div class="col-md-12">
                     <table width="100%" class="text-end my-3">
                         <tr>
                             <td width="80%" ><strong>Total Factura</strong></td>
@@ -100,8 +102,8 @@
                     <table class="table table-hover table-sm">
                         <thead class="text-center">
                             <tr>
-                                <th width="10%"></th>
-                                <th width="25%">Cantidad</th>
+                                <th width="18%"></th>
+                                <th width="17%">Cantidad</th>
                                 <th width="25%">Producto</th>
                                 <th width="20%">Precio Unitario</th>
                                 <th width="20%">Total</th>
@@ -119,32 +121,38 @@
                 <div class="modal-header" style="font-weight: bold;">
                     <div class="container">
                         <div class="row">
-                            <div class="col-12">Pago de Factura</div>
-                            
+                            <div class="col-md-12">Pago de Factura</div>
+                            <div class="col-md-12" id="pagarCabecera">
+                                <div class="row">
+                                    <div class="col-4">Total a pagar: L.<span id="tlPagar"></span></div>
+                                    <div class="col-4">Debe: L. <span id="tlDebe"></span></div>
+                                    <div class="col-4">Cambio Efectivo: L. <span id="tlPagado"></span></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-body">
                   <div class="container">
                       <div class="row">
-                            <div class="col-lg-12 text-center">
+                            <div class="col-md-12 text-center">
                                 
                             </div>
-                            <div class="col-2">
+                            <div class="col-md-2">
                                 <button type="button" class="btn btn-success col-lg-12 mb-2" id="btnEfectivo"><i class="fa-solid fa-money-bill-1"></i>&nbsp;Efectivo</button>
                                 <button type="button" class="btn btn-success col-lg-12 mb-2" id="btnTarjeta"><i class="fa-solid fa-credit-card"></i>&nbsp;Tarjeta</button>
                             </div>
-                            <div class="col-7">
+                            <div class="col-md-7">
                                 <div class="row">
-                                    <div class="col-12" id="divEfectivo">
+                                    <div class="col-md-12" id="divEfectivo">
                                         <div class="row">
-                                            <div class="col-12">
+                                            <div class="col-md-12">
                                                 <label for="txtEfectivo">Cantidad Efectivo</label>
                                             </div>
-                                            <div class="col-12">
+                                            <div class="col-md-12">
                                                 <div class="row">
                                                     <div class="col-10">
-                                                        <input type="number" class="col-xs-12 col-sm-12"  name="efectivo" id="txtEfectivo" value="0" min="1">
+                                                        <input type="number" class="col-md-12"  name="efectivo" id="txtEfectivo" value="0" min="1">
                                                     </div>
                                                     <div class="col-2">
                                                         <button type="button" class="btn btn-success btn-sm rounded-pill" id="btnPagoEfectivo"><i class="fa-solid fa-check-circle"></i></button>
@@ -153,17 +161,17 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-12" id="divTarjeta">
+                                    <div class="col-md-12" id="divTarjeta">
                                         <div class="row">
-                                            <div class="col-12">
+                                            <div class="col-md-12">
                                                 <label for="txtTarjeta">Cantidad Tarjeta</label>
                                             </div>
-                                            <div class="col-12">
+                                            <div class="col-md-12">
                                                 <div class="row">
-                                                    <div class="col-10">
-                                                        <input type="number" class="col-xs-12 col-sm-12" name="efectivo" id="txtTarjeta" value="0" min="1">
+                                                    <div class="col-md-10">
+                                                        <input type="number" class="col-md-12" name="efectivo" id="txtTarjeta" value="0" min="1">
                                                     </div>
-                                                    <div class="col-2">
+                                                    <div class="col-md-2">
                                                         <button type="button" class="btn btn-success btn-sm rounded-pill" id="btnPagoTarjeta"><i class="fa-solid fa-check-circle"></i></button>
                                                     </div>
                                                 </div>
@@ -174,11 +182,11 @@
                             </div>
                             <div class="col-3" style="font-weight: bold;">
                                 <div class="row">
-                                    <div class="col-12">
+                                    <div class="col-md-12" id="pagarCuerpo">
                                         <div class="row">
-                                            <div class="col-12">Total a pagar: L.<span id="tlPagar"></span></div>
-                                            <div class="col-12">Debe: L. <span id="tlDebe"></span></div>
-                                            <div class="col-12">Cambio Efectivo: L. <span id="tlPagado"></span></div>
+                                            <div class="col-md-12">Total a pagar: L.<span id="tlPagar"></span></div>
+                                            <div class="col-md-12">Debe: L. <span id="tlDebe"></span></div>
+                                            <div class="col-md-12">Cambio Efectivo: L. <span id="tlPagado"></span></div>
                                         </div>
                                     </div>
                                 </div>
@@ -246,6 +254,55 @@
             $("#txtProductos").click(function() {
                 edtiKey = 0;
             });
+            $("input").addClass("rounded");
+            $( "#txtProductos" ).autocomplete({
+                focus: function( event, ui ) {}
+            });
+            $(window).bind("orientationchange", function(event){		
+                if (event.orientation)		
+                console.log("Me han reorientado a " + event.orientation);
+            });
+            var isMobile = {
+                Android: function() {
+                    return navigator.userAgent.match(/Android/i);
+                },
+                BlackBerry: function() {
+                    return navigator.userAgent.match(/BlackBerry/i);
+                },
+                iOS: function() {
+                    return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+                },
+                Opera: function() {
+                    return navigator.userAgent.match(/Opera Mini/i);
+                },
+                Windows: function() {
+                    return navigator.userAgent.match(/IEMobile/i);
+                },
+                any: function() {
+                    return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+                }
+            };
+            if( isMobile.any() ){
+                $("#pagarCuerpo").hide();
+                $("#pagarCabecera").show();
+                //alert('Mobile');
+            } else {
+                
+                $("#pagarCuerpo").show();
+                $("#pagarCabecera").hide();
+            }
+            window.addEventListener("orientationchange", function() {
+                // Hacer algo cuando cambia la orientación
+                if( isMobile.any() ){
+                    $("#pagarCuerpo").hide();
+                    $("#pagarCabecera").show();
+                    //alert('Mobile');
+                } else {
+                    
+                    $("#pagarCuerpo").show();
+                    $("#pagarCabecera").hide();
+                }
+            }, false);
         });
     }); 
 
