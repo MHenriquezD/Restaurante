@@ -31,13 +31,15 @@ $("#btnCerrarModal").click(function(){
 $("#btnEfectivo").click(function(){  
     $("#txtEfectivo").val(pago_debe);
     $("#divEfectivo").show();
-    $("#divTarjeta").hide()
+    $("#divTarjeta").hide();
+    console.log(pago_acumulado);
 })
 
 $("#btnTarjeta").click(function(){  
     $("#txtTarjeta").val(pago_debe);
     $("#divTarjeta").show();
     $("#divEfectivo").hide();
+    console.log(pago_acumulado);
     console.log(tipo_pago);
 })
 
@@ -45,6 +47,7 @@ $("#btnPagoEfectivo").click(function(){
     //$("#divTarjeta").hide();
     pago_efectivo = $("#txtEfectivo").val();
     pago_acumulado += Number.parseFloat(pago_efectivo);
+    console.log(pago_acumulado);
 
     pago_debe = verificar_pago(total_factura, pago_acumulado/*, pago_dado*/);
     suelto = verificar_suelto(pago_debe, total_factura);
@@ -102,6 +105,14 @@ $("#btnPagar").click(function(){
     }
     if(rtn_cliente == ""){
         rtn_cliente = ""
+    }
+    if(pago_acumulado < total_factura){
+        Swal.fire(
+            'No se ha pagado',
+            'No se puede avanzar sin pagar',
+            'error'
+        );
+        return;
     }
     $.ajax(
     {

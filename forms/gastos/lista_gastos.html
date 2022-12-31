@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gastos</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="../../img/iconos/logo.ico">
+    <link href="../../libs/fontawesome/css/all.min.css" rel="stylesheet">
+    <link href="../../libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../libs/select2/dist/css/select2.min.css" rel="stylesheet">
+    <style>
+        .col-6 {
+            margin: 5px 0px;
+        }
+
+        .mg-button {
+            margin: -4px;
+        }
+
+        .centro {
+            text-align: center;
+        }
+
+        .final {
+            text-align: end;
+        }
+
+        #bgCabecera {
+            background-color: #E0DCDD;
+        }
+
+        #filtroInicio {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="contenido">
+        <div id="filtroInicio">
+            <div class="container my-3" style="font-weight: bold;">
+                <div class="row my-3 rounded-pill" id="bgCabecera">
+                    <div class="col-8 my-3">
+                        <h4 class="mr-4">Listado de Compras</h4>
+                    </div>
+                    <div class="col-4 my-3">
+                        <h4 id="fecha" class="mr-3 font-weight-bold text-end"></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divButtons">
+            <div class="container my-3" style="font-weight: bold;">
+                <div class="row my-3 rounded-pill text-center">
+                    <div class="col-12 my">
+                        <button type="button" class="btn btn-success btn-bg" id="btnComprar"><i class="fa-solid fa-plus"></i>&nbsp;&nbsp;Agregar Compra</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container my-md-4">
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-hover table-responsive-sm">
+                        <thead>
+                            <th width="25%">Detalle</th>
+                            <th width="25%">Fecha</th>
+                            <th width="25%">Cantidad</th>
+                            <th width="25%">Total</th>
+                        </thead>
+                        <tbody id="infoGastos"></tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3" class="text-end"><strong>Total</strong></td>
+                                <td id="totalGastos" class="text-end"></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+            
+    </div>
+    <div id="error"></div>
+</body>
+<script type="text/javascript" src="../../JS/jquery-3.6.0.js"></script>
+<script type="text/javascript" src="../../libs/sweetalert2/dist/sweetalert2.all.min.js"></script>
+<script type="text/javascript" src="../../libs/bootstrap/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../libs/select2/dist/js/select2.min.js"></script>
+<script type="text/javascript" src="../../libs/sweetalert2/dist/sweetalert2.all.min.js"></script>
+<script type="text/javascript" src="../../libs/jQueryMask/dist/jquery.mask.min.js"></script>
+<script type="text/javascript" src="../../JS/conectar.js"></script>
+<script type="text/javascript" src="../../JS/utilidades/fecha.js"></script>
+<script type="module" src="../../JS/gastos/gastos_lista.js"></script>
+<script>
+    var fecha_new = "", fecha_normal = "", hora = "", descripcion = "", fecha= "", cantidad = 0, gasto = 0, datos = [];
+</script>
+</html>

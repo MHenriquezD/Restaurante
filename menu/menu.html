@@ -1,40 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu</title>
-    <link rel="stylesheet" href="../CSS/menu.css">
-    <link rel="icon" type="image/png" sizes="16x16" href="../img/iconos/logo.ico">
-    <link href="../libs/fontawesome/css/all.min.css" rel="stylesheet">
-    <link href="../libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../libs/select2/dist/css/select2.min.css" rel="stylesheet">
-    <script src="https://cdn.linearicons.com/free/1.0.0/svgembedder.min.js"></script>
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
-    <!--fuente roboto e iconos de fuente mhenriquez 21/12/2022-->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
-    <style>
-      a:hover {
-        color: #009ADA !important;
-      }
-      #divImg {
-        z-index: -500;
-        opacity: 0.1;
-        width: 100%;
-        height: 100%;
-      }
-      #salir:hover {
-        color: #A43020 !important;
-      }
 
-    </style>
-    
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu</title>
+  <link rel="stylesheet" href="../CSS/menu.css">
+  <link rel="icon" type="image/png" sizes="16x16" href="../img/iconos/logo.ico">
+  <link href="../libs/fontawesome/css/all.min.css" rel="stylesheet">
+  <link href="../libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../libs/select2/dist/css/select2.min.css" rel="stylesheet">
+  <script src="https://cdn.linearicons.com/free/1.0.0/svgembedder.min.js"></script>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <!--fuente roboto e iconos de fuente mhenriquez 21/12/2022-->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+  <style>
+    a:hover {
+      color: #009ADA !important;
+    }
+
+    #divImg {
+      z-index: -500;
+      opacity: 0.1;
+      width: 100%;
+      height: 100%;
+    }
+
+    #salir:hover {
+      color: #A43020 !important;
+    }
+  </style>
+
 </head>
+
 <body>
-    
-<!--
+
+  <!--
 Name  : Aqeel Malik (Web Developer)
 Email : Malik.AqeelArshad@gmail.com
 Mobile: +92 302 6262164
@@ -45,13 +48,15 @@ Skills: xHTML | HTML5 | CSS3 | Bootstrap | Wordpress | Javascript | jQuery | Aja
     <div class="menu-container">
       <div class="menu">
         <ul>
-          <li><a href="#" class="zoom" onclick="cargar('../forms/graficas/dashboard_modern/dasboard')"><i class="fa-solid fa-chart-line" id="zoom"></i>&nbsp;Inicio</a></li>
-          
+          <li><a href="#" class="zoom" onclick="cargar('../forms/graficas/dashboard_modern/dasboard')"><i
+                class="fa-solid fa-chart-line" id="zoom"></i>&nbsp;Inicio</a></li>
+
           <li><a href="#" class="zoom"><i class="fa-solid fa-cash-register" id="zoom"></i>&nbsp;Punto de Ventas</a>
             <ul>
               <li><a href="#" onclick="cargar('../forms/punto_ventas')">Caja Diaria</a></li>
               <li><a href="#" onclick="cargar('../forms/facturas')">Facturas</a></li>
-              <li><a href="#">Caja</a></li>
+              <li><a href="#" onclick="cargar('../forms/gastos/lista_gastos')">Compras</a></li>
+              <!--<li><a href="#">Caja</a></li>-->
             </ul>
           </li>
           <li><a href="#" class="zoom"><i class="fa-solid fa-boxes-stacked" id="zoom"></i>&nbsp;Inventario</a>
@@ -61,7 +66,8 @@ Skills: xHTML | HTML5 | CSS3 | Bootstrap | Wordpress | Javascript | jQuery | Aja
               <li><a href="#" onclick="cargar('../forms/isv/isv')">Impuestos</a></li>
             </ul>
           </li>
-          <li><a href="#" onclick="cargar('../forms/clientes/clientes')" class="zoom"><i class="fa-solid fa-users" id="zoom"></i>&nbsp;Clientes</a>
+          <li><a href="#" onclick="cargar('../forms/clientes/clientes')" class="zoom"><i class="fa-solid fa-users"
+                id="zoom"></i>&nbsp;Clientes</a>
           </li>
           <!--<li><a href="#" class="zoom"><i class="fa-solid fa-circle-info" id="zoom"></i>&nbsp;Acerca de</a>
             <ul>
@@ -134,18 +140,20 @@ Skills: xHTML | HTML5 | CSS3 | Bootstrap | Wordpress | Javascript | jQuery | Aja
               </li>
               <li><a href="#">Configuraciónde la Empresa</a>
                 <ul>
-                    <li><a href="#" onclick="cargar('../forms/informacion_empresa')">Información de la Empresa</a></li>
-                    <li><a href="#" onclick="cargar('../forms/informacion_cai')">CAI</a></li>
-                    <li><a href="#" onclick="cargar('../forms/logo')">Logos</a></li>
+                  <li><a href="#" onclick="cargar('../forms/informacion_empresa')">Información de la Empresa</a></li>
+                  <li><a href="#" onclick="cargar('../forms/informacion_cai')">CAI</a></li>
+                  <li><a href="#" onclick="cargar('../forms/logo')">Logos</a></li>
                 </ul>
               </li>
             </ul>
           </li>
-          <li><a id="salir" href="#" onclick="cerrar_sesion()" class="zoom"><i class="fa-solid fa-arrow-right-from-bracket" id="zoom"></i>&nbsp;&nbsp;Salir</a></li>
+          <li><a id="salir" href="#" onclick="cerrar_sesion()" class="zoom"><i
+                class="fa-solid fa-arrow-right-from-bracket" id="zoom"></i>&nbsp;&nbsp;Salir</a></li>
           <li><a><img src="../img//iconos/logo.ico" alt="logo.png" width="40px" height="40px"></a></li>
         </ul>
       </div>
-      <iframe src="../forms/graficas/dashboard_modern/dasboard" style="border:0px; width:100%; height:95%" id="informacion"></iframe>
+      <iframe src="../forms/graficas/dashboard_modern/dasboard" style="border:0px; width:100%; height:95%"
+        id="informacion"></iframe>
     </div>
     <div id="error"></div>
     <!--<div id="informacion"></div>-->

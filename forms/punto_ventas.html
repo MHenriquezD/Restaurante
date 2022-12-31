@@ -123,11 +123,7 @@
                         <div class="row">
                             <div class="col-md-12">Pago de Factura</div>
                             <div class="col-md-12" id="pagarCabecera">
-                                <div class="row">
-                                    <div class="col-4">Total a pagar: L.<span id="tlPagar"></span></div>
-                                    <div class="col-4">Debe: L. <span id="tlDebe"></span></div>
-                                    <div class="col-4">Cambio Efectivo: L. <span id="tlPagado"></span></div>
-                                </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -183,11 +179,6 @@
                             <div class="col-3" style="font-weight: bold;">
                                 <div class="row">
                                     <div class="col-md-12" id="pagarCuerpo">
-                                        <div class="row">
-                                            <div class="col-md-12">Total a pagar: L.<span id="tlPagar"></span></div>
-                                            <div class="col-md-12">Debe: L. <span id="tlDebe"></span></div>
-                                            <div class="col-md-12">Cambio Efectivo: L. <span id="tlPagado"></span></div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -283,18 +274,30 @@
                 }
             };
             if( isMobile.any() ){
-                $("#pagarCuerpo").hide();
-                $("#pagarCabecera").show();
+                $("#pagarCuerpo").html("");
+                $("#pagarCabecera").html(
+                    '<div class="row">'+
+                        '<div class="col-4">Total a pagar: L.<span id="tlPagar"></span></div>'+
+                        '<div class="col-4">Debe: L. <span id="tlDebe"></span></div>'+
+                        '<div class="col-4">Cambio Efectivo: L. <span id="tlPagado"></span></div>'+
+                    '</div>'
+                );
                 //alert('Mobile');
             } else {
                 
-                $("#pagarCuerpo").show();
-                $("#pagarCabecera").hide();
+                $("#pagarCuerpo").html(
+                    '<div class="row">'+
+                        '<div class="col-md-12">Total a pagar: L.<span id="tlPagar"></span></div>'+
+                        '<div class="col-md-12">Debe: L. <span id="tlDebe"></span></div>'+
+                        '<div class="col-md-12">Cambio Efectivo: L. <span id="tlPagado"></span></div>'+
+                    '</div>'
+                );
+                $("#pagarCabecera").html("");
             }
             window.addEventListener("orientationchange", function() {
                 // Hacer algo cuando cambia la orientación
                 if( isMobile.any() ){
-                    $("#pagarCuerpo").hide();
+                    $("#pagarCuerpo").html("");
                     $("#pagarCabecera").show();
                     //alert('Mobile');
                 } else {
