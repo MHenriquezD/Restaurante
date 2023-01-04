@@ -57,7 +57,7 @@
             <div class="col-lg-12 my-5">
                 <form action="" id="formLogos">
                     <div class="row form-group">
-                        <div class="col-sm-6">
+                        <div class="col-md-4">
                             <div class="row">
                                 <div class="col-lg-12 text-center" id="imgLogoCarga"></div>
                                 <div class="col-lg-12">
@@ -66,14 +66,22 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-md-4">
                             <div class="row">
                                 <div class="col-lg-12 text-center" id="imgMarcaCarga"></div>
                                 <div class="col-lg-12">
                                     <label for="imgMarca">Marca Agua</label>
                                     <input type="file" class="form-control" id="imgMarca" name="imgMarca" accept="image/gif,image/jpeg,image/jpg,image/png">
                                 </div>
-                                
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-lg-12 text-center" id="imgIcoCarga"></div>
+                                <div class="col-lg-12">
+                                    <label for="imgIco">Ícono</label>
+                                    <input type="file" class="form-control" id="imgIco" name="imgIco" accept="image/gif,image/jpeg,image/jpg,image/png,image/ico">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -101,6 +109,11 @@
         cargar_marca(this);
     });
 
+    $("#imgIco").change(function () {
+        console.log("cambio");
+        cargar_icono(this);
+    });
+
     function cargar_logo(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -122,6 +135,17 @@
         }
     }
 
+    function cargar_icono(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.readAsDataURL(input.files[0]);
+            reader.onload = function (e) {
+                $('#imgIcoCarga + img').remove();
+                $('#imgIcoCarga').html('<img src="'+e.target.result+'" width="150px" height="150px"/>');
+            }
+        }
+    }
+
     function cargar_logos(){
         $.ajax({
             url : '../php/cargar_logo.php',
@@ -132,6 +156,7 @@
             success : function(data) {
                 $('#imgMarcaCarga').html('<img src="data:image/png;base64, '+data["marca"]+'" width="150px" height="150px" alt="marca_agua.png"/>');
                 $('#imgLogoCarga').html('<img src="data:image/png;base64, '+data["logo"]+'" width="150px" height="150px" alt="logo.png"/>');
+                $('#imgIcoCarga').html('<img src="data:image/png;base64, '+data["icono"]+'" width="150px" height="150px" alt="logo.png"/>');
             },
             error : function(data) {
                 Swal.fire(

@@ -18,12 +18,21 @@ if(isset($_FILES["imgMarca"])){
     }
 }
 
+if(isset($_FILES["imgIco"])){
+    $revisar = getimagesize($_FILES["imgIco"]["tmp_name"]);
+    if($revisar !== false){
+        $image = $_FILES['imgIco']['tmp_name'];
+        $imgIco = comillas(addslashes(file_get_contents($image)));
+    }
+}
+
 
 $sql_update = 
     "UPDATE logo
     SET
         logo = $imgLogo,
-        marca = $imgMarca
+        marca = $imgMarca,
+        icono = $imgIco
     WHERE 
         id = 1
     "; 

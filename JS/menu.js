@@ -11,6 +11,7 @@ $("input[type=text]").click(function() {
 $("input[type=number]").click(function() {
   $(this).select();
 });
+cargar_logos();
 
 function verificar_sesion(){
   $.ajax({
@@ -128,5 +129,35 @@ function cerrar_sesion(){
         )
         //alert('Petición realizada');*/
     }
+  });
+}
+
+function cargar_logos(){
+  $.ajax({
+      url : '../php/cargar_logo.php',
+      data : {},
+      type : 'POST',
+      dataType : 'json',
+
+      success : function(data) {
+        $("#icono").attr("href","data:image/png;base64, "+data['icono']);
+      },
+      error : function(data) {
+          Swal.fire(
+              'Error',
+              'Error en la conexión con el servidor',
+              'error'
+          );
+      },
+
+      // código a ejecutar sin importar si la petición falló o no
+      complete : function(xhr, status) {
+          /*Swal.fire(
+              'Bien!',
+              'Conexión éxitosa',
+              'success'
+          )
+          //alert('Petición realizada');*/
+      }
   });
 }

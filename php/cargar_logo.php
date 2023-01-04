@@ -5,7 +5,8 @@ $n = 0;
 $sql = "
     SELECT 
         logo,
-        marca
+        marca,
+        icono
     FROM 
         logo
     WHERE 
@@ -16,6 +17,7 @@ $rs = cargar_sql($sql);
 if(isset($rs)){
     $data["logo"] = base64_encode($rs[0][0]);
     $data["marca"] = base64_encode($rs[0][1]);
+    $data["icono"] = base64_encode($rs[0][2]);
     //$data["logo"] = $rs[0][1];
     //echo json_encode($data);
     //$data["marca"]
