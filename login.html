@@ -1,6 +1,6 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,18 +11,22 @@
     <link href="libs/fontawesome/css/all.min.css" rel="stylesheet">
     <link href="libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .swal2-icon,swal2-icon-content {
+        .swal2-icon,
+        swal2-icon-content {
             width: 30px;
             height: 30px;
         }
+
         #swal2-html-container {
             font-size: 15px;
         }
+
         #swal2-title {
             font-size: 25px;
         }
     </style>
 </head>
+
 <body>
     <!--<div class="fondo">
         <img src="img/principal/entrada.jpg" alt="entrada.jpg" style="width: 100%; height: 100vh;">
@@ -30,29 +34,44 @@
     <div class="container-fluid" id="filtro">
         <div class="login col-lg-4">
             <div class="text-center"><img src="img/principal/logo.png" alt="Logo Route86" width="80vh"></div>
-            
+
             <!--<h3>Inicia Sesion</h3>-->
             <hr>
             <form>
-                <label for="txtUsuario" class="form-label mt-1 titulos">Usuario</label>
-                <input type="text" class="form-control col-12" id="txtUsuario" placeholder="usuario">
-                <label for="txtContrasena" class="form-label mt-2 titulos">Contraseña</label>
-                <input type="password" class="form-control col-10" id="txtContrasena">
-                <!--<button id="mostrar" class="btn btn-primary" type="button"> <span id="icono" class="fa fas-fa-eye"></span> </button>-->
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="txtUsuario" class="form-label mt-1 titulos">Usuario</label>
+                            <div class="input-class">
+                                <input type="text" class="form-control" id="txtUsuario" placeholder="usuario">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="txtContrasena" class="form-label mt-2 titulos">Contraseña</label>
+                            <div class="input-group">
+                                <input id="txtContrasena" type="Password" Class="form-control">
+                                <div class="input-group-append">
+                                    <button id="show_password" class="btn btn-primary" type="button" onclick="mostrarPassword()">
+                                        <span class="fa fa-eye-slash icon"></span> </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </form>
-            
+
             <hr>
             <div class="text-center col-12 my-2">
-                <button type="button" class="btn btn-primary" id="iniciar"><img src="img/principal/hachi logo.png" alt="hachi.png"></button>
+                <button type="button" class="btn btn-primary" id="iniciar"><img src="img/principal/hachi logo.png"
+                        alt="hachi.png"></button>
             </div>
 
         </div>
     </div>
-    
-    
-    <div id="divScripts"></div>
 </body>
 <script type="text/javascript" id="jquery" src="/JS/jquery-3.6.0.js"></script>
 <script type="text/javascript" id="sa" src="/libs/sweetalert2/dist/sweetalert2.all.min.js"></script>
 <script type="text/javascript" id="sa" src="/JS/login/login.js"></script>
+
 </html>

@@ -7,9 +7,10 @@ if(empty($_POST["contra"]) or empty($_POST["user"])){
     echo 2;
     return;
 }
-$contra = md5($_POST['contra']);
+$contra = comillas(md5($_POST['contra']));
+$usuario = comillas($_POST['user']);
 //$con = conexion();
-$sql = "SELECT usuario, contrasena, correo, nombre, id, activo, tipo_usuario FROM users WHERE usuario = '".$_POST['user']."' AND contrasena = '".$contra."'";
+$sql = "SELECT usuario, contrasena, correo, nombre, id, activo, tipo_usuario FROM users WHERE usuario = $usuario AND contrasena = $contra";
 $resultado = cargar_sql($sql);
 $data = array();
 //echo $sql;
@@ -21,6 +22,7 @@ if(!$resultado){
         $_SESSION['usr_login'] = $resultado[0][0];
         $_SESSION['usr_mail'] = $resultado[0][2];
         $_SESSION['usr_name'] = $resultado[0][3];
+        $_SESSION['usr_tipo'] = $resultado[0][6];
         $sql_check = 
             "SELECT usr_login, fecha, activo 
             FROM usr_log 

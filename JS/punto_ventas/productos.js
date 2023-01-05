@@ -14,7 +14,7 @@ function agregar_producto(){
     $("#tbProductos").append(
         "<tr id='fila"+fila_productos+"'>"+
             "<td class='text-center'>"+
-                "<button type='button' class='btn btn-outline-danger btn-sm rounded-circle' onclick='eliminar_fila(\""+fila_productos+"\")' id='btnBorrar_"+fila_productos+"'>"+
+                "<button type='button' class='btn btn-outline-danger btn-sm rounded-circle' onclick='verificar_fila(\""+fila_productos+"\")' id='btnBorrar_"+fila_productos+"'>"+
                     "<i class='fa-solid fa-trash mg-top'></i>"+
                 "</button>"+
                 "&nbsp;&nbsp;&nbsp;"+

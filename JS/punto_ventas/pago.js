@@ -26,7 +26,11 @@ $("#btnCobrar").click(function(){
 })
 $("#btnCerrarModal").click(function(){  
     $("#mdlPago").modal("hide");
-})
+});
+
+$("#btnCerrarModalUsuario").click(function(){  
+    $("#mdlVerificarUsuario").modal("hide");
+});
 
 $("#btnEfectivo").click(function(){  
     $("#txtEfectivo").val(pago_debe);

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,24 +20,37 @@
             width: 100%;
             color: white;
         }
+
         html {
             min-height: 100%;
             position: relative;
         }
+
         body {
             margin: 0;
             margin-bottom: 40px;
             font-size: 16px;
         }
+
         .container {
             font-size: 1em;
         }
-        #divPV{
+
+        #divPV {
             background-color: #DADADA !important;
         }
-        
+
+        #show_password {
+            background-color: #EAEAEA !important;
+            color: #6c757d !important;
+        }
+        #show_password:hover {
+            color: #EAEAEA !important;
+            background-color: #6c757d !important;
+        }
     </style>
 </head>
+
 <body>
     <div id="error"></div>
     <div class="container" id="informacion">
@@ -45,17 +59,18 @@
                 <i class="fa-solid fa-money-bill-wave"></i>&nbsp;Pagar
             </button>
         </div>
-        <div class="container-fluid border border-info my-3 rounded" >
+        <div class="container-fluid border border-info my-3 rounded">
             <div class="row" id="divPV">
                 <div class="col-md-12">
                     <div class="row">
                         <div class="col-md-6 mt-3">
                             <div class="row">
                                 <div class="col-md-2 col-xs-12">
-                                    <label for="txtCliente" >Cliente</label>
+                                    <label for="txtCliente">Cliente</label>
                                 </div>
                                 <div class="col-md-10 col-xs-12">
-                                    <input type="text" class="col-12" name="cliente" id="txtCliente" onkeydown="limpiar_rtn()" placeholder="Consumidor Final">
+                                    <input type="text" class="col-12" name="cliente" id="txtCliente"
+                                        onkeydown="limpiar_rtn()" placeholder="Consumidor Final">
                                 </div>
                             </div>
                         </div>
@@ -65,7 +80,8 @@
                                     <label for="txtRTN">RTN/DNI</label>
                                 </div>
                                 <div class="col-md-10">
-                                    <input type="text" class="col-12" name="cliente" id="txtRTN" onkeydown="limpiar_cl()">
+                                    <input type="text" class="col-12" name="cliente" id="txtRTN"
+                                        onkeydown="limpiar_cl()">
                                 </div>
                             </div>
                         </div>
@@ -75,14 +91,15 @@
                                     <label for="txtCantidad">Cantidad</label>
                                 </div>
                                 <div class="col-md-8">
-                                    <input type="number" class="col-12 text-end" name="txtCantidad" id="txtCantidad" min="1" step="1" value="1">
+                                    <input type="number" class="col-12 text-end" name="txtCantidad" id="txtCantidad"
+                                        min="1" step="1" value="1">
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-8 my-2">
                             <div class="row">
                                 <div class="col-md-2">
-                                    <label for="slcProducto" >Producto</label>
+                                    <label for="slcProducto">Producto</label>
                                 </div>
                                 <div class="col-md-10">
                                     <input type="text" class="col-12" name="txtProductos" id="txtProductos">
@@ -95,7 +112,7 @@
                 <div class="col-md-12">
                     <table width="100%" class="text-end my-3">
                         <tr>
-                            <td width="80%" ><strong>Total Factura</strong></td>
+                            <td width="80%"><strong>Total Factura</strong></td>
                             <td width="20%" class="totalFac" style="font-weight: bold;"></td>
                         </tr>
                     </table>
@@ -112,86 +129,147 @@
                         <tbody id="tbProductos"></tbody>
                     </table>
                 </div>
-            
+
             </div>
         </div>
-        <div class="modal fade" id="mdlPago" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal fade" id="mdlPago" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+            aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" style="max-width: 90% !important;" role="document">
-              <div class="modal-content">
-                <div class="modal-header" style="font-weight: bold;">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-12">Pago de Factura</div>
-                            <div class="col-md-12" id="pagarCabecera">
-                                
+                <div class="modal-content">
+                    <div class="modal-header" style="font-weight: bold;">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">Pago de Factura</div>
+                                <div class="col-md-12" id="pagarCabecera">
+
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-body">
-                  <div class="container">
-                      <div class="row">
-                            <div class="col-md-12 text-center">
-                                
-                            </div>
-                            <div class="col-md-2">
-                                <button type="button" class="btn btn-success col-lg-12 mb-2" id="btnEfectivo"><i class="fa-solid fa-money-bill-1"></i>&nbsp;Efectivo</button>
-                                <button type="button" class="btn btn-success col-lg-12 mb-2" id="btnTarjeta"><i class="fa-solid fa-credit-card"></i>&nbsp;Tarjeta</button>
-                            </div>
-                            <div class="col-md-7">
-                                <div class="row">
-                                    <div class="col-md-12" id="divEfectivo">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <label for="txtEfectivo">Cantidad Efectivo</label>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="row">
-                                                    <div class="col-10">
-                                                        <input type="number" class="col-md-12"  name="efectivo" id="txtEfectivo" value="0" min="1">
-                                                    </div>
-                                                    <div class="col-2">
-                                                        <button type="button" class="btn btn-success btn-sm rounded-pill" id="btnPagoEfectivo"><i class="fa-solid fa-check-circle"></i></button>
+                    <div class="modal-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="button" class="btn btn-success col-lg-12 mb-2" id="btnEfectivo"><i
+                                            class="fa-solid fa-money-bill-1"></i>&nbsp;Efectivo</button>
+                                    <button type="button" class="btn btn-success col-lg-12 mb-2" id="btnTarjeta"><i
+                                            class="fa-solid fa-credit-card"></i>&nbsp;Tarjeta</button>
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="row">
+                                        <div class="col-md-12" id="divEfectivo">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label for="txtEfectivo">Cantidad Efectivo</label>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="row">
+                                                        <div class="col-10">
+                                                            <input type="number" class="col-md-12" name="efectivo"
+                                                                id="txtEfectivo" value="0" min="1">
+                                                        </div>
+                                                        <div class="col-2">
+                                                            <button type="button"
+                                                                class="btn btn-success btn-sm rounded-pill"
+                                                                id="btnPagoEfectivo"><i
+                                                                    class="fa-solid fa-check-circle"></i></button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-12" id="divTarjeta">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <label for="txtTarjeta">Cantidad Tarjeta</label>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="row">
-                                                    <div class="col-md-10">
-                                                        <input type="number" class="col-md-12" name="efectivo" id="txtTarjeta" value="0" min="1">
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <button type="button" class="btn btn-success btn-sm rounded-pill" id="btnPagoTarjeta"><i class="fa-solid fa-check-circle"></i></button>
+                                        <div class="col-md-12" id="divTarjeta">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label for="txtTarjeta">Cantidad Tarjeta</label>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="row">
+                                                        <div class="col-md-10">
+                                                            <input type="number" class="col-md-12" name="efectivo"
+                                                                id="txtTarjeta" value="0" min="1">
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <button type="button"
+                                                                class="btn btn-success btn-sm rounded-pill"
+                                                                id="btnPagoTarjeta"><i
+                                                                    class="fa-solid fa-check-circle"></i></button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-3" style="font-weight: bold;">
-                                <div class="row">
-                                    <div class="col-md-12" id="pagarCuerpo">
+                                <div class="col-3" style="font-weight: bold;">
+                                    <div class="row">
+                                        <div class="col-md-12" id="pagarCuerpo">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                      </div>
-                  </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" id="btnCerrarModal"
+                            data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary" id="btnPagar">Pagar</button>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-danger" id="btnCerrarModal" data-dismiss="modal">Cerrar</button>
-                  <button type="button" class="btn btn-primary" id="btnPagar">Pagar</button>
-                </div>
-              </div>
             </div>
-          </div>
+        </div>
+        <div class="modal fade" id="mdlVerificarUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" style="font-weight: bold;">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">Verificar Usuario</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                            <div class="row">
+                                <form id="formVerificar">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <label for="txtUsuario" class="form-label mt-1 titulos">Usuario</label>
+                                                <div class="input-class">
+                                                    <input type="text" class="form-control" id="txtUsuario" placeholder="usuario">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <label for="txtContrasena" class="form-label mt-2 titulos">Contraseña</label>
+                                                <div class="input-group">
+                                                    <input id="txtContrasena" type="Password" Class="form-control">
+                                                    <div class="input-group-append">
+                                                        <button id="show_password" class="btn" type="button" onclick="mostrarPassword()">
+                                                            <span class="fa fa-eye-slash icon"></span> 
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                    
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" id="btnCerrarModalUsuario"
+                            data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary" id="btnVerificarUser"><i class="fa-solid fa-user-check"></i>&nbsp;&nbsp;Verificar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 <script type="text/javascript" src="../js/jquery-3.6.0.js"></script>
@@ -204,14 +282,15 @@
 <script type="text/javascript" src="../JS/punto_ventas/autocomplete.js"></script>
 <script type="text/javascript" src="../JS/punto_ventas/productos.js"></script>
 <script type="text/javascript" src="../JS/punto_ventas/verificar_pagos.js"></script>
+<script type="text/javascript" src="../JS/punto_ventas/verificar_usuario.js"></script>
 <!--<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 <script src="https://cdn.linearicons.com/free/1.0.0/svgembedder.min.js"></script>
 <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>-->
 <script>
-    var total_factura = 0, fila_productos = 0, filas_actuales = 0;
-    var id_producto = 0,nombre_producto = "",precio_producto = 0,desc_producto = "",porcentaje_isv_producto = 0, precio_unitario = 0;
+    var total_factura = 0, fila_productos = 0, filas_actuales = 0, idf_verificar = -1;
+    var id_producto = 0, nombre_producto = "", precio_producto = 0, desc_producto = "", porcentaje_isv_producto = 0, precio_unitario = 0;
     var pago_debe = 0, pago_debe_formato = 0, pago_dado = 0, pago_dado_formato = 0, pago_acumulado = 0, pago_acumulado_formato = 0;
     var id_cliente = 0;
     var edtiKey = 0;
@@ -229,110 +308,110 @@
     ];
     var productos = [];
     //cargar_productos();
-    jQuery(document).ready(function($){
-        $(document).ready(function() {
+    jQuery(document).ready(function ($) {
+        $(document).ready(function () {
             $('#slcProductos').select2();
             buscar_x_nombre();
             buscar_x_rtn();
             cargar_productos()
             //$('.totalFac').mask("000,000,000,000,000.00", {reverse: true});
-            $('.Money').mask("000.000.000.000.000,00", {reverse: true});
+            $('.Money').mask("000.000.000.000.000,00", { reverse: true });
             //$(".totalFac").toFixed(2);
             verificar_sesion();
             $('.modal').modal({ backdrop: 'static', keyboard: false });
             $("#divEfectivo").hide();
             $("#divTarjeta").hide();
-            $("#txtProductos").click(function() {
+            $("#txtProductos").click(function () {
                 edtiKey = 0;
             });
             $("input").addClass("rounded");
-            $( "#txtProductos" ).autocomplete({
-                focus: function( event, ui ) {}
+            $("#txtProductos").autocomplete({
+                focus: function (event, ui) { }
             });
-            $(window).bind("orientationchange", function(event){		
-                if (event.orientation)		
-                console.log("Me han reorientado a " + event.orientation);
+            $(window).bind("orientationchange", function (event) {
+                if (event.orientation)
+                    console.log("Me han reorientado a " + event.orientation);
             });
             var isMobile = {
-                Android: function() {
+                Android: function () {
                     return navigator.userAgent.match(/Android/i);
                 },
-                BlackBerry: function() {
+                BlackBerry: function () {
                     return navigator.userAgent.match(/BlackBerry/i);
                 },
-                iOS: function() {
+                iOS: function () {
                     return navigator.userAgent.match(/iPhone|iPad|iPod/i);
                 },
-                Opera: function() {
+                Opera: function () {
                     return navigator.userAgent.match(/Opera Mini/i);
                 },
-                Windows: function() {
+                Windows: function () {
                     return navigator.userAgent.match(/IEMobile/i);
                 },
-                any: function() {
+                any: function () {
                     return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
                 }
             };
-            if( isMobile.any() ){
+            if (isMobile.any()) {
                 $("#pagarCuerpo").html("");
                 $("#pagarCabecera").html(
-                    '<div class="row">'+
-                        '<div class="col-4">Total a pagar: L.<span id="tlPagar"></span></div>'+
-                        '<div class="col-4">Debe: L. <span id="tlDebe"></span></div>'+
-                        '<div class="col-4">Cambio Efectivo: L. <span id="tlPagado"></span></div>'+
+                    '<div class="row">' +
+                    '<div class="col-4">Total a pagar: L.<span id="tlPagar"></span></div>' +
+                    '<div class="col-4">Debe: L. <span id="tlDebe"></span></div>' +
+                    '<div class="col-4">Cambio Efectivo: L. <span id="tlPagado"></span></div>' +
                     '</div>'
                 );
                 //alert('Mobile');
             } else {
-                
+
                 $("#pagarCuerpo").html(
-                    '<div class="row">'+
-                        '<div class="col-md-12">Total a pagar: L.<span id="tlPagar"></span></div>'+
-                        '<div class="col-md-12">Debe: L. <span id="tlDebe"></span></div>'+
-                        '<div class="col-md-12">Cambio Efectivo: L. <span id="tlPagado"></span></div>'+
+                    '<div class="row">' +
+                    '<div class="col-md-12">Total a pagar: L.<span id="tlPagar"></span></div>' +
+                    '<div class="col-md-12">Debe: L. <span id="tlDebe"></span></div>' +
+                    '<div class="col-md-12">Cambio Efectivo: L. <span id="tlPagado"></span></div>' +
                     '</div>'
                 );
                 $("#pagarCabecera").html("");
             }
-            window.addEventListener("orientationchange", function() {
+            window.addEventListener("orientationchange", function () {
                 // Hacer algo cuando cambia la orientación
-                if( isMobile.any() ){
+                if (isMobile.any()) {
                     $("#pagarCuerpo").html("");
                     $("#pagarCabecera").show();
                     //alert('Mobile');
                 } else {
-                    
+
                     $("#pagarCuerpo").show();
                     $("#pagarCabecera").hide();
                 }
             }, false);
         });
-    }); 
+    });
 
-    $(".totalFac").html("L. "+total_factura.toFixed(2));
-    
-    function verificar_sesion(){
+    $(".totalFac").html("L. " + total_factura.toFixed(2));
+
+    function verificar_sesion() {
         $.ajax({
-            url : '../php/verificar_sesion.php',
-            data : {},
-            type : 'POST',
-            dataType : 'json',
+            url: '../php/verificar_sesion.php',
+            data: {},
+            type: 'POST',
+            dataType: 'json',
 
-            success : function(json) {
-                if(json["respuesta"] == 1){
-                //window.location.href = "../login.html";
-                console.log("Conexion segura");
-                }else{
+            success: function (json) {
+                if (json["respuesta"] == 1) {
+                    //window.location.href = "../login.html";
+                    console.log("Conexion segura");
+                } else {
                     $(document).prop('title', 'Usuario no Autorizado');
                     $('#informacion').html("");
                     $('#error').load('../error_login.html');
                 }
             },
-            error : function(json) {
+            error: function (json) {
             },
 
             // código a ejecutar sin importar si la petición falló o no
-            complete : function(xhr, status) {
+            complete: function (xhr, status) {
                 /*Swal.fire(
                     'Bien!',
                     'Conexión exitosa',
@@ -342,6 +421,7 @@
             }
         });
     }
-    
+
 </script>
+
 </html>
