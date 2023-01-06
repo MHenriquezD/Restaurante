@@ -44,6 +44,7 @@
             background-color: #EAEAEA !important;
             color: #6c757d !important;
         }
+
         #show_password:hover {
             color: #EAEAEA !important;
             background-color: #6c757d !important;
@@ -221,8 +222,8 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="mdlVerificarUsuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-            aria-hidden="true">
+        <div class="modal fade" id="mdlVerificarUsuario" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-md modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header" style="font-weight: bold;">
@@ -241,23 +242,26 @@
                                             <div class="col-md-12">
                                                 <label for="txtUsuario" class="form-label mt-1 titulos">Usuario</label>
                                                 <div class="input-class">
-                                                    <input type="text" class="form-control" id="txtUsuario" placeholder="usuario">
+                                                    <input type="text" class="form-control" id="txtUsuario"
+                                                        placeholder="usuario">
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
-                                                <label for="txtContrasena" class="form-label mt-2 titulos">Contraseña</label>
+                                                <label for="txtContrasena"
+                                                    class="form-label mt-2 titulos">Contraseña</label>
                                                 <div class="input-group">
                                                     <input id="txtContrasena" type="Password" Class="form-control">
                                                     <div class="input-group-append">
-                                                        <button id="show_password" class="btn" type="button" onclick="mostrarPassword()">
-                                                            <span class="fa fa-eye-slash icon"></span> 
+                                                        <button id="show_password" class="btn" type="button"
+                                                            onclick="mostrarPassword()">
+                                                            <span class="fa fa-eye-slash icon"></span>
                                                         </button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                    
+
                                 </form>
                             </div>
                         </div>
@@ -265,7 +269,8 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" id="btnCerrarModalUsuario"
                             data-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-primary" id="btnVerificarUser"><i class="fa-solid fa-user-check"></i>&nbsp;&nbsp;Verificar</button>
+                        <button type="button" class="btn btn-primary" id="btnVerificarUser"><i
+                                class="fa-solid fa-user-check"></i>&nbsp;&nbsp;Verificar</button>
                     </div>
                 </div>
             </div>
@@ -309,83 +314,81 @@
     var productos = [];
     //cargar_productos();
     jQuery(document).ready(function ($) {
-        $(document).ready(function () {
-            $('#slcProductos').select2();
-            buscar_x_nombre();
-            buscar_x_rtn();
-            cargar_productos()
-            //$('.totalFac').mask("000,000,000,000,000.00", {reverse: true});
-            $('.Money').mask("000.000.000.000.000,00", { reverse: true });
-            //$(".totalFac").toFixed(2);
-            verificar_sesion();
-            $('.modal').modal({ backdrop: 'static', keyboard: false });
-            $("#divEfectivo").hide();
-            $("#divTarjeta").hide();
-            $("#txtProductos").click(function () {
-                edtiKey = 0;
-            });
-            $("input").addClass("rounded");
-            $("#txtProductos").autocomplete({
-                focus: function (event, ui) { }
-            });
-            $(window).bind("orientationchange", function (event) {
-                if (event.orientation)
-                    console.log("Me han reorientado a " + event.orientation);
-            });
-            var isMobile = {
-                Android: function () {
-                    return navigator.userAgent.match(/Android/i);
-                },
-                BlackBerry: function () {
-                    return navigator.userAgent.match(/BlackBerry/i);
-                },
-                iOS: function () {
-                    return navigator.userAgent.match(/iPhone|iPad|iPod/i);
-                },
-                Opera: function () {
-                    return navigator.userAgent.match(/Opera Mini/i);
-                },
-                Windows: function () {
-                    return navigator.userAgent.match(/IEMobile/i);
-                },
-                any: function () {
-                    return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
-                }
-            };
+        $('#slcProductos').select2();
+        buscar_x_nombre();
+        buscar_x_rtn();
+        cargar_productos()
+        //$('.totalFac').mask("000,000,000,000,000.00", {reverse: true});
+        $('.Money').mask("000.000.000.000.000,00", { reverse: true });
+        //$(".totalFac").toFixed(2);
+        verificar_sesion();
+        $('.modal').modal({ backdrop: 'static', keyboard: false });
+        $("#divEfectivo").hide();
+        $("#divTarjeta").hide();
+        $("#txtProductos").click(function () {
+            edtiKey = 0;
+        });
+        $("input").addClass("rounded");
+        $("#txtProductos").autocomplete({
+            focus: function (event, ui) { }
+        });
+        $(window).bind("orientationchange", function (event) {
+            if (event.orientation)
+                console.log("Me han reorientado a " + event.orientation);
+        });
+        var isMobile = {
+            Android: function () {
+                return navigator.userAgent.match(/Android/i);
+            },
+            BlackBerry: function () {
+                return navigator.userAgent.match(/BlackBerry/i);
+            },
+            iOS: function () {
+                return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+            },
+            Opera: function () {
+                return navigator.userAgent.match(/Opera Mini/i);
+            },
+            Windows: function () {
+                return navigator.userAgent.match(/IEMobile/i);
+            },
+            any: function () {
+                return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+            }
+        };
+        if (isMobile.any()) {
+            $("#pagarCuerpo").html("");
+            $("#pagarCabecera").html(
+                '<div class="row">' +
+                '<div class="col-4">Total a pagar: L.<span id="tlPagar"></span></div>' +
+                '<div class="col-4">Debe: L. <span id="tlDebe"></span></div>' +
+                '<div class="col-4">Cambio Efectivo: L. <span id="tlPagado"></span></div>' +
+                '</div>'
+            );
+            //alert('Mobile');
+        } else {
+
+            $("#pagarCuerpo").html(
+                '<div class="row">' +
+                '<div class="col-md-12">Total a pagar: L.<span id="tlPagar"></span></div>' +
+                '<div class="col-md-12">Debe: L. <span id="tlDebe"></span></div>' +
+                '<div class="col-md-12">Cambio Efectivo: L. <span id="tlPagado"></span></div>' +
+                '</div>'
+            );
+            $("#pagarCabecera").html("");
+        }
+        window.addEventListener("orientationchange", function () {
+            // Hacer algo cuando cambia la orientación
             if (isMobile.any()) {
                 $("#pagarCuerpo").html("");
-                $("#pagarCabecera").html(
-                    '<div class="row">' +
-                    '<div class="col-4">Total a pagar: L.<span id="tlPagar"></span></div>' +
-                    '<div class="col-4">Debe: L. <span id="tlDebe"></span></div>' +
-                    '<div class="col-4">Cambio Efectivo: L. <span id="tlPagado"></span></div>' +
-                    '</div>'
-                );
+                $("#pagarCabecera").show();
                 //alert('Mobile');
             } else {
 
-                $("#pagarCuerpo").html(
-                    '<div class="row">' +
-                    '<div class="col-md-12">Total a pagar: L.<span id="tlPagar"></span></div>' +
-                    '<div class="col-md-12">Debe: L. <span id="tlDebe"></span></div>' +
-                    '<div class="col-md-12">Cambio Efectivo: L. <span id="tlPagado"></span></div>' +
-                    '</div>'
-                );
-                $("#pagarCabecera").html("");
+                $("#pagarCuerpo").show();
+                $("#pagarCabecera").hide();
             }
-            window.addEventListener("orientationchange", function () {
-                // Hacer algo cuando cambia la orientación
-                if (isMobile.any()) {
-                    $("#pagarCuerpo").html("");
-                    $("#pagarCabecera").show();
-                    //alert('Mobile');
-                } else {
-
-                    $("#pagarCuerpo").show();
-                    $("#pagarCabecera").hide();
-                }
-            }, false);
-        });
+        }, false);
     });
 
     $(".totalFac").html("L. " + total_factura.toFixed(2));
