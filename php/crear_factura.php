@@ -11,6 +11,7 @@ $tipo_pago = $_POST["tipo_pago"];
 $productos = $_POST["productos"];
 $total_factura = $_POST["total_factura"];
 $suelto_factura = $_POST["suelto"];
+$caja = comillas($_POST["caja"]);
 $usr_login = comillas($_SESSION["usr_login"]);
 $data = array();
 
@@ -57,10 +58,10 @@ if(isset($ie[0][0])){
 $sql_insert = "
     INSERT INTO 
     facturas (
-        numero, fecha, usuario, estado, desde, hasta, id_cliente, nombre_cliente,rtn_cliente,total_factura,suelto_factura, cai
+        numero, fecha, usuario, estado, desde, hasta, id_cliente, nombre_cliente,rtn_cliente,total_factura,suelto_factura, cai, caja
     )
     VALUES (
-        $numero_factura, $fecha, $usr_login, 1, $fac_desde, $fac_hasta, $id_cliente, $nombre_cliente, $rtn_cliente, $total_factura, $suelto_factura, $n_cai
+        $numero_factura, $fecha, $usr_login, 1, $fac_desde, $fac_hasta, $id_cliente, $nombre_cliente, $rtn_cliente, $total_factura, $suelto_factura, $n_cai, $caja
     )
 ";
 //echo $sql_insert;
@@ -130,7 +131,7 @@ $nombre_cliente = $_POST["nombre_cliente"] = "";
 $rtn_cliente = $_POST["rtn_cliente"] = "";
 $tipo_pago = $_POST["tipo_pago"] = "";
 $productos = $_POST["productos"] = "";
+$caja = $_POST["caja"] = "";
 
-return;
 
 ?>

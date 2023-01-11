@@ -25,7 +25,7 @@ $logo = "data:image/png;base64," . $logo;
 $marca = "data:image/png;base64," . $marca;
 
 //$numero = $_GET["n_fac"];
-$n_fac = $_GET["n_fac"];
+$n_fac = base64_decode ($_GET["dato"]);
 $numero = explode('-',$n_fac);
 $izquierda = $numero[0]."-".$numero[1]."-".$numero[2];
 $derecha = $numero[3];

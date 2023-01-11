@@ -9,10 +9,28 @@ $gasto = comillas($_POST["gasto"]);
 $fecha = comillas(date($fecha.' H:i:s'));
 //echo $cantidad;
 //return;
-$sql_insert = "
-    INSERT INTO gastos( fecha, detalle, cantidad, gasto) 
-    VALUES ($fecha,$descripcion,$cantidad,$gasto)
+$sql = "
+    SELECT
+         id,
+         fecha,
+         caja,
+         estado,
+         abierto
+    FROM
+        apertura_caja
+    WHERE
+        abierto = 1
 ";
+$rs = cargar_sql($sql);
+if(isset($rs[0][0])){
+    $caja = $rs[0][0];
+    $sql_insert = "
+        INSERT INTO gastos( fecha, detalle, cantidad, gasto, caja) 
+        VALUES ($fecha,$descripcion,$cantidad,$gasto, $caja)
+    ";
+}else{
+    $caja = -1;
+}
 //echo $sql_insert;
 $respuesta =  ejecutar_sql($sql_insert);
 if($respuesta){

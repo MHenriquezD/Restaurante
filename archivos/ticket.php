@@ -5,7 +5,8 @@ use Luecano\NumeroALetras\NumeroALetras;
 session_start();
 
 $usuario = $_SESSION["usr_name"];
-$n_fac = $_GET["n_fac"];
+//$n_fac = $_GET["n_fac"];
+$n_fac = base64_decode ($_GET["dato"]);
 $productos = "";
 $subtotal = 0;
 $isv_15 = 0;

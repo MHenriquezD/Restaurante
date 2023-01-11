@@ -222,6 +222,7 @@
                 </div>
             </div>
         </div>
+        <!--Verificar usuarios mhenriquez 10/01/2022-->
         <div class="modal fade" id="mdlVerificarUsuario" tabindex="-1" role="dialog"
             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-md modal-dialog-centered" role="document">
@@ -275,6 +276,46 @@
                 </div>
             </div>
         </div>
+        <!--Verificación de caja mhenriquez 10/01/2022-->
+        <div class="modal fade" id="mdlAbrirCaja" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" style="font-weight: bold;">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">Apertura de Caja</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                            <div class="row">
+                                <form id="formVerificar">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <label for="txtUsuario" class="form-label mt-1 titulos">Caja</label>
+                                                <div class="input-class">
+                                                    <input type="number" max class="form-control" id="txtCaja" min="1"
+                                                        placeholder="1000">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <!--<button type="button" class="btn btn-danger" id="btnCerrarModalCaja" onclick="$('#mdlAbrirCaja').modal('hide');" data-dismiss="modal">Cerrar</button>-->
+                        <button type="button" class="btn btn-outline-success" id="btnAbrirCaja"><i
+                                class="fa-solid fa-money-bills"></i>&nbsp;&nbsp;Verificar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 <script type="text/javascript" src="../js/jquery-3.6.0.js"></script>
@@ -297,7 +338,7 @@
     var total_factura = 0, fila_productos = 0, filas_actuales = 0, idf_verificar = -1;
     var id_producto = 0, nombre_producto = "", precio_producto = 0, desc_producto = "", porcentaje_isv_producto = 0, precio_unitario = 0;
     var pago_debe = 0, pago_debe_formato = 0, pago_dado = 0, pago_dado_formato = 0, pago_acumulado = 0, pago_acumulado_formato = 0;
-    var id_cliente = 0;
+    var id_cliente = 0, id_caja = 0;
     var edtiKey = 0;
     var tipo_pago = [
         {
@@ -314,6 +355,7 @@
     var productos = [];
     //cargar_productos();
     jQuery(document).ready(function ($) {
+        verificar_caja();
         $('#slcProductos').select2();
         buscar_x_nombre();
         buscar_x_rtn();
@@ -408,6 +450,91 @@
                     $(document).prop('title', 'Usuario no Autorizado');
                     $('#informacion').html("");
                     $('#error').load('../error_login.html');
+                }
+            },
+            error: function (json) {
+            },
+
+            // código a ejecutar sin importar si la petición falló o no
+            complete: function (xhr, status) {
+                /*Swal.fire(
+                    'Bien!',
+                    'Conexión exitosa',
+                    'success'
+                )
+                //alert('Petición realizada');*/
+            }
+        });
+    }
+
+    $("#btnAbrirCaja").click( function() {
+        apertura = $("#txtCaja").val();
+        if(apertura <= 1){
+            Swal.fire(
+                'Error!',
+                'No es dinero suficiente para aperturar',
+                'error'
+            );
+            console.log("No es dinero suficiente para aperturar");
+            apertura = 0;
+        }
+        console.log("se abrira la caja con " + apertura + " lempiras");
+        //return;
+        $.ajax({
+            url: '../php/punto_venta/abrir_caja.php',
+            data: {
+                caja: apertura
+            },
+            type: 'POST',
+            dataType: 'json',
+
+            success: function (json) {
+                if (json == 1) {
+                    Swal.fire(
+                        'Éxito!',
+                        'Apertura de caja exitosa',
+                        'success'
+                    );
+                    $('#mdlAbrirCaja').modal('hide');
+                    $("#txtCaja").val("");
+                } else if (json["estado"] == 0) {
+                    Swal.fire(
+                        'Error!',
+                        'Error con la conexión a la Base de Datos',
+                        'error'
+                    );
+                }
+            },
+            error: function (json) {
+            },
+
+            // código a ejecutar sin importar si la petición falló o no
+            complete: function (xhr, status) {
+                /*Swal.fire(
+                    'Bien!',
+                    'Conexión exitosa',
+                    'success'
+                )
+                //alert('Petición realizada');*/
+            }
+        });
+    });
+
+    function verificar_caja() {
+        $.ajax({
+            url: '../php/punto_venta/verificar_caja.php',
+            data: {},
+            type: 'POST',
+            dataType: 'json',
+
+            success: function (json) {
+                if (json["estado"] == 1) {
+                    //window.location.href = "../login.html";
+                    console.log("Caja Abierta");
+                    id_caja = json["id_caja"];
+                    console.log("El id de la caja es: " + id_caja);
+                } else if (json["estado"] == 0) {
+                    $('#mdlAbrirCaja').modal('show');
                 }
             },
             error: function (json) {

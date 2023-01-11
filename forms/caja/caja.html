@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caja Diaria</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="../../img/iconos/logo.ico">
+    <link href="../../libs/fontawesome/css/all.min.css" rel="stylesheet">
+    <link href="../../libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../libs/select2/dist/css/select2.min.css" rel="stylesheet">
+    <link href="../../libs/jqueryUI/jquery-ui.min.css" rel="stylesheet">
+    <style>
+        #bgCabecera {
+            background-color: #E0DCDD;
+        }
+
+        a {
+            color: #2E7CA8;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #61A2DA;
+        }
+
+        body {
+            margin: 0;
+            margin-bottom: 50px !important;
+            font-size: 14px;
+        }
+
+        #footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: auto !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="error"></div>
+    <div class="container-fluid" id="informacion">
+        <div class="col-lg-12">
+            <div class="container my-3 rounded-pill" id="bgCabecera" style="font-weight: bold;">
+                <div class="row my-3">
+                    <div class="col my-3"></div>
+                    <div class="col-7 my-3">
+                        <h4 id="titulo">Caja Diaria</h4>
+                    </div>
+                    <div class="col-3 my-3 font-weight-bold" style="text-align: right;">
+                        <h4 id="fecha"></h4>
+                    </div>
+                    <div class="col my-3"></div>
+                </div>
+            </div>
+        </div>
+        <div class="container my-3 text-end" id="btnCobrar">
+            <div class="row">
+                <div class="col-md-8 my-3 text-end" style="font-weight: bold;">
+                    <table width="100%"  style="font-weight: bold;">
+                        <tr>
+                            <td width="80%">Total</td>
+                            <td width="20%">
+                                L. <label class="Mask" id="totalFacturas"></label>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-4 my-3">
+                    <button type="button" class="btn btn-success btn-sm" id="btnCierre">
+                        <i class="fa-solid fa-cash-register"></i>&nbsp;Caja Diaria
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid my-3 rounded">
+            <div class="row" id="divCaja">
+                <div class="col-md-12">
+                    <table class="table table-hover table-sm">
+                        <thead class="text-center">
+                            <tr>
+                                <th width="18%">Número</th>
+                                <th width="26%">CAI</th>
+                                <th width="14%">Fecha</th>
+                                <th width="14%">Cliente</th>
+                                <th width="14%">Total</th>
+                                <th width="14%"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbFacturas"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--Verificación de caja mhenriquez 10/01/2022-->
+        <div class="modal fade" id="mdlCierre" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" style="font-weight: bold;">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">Cierre de Caja</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                            <div class="row">
+                                <form id="formVerificar">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="txtTotal" class="form-label mt-1 titulos">Ventas del
+                                                    Día</label>
+                                                <div class="input-class">
+                                                    <input type="number" max class="form-control" id="txtTotal" min="1"
+                                                        disabled>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="txtCaja" class="form-label mt-1 titulos">Caja</label>
+                                                <div class="input-class">
+                                                    <input type="number" max class="form-control" id="txtCaja" min="1"
+                                                        disabled>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <label for="txtGastos" class="form-label mt-1 titulos">Gastos</label>
+                                                <div class="input-class">
+                                                    <input type="number" max class="form-control" id="txtGastos"
+                                                        min="1" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="txtTarjeta" class="form-label mt-1 titulos">Tarjeta</label>
+                                                <div class="input-class">
+                                                    <input type="number" max class="form-control" id="txtTarjeta"
+                                                        min="1" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="txtEfectivo"
+                                                    class="form-label mt-1 titulos">Efectivo</label>
+                                                <div class="input-class">
+                                                    <input type="number" max class="form-control" id="txtEfectivo"
+                                                        min="1" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="txtEfectivoRestante"
+                                                    class="form-label mt-1 titulos">Efectivo Restante</label>
+                                                <div class="input-class">
+                                                    <input type="number" max class="form-control"
+                                                        id="txtEfectivoRestante" min="1" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <label for="txtTotalDia" class="form-label mt-1 titulos">Ganancias del
+                                                    Día</label>
+                                                <div class="input-class">
+                                                    <input type="number" max class="form-control" id="txtTotalDia"
+                                                        min="1" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" id="btnCerrarModalCaja"
+                            onclick="$('#mdlCierre').modal('hide');" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-outline-success" id="btnCerrarCaja"><i
+                                class="fa-solid fa-cash-register"></i>&nbsp;&nbsp;Cerrar Caja</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../JS/jquery-3.6.0.js"></script>
+<script type="text/javascript" src="../../libs/sweetalert2/dist/sweetalert2.all.min.js"></script>
+<script type="text/javascript" src="../../libs/bootstrap/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../libs/select2/dist/js/select2.min.js"></script>
+<script type="text/javascript" src="../../libs/jqueryUI/jquery-ui.min.js"></script>
+<script type="text/javascript" src="../../libs/jQueryMask/dist/jquery.mask.min.js"></script>
+<script type="text/javascript" src="../../JS/utilidades/fecha.js"></script>
+<script type="text/javascript" src="../../JS/caja/caja.js"></script>
+<script type="text/javascript" src="../../JS/caja/cierre.js"></script>
+<script>
+    cargar_facturas();
+    verificar_sesion();
+    jQuery(document).ready(function ($) {
+        $(document).ready(function () {
+            $('.Mask').mask("#,##0.00", { reverse: true });
+        });
+    });
+    var id_caja = -1, caja = 0, total_facturas = 0, total_efectivo = 0, total_tarjeta = 0, total_gasto = 0, total_dia = 0, ganancia = 0, datos = {};
+    function verificar_sesion() {
+        $.ajax({
+            url: '../../php/verificar_sesion.php',
+            data: {},
+            type: 'POST',
+            dataType: 'json',
+
+            success: function (json) {
+                if (json["respuesta"] == 1) {
+                    //window.location.href = "../login.html";
+                    console.log("Conexion segura");
+                } else {
+                    $(document).prop('title', 'Usuario no Autorizado');
+                    $('#informacion').html("");
+                    $('#error').load('../../error_login.html');
+                }
+            },
+            error: function (json) {
+            },
+
+            // código a ejecutar sin importar si la petición falló o no
+            complete: function (xhr, status) {
+                /*Swal.fire(
+                    'Bien!',
+                    'Conexión exitosa',
+                    'success'
+                )
+                //alert('Petición realizada');*/
+            }
+        });
+    }
+</script>
+
+</html>

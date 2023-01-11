@@ -131,7 +131,8 @@ $("#btnPagar").click(function(){
             tipo_pago: tipo_pago,
             productos: productos,
             total_factura: total_factura,
-            suelto: suelto
+            suelto: suelto,
+            caja: id_caja
         },
         success: function (data)
         {
@@ -162,7 +163,8 @@ $("#btnPagar").click(function(){
             $(".totalFac").html("L. "+total_factura_formato);
             $("#mdlPago").modal("hide");
             $("#tbProductos").html("");
-            window.open('../archivos/ticket?n_fac='+data["comentario"], '_blank');
+            n_fac = btoa(data["comentario"]);
+            window.open('../archivos/ticket?dato='+n_fac, '_blank');
             //window.location.href = '../archivos/ticket?n_fac='+data["comentario"];
             /*Swal.fire(
                 'Bien',
