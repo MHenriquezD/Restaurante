@@ -91,7 +91,7 @@ function cargar_producto(idp){
     cargar_impuestos();
     id_producto = idp;
     $.ajax({
-        url : '/Restaurante/php/productos/cargar_producto.php',
+        url : '../../php/productos/cargar_producto.php',
         data : {
             idp: id_producto
         },

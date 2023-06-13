@@ -32,7 +32,6 @@
         </div>
     </div>
     <div class="container-fluid" id="listaImpuestos">
-        
         <div class="container" id="divBotones"> 
             <div class="row">
                 <div class="col-2"></div>
@@ -166,7 +165,7 @@
     function edit_isv(id){
         id_isv = id;
         $.ajax({
-            url : '/Restaurante/php/isv/cargar_isvs.php',
+            url : '../../php/isv/cargar_isvs.php',
             data : {
                 id: id_isv
             },
@@ -220,7 +219,7 @@
         $("#listaImpuestos").show();
         $("#editIsv").hide();
         $.ajax({
-            url : '/Restaurante/php/isv/delete_isv.php',
+            url : '../../php/isv/delete_isv.php',
             data : {
                 id: id_isv,
             },
@@ -278,7 +277,7 @@
         nombre_isv = $("#txtISV").val();
         porcentaje_isv = $("#txtPorcentaje").val();
         $.ajax({
-            url : '/Restaurante/php/isv/edit_isv.php',
+            url : '../../php/isv/edit_isv.php',
             data : {
                 id: id_isv,
                 nombre: nombre_isv,
@@ -324,7 +323,7 @@
         nombre_isv = $("#txtISV").val();
         porcentaje_isv = $("#txtPorcentaje").val();
         $.ajax({
-            url : '/Restaurante/php/isv/add_isv.php',
+            url : '../../php/isv/add_isv.php',
             data : {
                 id: id_isv,
                 nombre: nombre_isv,
