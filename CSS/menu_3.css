@@ -28,7 +28,7 @@ sidebar {
   top: 0;
   left: 0;
   bottom: 0;
-  width: 180px;
+  width: 10%;
   background: #004983;
 }
 sidebar .brand {
@@ -40,7 +40,7 @@ sidebar .brand a {
   height: 70px;
   margin: 0 auto;
   padding: 0;
-  font-size: 2.5rem;
+  font-size: 2.5rem !important;
   font-weight: 300;
   font-style: italic;
   text-align: center;
@@ -180,7 +180,7 @@ sidebar .menu-collapse {
   display: block;
   width: 100%;
   padding: 6px 20px;
-  font-size: 0.8125rem;
+  font-size: 1.5rem;
   font-weight: 700;
   text-align: left;
   color: #012c4e;
@@ -219,7 +219,7 @@ sidebar ul.nav li a {
   display: block;
   position: relative;
   padding-left: 50px;
-  font-size: 0.875rem;
+  font-size: 1.2rem;
   font-weight: 400;
   text-transform: uppercase;
   text-decoration: none;
